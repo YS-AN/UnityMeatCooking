@@ -43,7 +43,6 @@ public class ResourceManager : MonoBehaviour
 		T original = Load<T>(path);
 		return Instantiate<T>(original, position, rotation, pooling); 
 		
-		//TODO
 		// 결국 공유된 데이터를..... 새롭게 생성한다는 의미 아냐? -> 경량의 의미가 있나...?
 		// 지금 소스를 기준으로 하면 새롭게 생성되지만... 
 		// 나중에 소스를 만들 때 이미지나 소리 같은 자원들을 따로 공유해서 사용 가능하도록 만들어서 사용해야함. 

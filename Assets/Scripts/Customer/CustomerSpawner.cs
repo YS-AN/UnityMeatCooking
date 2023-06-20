@@ -25,8 +25,6 @@ public class CustomerSpawner : MonoBehaviour
 
 	IEnumerator SpawnRoutine()
 	{
-		var enemyPrefab = GameManager.Resource.Load<Customer>(Customer.ResourcesPath);
-
 		while (true)
 		{
 			yield return new WaitForSeconds(SpawnTime);
@@ -35,7 +33,9 @@ public class CustomerSpawner : MonoBehaviour
 
 			if(seat != null)
 			{
-				var newCust = Instantiate(enemyPrefab, SpawnPoint.position, SpawnPoint.rotation);
+				var custPrefab = GameManager.Resource.Load<Customer>(Customer.ResourcesPath);
+
+				var newCust = Instantiate(custPrefab, SpawnPoint.position, SpawnPoint.rotation);
 				newCust.mover.info.Init(seat, 0);
 				newCust.mover?.OnMove();
 			}

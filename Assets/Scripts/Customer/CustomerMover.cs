@@ -19,15 +19,15 @@ public class CustomerInfo
 	private Chair _chair;
 	public Chair Chair { get { return _chair; } }
 
-	private Chair _anoChair;
-	public Chair AnoChair { get { return _anoChair; } }
+	//private Chair _anoChair;
+	//public Chair AnoChair { get { return _anoChair; } }
 
 
 	public void Init(Seat seat, int num)
 	{
 		_seat = seat;
 		_chair = _seat.Chairs[num];
-		_anoChair = _seat.Chairs[num == 0 ? 1 : 0];
+		//_anoChair = _seat.Chairs[num == 0 ? 1 : 0];
 	}
 }
 
@@ -43,8 +43,6 @@ public class CustomerMover : MonoBehaviour
 	public UnityAction OnMove;
 
 	private Rigidbody rigidbody;
-
-		//public GameObject ViewPoint;
 
 	private void Awake()
 	{
@@ -67,40 +65,13 @@ public class CustomerMover : MonoBehaviour
 
 	private void Move()
 	{
-		moveRoutine = StartCoroutine(MoveRoutine());
+		moveRoutine = StartCoroutine(MoveRoutine("Move", info.Chair.StopPoint.position));
 	}
 
-	IEnumerator MoveRoutine()
-	{
-		/*
-		animator.SetBool("IsMove", true);
-
-		meshAgent.destination = info.Chair.StopPoint.position;
-
-		while (true)
-		{
-			if (Vector3.Distance(info.Chair.StopPoint.position, transform.position) < 0.1f)
-			{
-				break;
-			}
-			yield return null;
-		}
-		//*/
-
-
-		//return MoveRoutine("IsMove", info.Chair.StopPoint.position);
-
-		//Sit(info.Seat.transform.rotation.eulerAngles);
-
-
-		return MoveRoutine("Move", info.Chair.StopPoint.position, TurnToSit);
-	}
-
-	IEnumerator MoveRoutine(string action, Vector3 targetPoint, UnityAction OnArrived, bool isSit = false)
+	IEnumerator MoveRoutine(string action, Vector3 targetPoint)
 	{
 		animator.SetTrigger(action);
 
-		//meshAgent.destination = targetPoint;
 		meshAgent.SetDestination(targetPoint);
 
 		while (true)
@@ -111,33 +82,10 @@ public class CustomerMover : MonoBehaviour
 			}
 			yield return null;
 		}
-
-		//meshAgent.isStopped = true; //네비게이션 목적지 제거
-		meshAgent.ResetPath();
-
-		if (OnArrived != null)
-			OnArrived?.Invoke();
+		
+		meshAgent.ResetPath(); //meshAgent.isStopped = true; //네비게이션 목적지 제거
+		TurnToSit();
 	}
-
-	/*
-	IEnumerator MoveRoutine(string action, Vector3 targetPoint)
-	{
-		//animator.SetBool(action, true);
-		animator.SetTrigger(action);
-
-		meshAgent.destination = targetPoint;
-
-		while (true)
-		{
-			if (Vector3.Distance(targetPoint, transform.position) < 0.1f)
-			{
-				break;
-			}
-			yield return null;
-		}
-		//animator.SetBool(action, false);
-	}
-	//*/
 
 	private void TurnToSit()
 	{
@@ -145,29 +93,33 @@ public class CustomerMover : MonoBehaviour
 
 		transform.rotation = Quaternion.identity;
 
-		//todo. 손님이 방향을 확 돌아버림. 부드럽게 돌 수 있는 방법을 생각해봐야해
-		float y = info.Chair.transform.position.y == 0 ? 90 : -90;
+		//todo. 손님이 방향을 확 돌아버림. 부드럽게 돌 수 있는 방법을 생각해봐야해 : quaternion lerp
+
+		//Debug.Log(info.Seat.transform.rotation.y);
+
+		float y = info.Chair.transform.rotation.y == 0 ? 90 : -90;
 		transform.eulerAngles = new Vector3(0, y, 0);
 
-		SitOnAChair(info.Chair.SeatPoints[1].transform.position);
+		//Debug.Log(y);
+		
+		SitOnAChair(info.Chair.SeatPoints[1].transform);
 	}
 
-	private void SitOnAChair(Vector3 targetPoint)
+	private void SitOnAChair(Transform targetPoint)
 	{
-		//Debug.Log($"{transform.position.x}, {transform.position.y}, {transform.position.z}");
-		//Debug.Log($"{targetPoint.x}, {targetPoint.y}, {targetPoint.z}");
-		//Debug.Log($"{Vector3.Distance(targetPoint, transform.position)}");
-
-		//StartCoroutine(MoveRoutine("Side", targetPoint, DoSit, true));
+		//targetPoint.eulerAngles = new Vector3(0, 180, 0);
+		//transform.eulerAngles = new Vector3(0, -90, 0);
 
 		animator.SetTrigger("Side");
-		moveRoutine = StartCoroutine(MoveToSeatRoutine("Side", targetPoint));
+		moveRoutine = StartCoroutine(MoveToSeatRoutine("Side", targetPoint.position));
+
+		//transform.Translate(targetPoint.position, Space.Self);
 	}
 
 	IEnumerator MoveToSeatRoutine(string action, Vector3 targetPoint)
 	{
-		Vector3 targetDirection = targetPoint + Vector3.right;
-		float distanceToTarget = Vector3.Distance(transform.position, targetPoint);
+		//Vector3 targetDirection = targetPoint + Vector3.right;
+		//float distanceToTarget = Vector3.Distance(transform.position, targetPoint);
 
 		while (Vector3.Distance(targetPoint, transform.position) > 0.4f)
 		{
@@ -175,7 +127,17 @@ public class CustomerMover : MonoBehaviour
 
 			yield return null;
 		}
-
 		animator.SetTrigger("Sit");
+
+
+		//BuildInGameUI buildUI = GameManager.UI.ShowInGameUI<BuildInGameUI>("UI/BuildInGameUI");
+		//buildUI.SetTarget(transform); //UI가 현재 오브젝트를 따라 다니도록 설정함
+		//buildUI.towerPlace = this; //towerPlace를 현재 towerPlace로 설정함
+
+		//todo. WaitBar 띄우기
+
+		WaitBar waitBar = GameManager.UI.ShowInGameUI<WaitBar>("UI/WaitBar");
+		waitBar.SetTarget(transform);
+
 	}
 }

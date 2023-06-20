@@ -7,12 +7,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 	private static GameManager instance;
-	private static ResourceManager resourceManager;
 	private static PoolManager poolManager;
+	private static ResourceManager resourceManager;
+	private static UIManager uiManager;
 
 	public static GameManager Instance { get { return instance; } }
-	public static ResourceManager Resource { get { return resourceManager; } }
 	public static PoolManager Pool { get { return poolManager; } }
+	public static ResourceManager Resource { get { return resourceManager; } }
+	public static UIManager UI { get { return uiManager; } }
 
 	private void Awake()
 	{
@@ -44,5 +46,10 @@ public class GameManager : MonoBehaviour
 		poolObj.name = "PoolManager";
 		poolObj.transform.parent = transform;
 		poolManager = poolObj.AddComponent<PoolManager>();
+
+		GameObject uiObj = new GameObject();
+		uiObj.name = "UIManager";
+		uiObj.transform.parent = transform;
+		uiManager = resourceObj.AddComponent<UIManager>();
 	}
 }

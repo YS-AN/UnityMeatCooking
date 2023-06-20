@@ -18,6 +18,19 @@ public class Seat : MonoBehaviour
 		_chairs = GetComponentsInChildren<Chair>();
 		_table = GetComponentInChildren<Table>();
 
-		_isRight = transform.rotation.y == 1;
+		/*
+		if (transform.rotation.y == 1)
+		{
+			foreach(var chair in _chairs)
+			{
+				chair.StopPoint.transform.eulerAngles = new Vector3(0, 0, 0);
+
+				foreach(var point in chair.SeatPoints)
+				{
+					point.transform.eulerAngles = new Vector3(0, 180, 0);
+				}
+			}
+		}
+		//*/
 	}
 }

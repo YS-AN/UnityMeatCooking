@@ -10,21 +10,21 @@ public class OpenRange : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		Debug.Log("IsOpen?");
+		//Debug.Log("IsOpen?");
 
 		if (layerMask.IsContain(other.gameObject.layer))
 		{
-			//Debug.Log("IsOpen?");
+			Debug.Log("IsOpen?");
 		}
 	}
 
 	private void OnTriggerExit(Collider other)
 	{
-		Debug.Log("BYE?");
+		//Debug.Log("BYE?");
 
 		if (layerMask.IsContain(other.gameObject.layer))
 		{
-			//Debug.Log("BYE?");
+			Debug.Log("BYE?");
 		}
 	}
 }
