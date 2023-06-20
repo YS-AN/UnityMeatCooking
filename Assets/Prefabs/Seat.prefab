@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6598121926517931310}
   - component: {fileID: 7744086541850616491}
   - component: {fileID: 2280019477391004541}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Chair1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 2450310716882786833}
   - component: {fileID: 2382401693200573988}
   - component: {fileID: 7661016898289866783}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Chair2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2261006899623648843}
   - component: {fileID: 6255497996354348873}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Seat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 2261006900264550313}
   - component: {fileID: 3198322469491818677}
   - component: {fileID: 7265685909382730728}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -463,7 +463,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5633461279430475938}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SeatPoint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -494,7 +494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6607722404718381376}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SeatPoint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,7 +525,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8925758437763021863}
-  m_Layer: 0
+  - component: {fileID: 8896498346561467139}
+  m_Layer: 8
   m_Name: StopPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -547,6 +548,19 @@ Transform:
   m_Father: {fileID: 2261006899117585300}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &8896498346561467139
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3733335193859223494}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4601091210434592581
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,7 +570,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4967408274483013643}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SeatPoint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -587,7 +601,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8986988209484851991}
-  m_Layer: 0
+  - component: {fileID: 2982231960129722928}
+  m_Layer: 8
   m_Name: StopPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -609,6 +624,19 @@ Transform:
   m_Father: {fileID: 2261006899398190888}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2982231960129722928
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6035976439930997625}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7760102181637860529
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,7 +646,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8633125754404268640}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SeatPoint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

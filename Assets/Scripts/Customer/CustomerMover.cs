@@ -38,9 +38,10 @@ public class CustomerMover : MonoBehaviour
 	private NavMeshAgent meshAgent;
 	private Animator animator;
 
+	public Customer curCustomer;
 	public CustomerInfo info;
 
-	public UnityAction OnMove;
+	public UnityAction<Customer> OnMove;
 
 	private Rigidbody rigidbody;
 
@@ -63,8 +64,9 @@ public class CustomerMover : MonoBehaviour
 		}
 	}
 
-	private void Move()
+	private void Move(Customer cust)
 	{
+		curCustomer = cust;
 		moveRoutine = StartCoroutine(MoveRoutine("Move", info.Chair.StopPoint.position));
 	}
 
@@ -129,15 +131,7 @@ public class CustomerMover : MonoBehaviour
 		}
 		animator.SetTrigger("Sit");
 
-
-		//BuildInGameUI buildUI = GameManager.UI.ShowInGameUI<BuildInGameUI>("UI/BuildInGameUI");
-		//buildUI.SetTarget(transform); //UI가 현재 오브젝트를 따라 다니도록 설정함
-		//buildUI.towerPlace = this; //towerPlace를 현재 towerPlace로 설정함
-
-		//todo. WaitBar 띄우기
-
-		WaitBar waitBar = GameManager.UI.ShowInGameUI<WaitBar>("UI/WaitBar");
-		waitBar.SetTarget(transform);
-
+		curCustomer.wait.WaitTime = 10;
+		curCustomer.wait.onWait?.Invoke(curCustomer);
 	}
 }

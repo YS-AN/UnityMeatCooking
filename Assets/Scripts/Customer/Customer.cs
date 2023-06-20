@@ -20,6 +20,8 @@ public class Customer : MonoBehaviour
 	}
 
 	public CustomerMover mover;
+	public CustomerWait wait;
+
 	private NavMeshAgent navAgent;
 
 	private void Awake()
@@ -27,6 +29,7 @@ public class Customer : MonoBehaviour
 		InitComponent();
 
 		mover = GetComponent<CustomerMover>();
+		wait = GetComponent<CustomerWait>();
 		navAgent = GetComponent<NavMeshAgent>();
 		navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
 	}
@@ -36,5 +39,6 @@ public class Customer : MonoBehaviour
 		this.AddComponent<Rigidbody>();
 		this.AddComponent<NavMeshAgent>();
 		this.AddComponent<CustomerMover>();
+		this.AddComponent<CustomerWait>();
 	}
 }

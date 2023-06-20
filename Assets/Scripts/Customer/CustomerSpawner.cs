@@ -37,7 +37,7 @@ public class CustomerSpawner : MonoBehaviour
 
 				var newCust = Instantiate(custPrefab, SpawnPoint.position, SpawnPoint.rotation);
 				newCust.mover.info.Init(seat, 0);
-				newCust.mover?.OnMove();
+				newCust.mover?.OnMove(newCust);
 			}
 		}
 	}
