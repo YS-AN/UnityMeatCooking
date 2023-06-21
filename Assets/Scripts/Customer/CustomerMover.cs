@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,26 +10,6 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 using static System.Collections.Specialized.BitVector32;
 
-public class CustomerInfo
-{
-	private Seat _seat;
-	public Seat Seat { get { return _seat; } }
-
-	private Chair _chair;
-	public Chair Chair { get { return _chair; } }
-
-	//private Chair _anoChair;
-	//public Chair AnoChair { get { return _anoChair; } }
-
-
-	public void Init(Seat seat, int num)
-	{
-		_seat = seat;
-		_chair = _seat.Chairs[num];
-		//_anoChair = _seat.Chairs[num == 0 ? 1 : 0];
-	}
-}
-
 public class CustomerMover : MonoBehaviour
 {
 	private Coroutine moveRoutine;
@@ -39,21 +18,23 @@ public class CustomerMover : MonoBehaviour
 	private Animator animator;
 
 	public Customer curCustomer;
-	public CustomerInfo info;
+	public CustSeatInfo info;
 
-	public UnityAction<Customer> OnMove;
+	public UnityAction<Customer> OnEnter;
+	public UnityAction<Customer> OnExit;
 
 	private Rigidbody rigidbody;
 
 	private void Awake()
 	{
-		info = new CustomerInfo();
+		info = new CustSeatInfo();
 
 		meshAgent = GetComponent<NavMeshAgent>();
 		animator = GetComponent<Animator>();
-		rigidbody = GetComponent<Rigidbody>();	
+		rigidbody = GetComponent<Rigidbody>();
 
-		OnMove += Move;
+		OnEnter += Enter;
+		OnExit += Exit;
 	}
 
 	private void OnDisable()
@@ -64,74 +45,85 @@ public class CustomerMover : MonoBehaviour
 		}
 	}
 
-	private void Move(Customer cust)
+	/// <summary>
+	/// 의자로 이동
+	/// </summary>
+	/// <param name="cust"></param>
+	private void Enter(Customer cust)
 	{
 		curCustomer = cust;
-		moveRoutine = StartCoroutine(MoveRoutine("Move", info.Chair.StopPoint.position));
+		animator.SetTrigger("Move");
+
+		Coroutines coroutines = new Coroutines();
+		moveRoutine = StartCoroutine(coroutines.MoveRoutine(meshAgent, transform, info.Chair.StopPoint.position, TurnToSit));
 	}
 
-	IEnumerator MoveRoutine(string action, Vector3 targetPoint)
-	{
-		animator.SetTrigger(action);
-
-		meshAgent.SetDestination(targetPoint);
-
-		while (true)
-		{
-			if (Vector3.Distance(targetPoint, transform.position) < 0.1f)
-			{
-				break;
-			}
-			yield return null;
-		}
-		
-		meshAgent.ResetPath(); //meshAgent.isStopped = true; //네비게이션 목적지 제거
-		TurnToSit();
-	}
-
+	/// <summary>
+	/// 의자와 같은 방향을 바로보도록 회전
+	/// </summary>
 	private void TurnToSit()
 	{
 		StopCoroutine(moveRoutine);
 
 		transform.rotation = Quaternion.identity;
 
-		//todo. 손님이 방향을 확 돌아버림. 부드럽게 돌 수 있는 방법을 생각해봐야해 : quaternion lerp
-
-		//Debug.Log(info.Seat.transform.rotation.y);
-
 		float y = info.Chair.transform.rotation.y == 0 ? 90 : -90;
-		transform.eulerAngles = new Vector3(0, y, 0);
+		transform.rotation = Quaternion.Euler(0, y, 0);
 
-		//Debug.Log(y);
-		
-		SitOnAChair(info.Chair.SeatPoints[1].transform);
+		int seatNum = (int)Random.Range(0f, info.Chair.SeatPoints.Count());
+		SitOnAChair(info.Chair.SeatPoints[seatNum].transform);
 	}
 
+	/// <summary>
+	/// 지정된 위치에 앉도록 이동
+	/// </summary>
+	/// <param name="targetPoint">앉을 위치</param>
 	private void SitOnAChair(Transform targetPoint)
 	{
-		//targetPoint.eulerAngles = new Vector3(0, 180, 0);
-		//transform.eulerAngles = new Vector3(0, -90, 0);
-
 		animator.SetTrigger("Side");
-		moveRoutine = StartCoroutine(MoveToSeatRoutine("Side", targetPoint.position));
 
-		//transform.Translate(targetPoint.position, Space.Self);
+		Vector3 destination = new Vector3(transform.position.x, transform.position.y, targetPoint.position.z);
+
+		Coroutines coroutines = new Coroutines();
+		moveRoutine = StartCoroutine(coroutines.MoveRoutine(transform, destination, 1, SitDown));
 	}
 
-	IEnumerator MoveToSeatRoutine(string action, Vector3 targetPoint)
+	/// <summary>
+	/// 의자에 앉는 동작
+	/// </summary>
+	private void SitDown()
 	{
-		//Vector3 targetDirection = targetPoint + Vector3.right;
-		//float distanceToTarget = Vector3.Distance(transform.position, targetPoint);
-
-		while (Vector3.Distance(targetPoint, transform.position) > 0.4f)
-		{
-			transform.position = Vector3.MoveTowards(transform.position, targetPoint, Time.deltaTime);
-
-			yield return null;
-		}
 		animator.SetTrigger("Sit");
 
 		curCustomer.wait.WaitTime = 10;
-		curCustomer.wait.onWait?.Invoke(curCustomer);
+		curCustomer.wait.onWait?.Invoke(curCustomer); //대기 시작
+	}
+
+
+	private void Exit(Customer cust)
+	{
+		animator.SetTrigger("Stand");
+		//new WaitForSeconds(3); //todo.정확하게 다 일어난 순간을 캐치해야해. 
+
+		animator.SetTrigger("BackSide");
+
+		Coroutines coroutines = new Coroutines();
+		StartCoroutine(coroutines.MoveRoutine(transform, info.Chair.StopPoint.position, 1, StandUp));
+	}
+
+	private void StandUp()
+	{
+		animator.SetTrigger("BackMove");
+
+		Vector3 exitPoint = GameObject.FindGameObjectWithTag("CustEntryPoint").transform.position;
+
+		Coroutines coroutines = new Coroutines();
+		StartCoroutine(coroutines.MoveRoutine(meshAgent, transform, exitPoint, ExitStore));
+	}
+
+	private void ExitStore()
+	{
+		SeatManager.GetInstance().ReturnSeat(info.Seat);
+		Destroy(gameObject);
 	}
 }

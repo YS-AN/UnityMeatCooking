@@ -16,8 +16,8 @@ public class UIManager : MonoBehaviour
 
 	private Canvas inGameCanvas;
 
-	//private Stack<PopUpUI> popUpStack; //ui는 statck 형식임!! -> 열린 순서에 맞게 차례대로 닫혀야 함
-	//private List<WindowUI> windowUI; 
+	private Stack<PopUpUI> popUpStack; //ui는 statck 형식임!! -> 열린 순서에 맞게 차례대로 닫혀야 함
+	private List<WindowUI> windowUI; 
 
 	private void Awake()
 	{
@@ -25,7 +25,6 @@ public class UIManager : MonoBehaviour
 		eventSystem = GameManager.Resource.Instantiate<EventSystem>("UI/EventSystem");
 		eventSystem.transform.parent = transform; //UIManager로 넣어주면 자연스럽게 DontDestory 안으로 들어가니 모든 씬에서 존재하는 효과를 볼 수 있음
 
-		/*
 		popUpCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
 		popUpCanvas.gameObject.name = "PopUpCanvas";
 		popUpCanvas.sortingOrder = 100; //모든 게임 씬 위에 나타나도록 order를 좀 높게 줌
@@ -38,14 +37,12 @@ public class UIManager : MonoBehaviour
 		windowCanvas.sortingOrder = 10;
 
 		//gameSceneCanvas.sortingOrder = 1;
-		//*/
 
 		inGameCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
 		inGameCanvas.gameObject.name = "InGameCanvas";
 		inGameCanvas.sortingOrder = 0; //모든 ui보다 아래에 있어야 해 -> 거의 게임씬과 비슷한 order여야 해.
 	}
 
-	/*
 	public T ShowPopUpUI<T>(T popUpUi) where T : PopUpUI
 	{
 		//이전에 열린 PopUp UI는 안 보이도록 설정해서 최상위에 있는 팝업 화면이 잘 보이도록 함
@@ -122,7 +119,6 @@ public class UIManager : MonoBehaviour
 	{
 		windowUI.transform.SetAsLastSibling(); //같은 레벨의 오브젝트 중 SetAsLastSibling한 윈도우 화면을 가장 마지막으로 설정함 = 최상위로 올라옴
 	}
-	//*/
 
 	public T ShowInGameUI<T>(T inGameUI) where T : InGameUI
 	{

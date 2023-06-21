@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 4791773661003940870}
   - component: {fileID: 5998379701017530526}
   m_Layer: 0
-  m_Name: Cust_F4
+  m_Name: Cust_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

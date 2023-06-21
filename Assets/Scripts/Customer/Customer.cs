@@ -13,10 +13,8 @@ public class Customer : MonoBehaviour
 
 	private static string GetCustomer()
 	{
-		string type = Random.Range(0, 2) == 0 ? "M" : "F";
-		int num = Random.Range(1, 6);
-
-		return string.Format("Customer/Cust_{0}{1}", type, num);
+		int num = Random.Range(1, 11);
+		return string.Format("Customer/Cust_{0}", num);
 	}
 
 	public CustomerMover mover;
@@ -32,6 +30,8 @@ public class Customer : MonoBehaviour
 		wait = GetComponent<CustomerWait>();
 		navAgent = GetComponent<NavMeshAgent>();
 		navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
+		navAgent.areaMask = (1 << NavMesh.GetAreaFromName("CustWalkable"));
+		//navAgent.autoRepath = true;
 	}
 
 	private void InitComponent()
@@ -41,4 +41,6 @@ public class Customer : MonoBehaviour
 		this.AddComponent<CustomerMover>();
 		this.AddComponent<CustomerWait>();
 	}
+
+
 }

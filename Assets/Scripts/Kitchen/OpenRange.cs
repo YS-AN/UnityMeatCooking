@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class OpenRange : MonoBehaviour
 {
+	private const string UI_PATH = "UI/OpenStorage";
+
+
 	[SerializeField]
 	private LayerMask PlayerMask;
 
@@ -22,7 +25,7 @@ public class OpenRange : MonoBehaviour
 		{
 			Debug.Log(StorageDoor.rotation);
 
-			openStorage = GameManager.UI.ShowInGameUI<OpenStorage>("UI/OpenStorage");
+			openStorage = GameManager.UI.ShowInGameUI<OpenStorage>(UI_PATH);
 			openStorage.SetTarget(transform);
 			openStorage.StorageDoor = StorageDoor;
 		}

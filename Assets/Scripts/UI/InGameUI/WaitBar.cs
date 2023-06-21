@@ -17,6 +17,7 @@ public class WaitBar : InGameUI
 
 	private void Update()
 	{
+		//todo
 		//slider.interactable = (transform.position.z >= 0); //z는 물체와 카메라까지 거리를 나타냄. 0보다 작으면 카메라 뒤에 있다는 의미임
 
 		//z는 물체와 카메라까지 거리를 나타냄. 0보다 작으면 카메라 뒤에 있다는 의미임
@@ -40,6 +41,7 @@ public class WaitBar : InGameUI
 			yield return new WaitForSeconds(waitTime);
 		}
 		Destroy(gameObject);
+		customer.mover.OnExit?.Invoke(customer);
 	}
 
 	public void StopSlider()
