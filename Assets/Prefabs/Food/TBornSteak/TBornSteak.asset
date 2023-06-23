@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd804a957d170e4e9b743095cd93b58, type: 3}
+  m_Name: TBornSteak
+  m_EditorClassIdentifier: 
+  Name: TBornSteak
+  CookingTime: 30
+  Icon: {fileID: 21300000, guid: 917413daa0c6254468099b272f1b4de1, type: 3}
+  CookingObject: {fileID: 8275942040929014743, guid: acb9b2341bf831c43a2f6da85d408725, type: 3}
+  ResultObject: {fileID: 1022633835389615164, guid: e0ef335903efa794b83f31aece38331d, type: 3}
+  Price: 38000
+  IsLearn: 1

@@ -3,7 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
+using UnityEngine.Scripting;
 using UnityEngine.UI;
 
 public class PlayerMover : MonoBehaviour
@@ -17,15 +21,18 @@ public class PlayerMover : MonoBehaviour
 
 	private Vector3 moveDir;
 
+	private IMoveable moveAction;
 	private Coroutine moveRoutine;
 
-	
+	private bool isMove;
 
 	private void Awake()
 	{
 		characterController = GetComponent<CharacterController>();
 		meshAgent = GetComponent<NavMeshAgent>();
 		animator = GetComponent<Animator>();
+
+		isMove = false;
 	}
 
 	private void OnEnable()
@@ -36,12 +43,9 @@ public class PlayerMover : MonoBehaviour
 
 	private void OnDisable()
 	{
-	
-		//mouseClickActions.performed -= OnMove;
-	}
 
-	private void nDisable()
-	{
+		//mouseClickActions.performed -= OnMove;
+
 		Cursor.lockState = CursorLockMode.None;
 	}
 
@@ -58,16 +62,22 @@ public class PlayerMover : MonoBehaviour
 			if (moveRoutine != null)
 				StopCoroutine(moveRoutine);
 
-			moveRoutine = StartCoroutine(MoveRoutine(hit.point));
+			if (moveAction != null)
+				moveAction.ClearAction();
+
+			moveAction = hit.transform.GetComponent<IMoveable>();
+			if (moveAction == null)
+				return;
+
+			moveRoutine = StartCoroutine(MoveRoutine(moveAction));
 		}
 	}
 
-
-
-	private IEnumerator MoveRoutine(Vector3 target)
+	private IEnumerator MoveRoutine(IMoveable moveable)
 	{
-		animator.SetBool("IsMove", true);
+		SetMoveAction(true);
 
+		Vector3 target = moveable.StopPoint;
 		meshAgent.destination = target;
 
 		//y축은 고정
@@ -78,6 +88,14 @@ public class PlayerMover : MonoBehaviour
 		{
 			yield return null;
 		}
-		animator.SetBool("IsMove", false);
+		SetMoveAction(false);
+
+		moveable.NextAction();
+	}
+
+	private void SetMoveAction(bool isMoveAction)
+	{
+		isMove = isMoveAction;
+		animator.SetBool("IsMove", isMove);
 	}
 }

@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CookRange : MonoBehaviour
 {
@@ -11,8 +14,11 @@ public class CookRange : MonoBehaviour
 
 	CookListUI cookListPopUp = null;
 
+	/*
 	private void OnTriggerEnter(Collider other)
 	{
+		
+
 		if (PlayerMask.IsContain(other.gameObject.layer))
 		{
 			cookListPopUp = GameManager.UI.ShowInGameUI<CookListUI>(UI_PATH);
@@ -24,4 +30,5 @@ public class CookRange : MonoBehaviour
 	{
 		GameManager.UI.CloseInGameUI(cookListPopUp);
 	}
+	//*/
 }

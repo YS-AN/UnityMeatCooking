@@ -8,7 +8,6 @@ public class OpenRange : MonoBehaviour
 {
 	private const string UI_PATH = "UI/OpenStorage";
 
-
 	[SerializeField]
 	private LayerMask PlayerMask;
 

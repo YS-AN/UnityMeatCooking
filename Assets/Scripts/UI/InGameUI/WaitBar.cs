@@ -4,20 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 public class WaitBar : InGameUI
 {
-	private Slider slider;
+	private const string NM_WAITBAR = "WaitBar";
+
 	private Coroutine fillSliderRoutine; 
 
 	public Customer customer;
 
-	bool a = true;
-	private void Awake()
+	protected override void Awake()
 	{
-		slider = GetComponent<Slider>();
+		base.Awake();
 	}
 
 	private void Update()
 	{
-		//todo
+		//todo (진짜 왕 중요!!!)
 		//slider.interactable = (transform.position.z >= 0); //z는 물체와 카메라까지 거리를 나타냄. 0보다 작으면 카메라 뒤에 있다는 의미임
 
 		//z는 물체와 카메라까지 거리를 나타냄. 0보다 작으면 카메라 뒤에 있다는 의미임
@@ -35,13 +35,13 @@ public class WaitBar : InGameUI
 
 	IEnumerator FillSliderRoutine(int max, int waitTime)
 	{
-		while (slider.value < max)
+		while (sliders[NM_WAITBAR].value < max)
 		{
-			slider.value += 1;
+			sliders[NM_WAITBAR].value += 1;
 			yield return new WaitForSeconds(waitTime);
 		}
 		Destroy(gameObject);
-		customer.mover.OnExit?.Invoke(customer);
+		customer.Order.OnOrder?.Invoke(customer);
 	}
 
 	public void StopSlider()
@@ -55,9 +55,9 @@ public class WaitBar : InGameUI
 
 	private void SetSliderValue(int max)
 	{
-		slider.value = 0;
+		sliders[NM_WAITBAR].value = 0;
 
-		slider.minValue = 0;
-		slider.maxValue = max;
+		sliders[NM_WAITBAR].minValue = 0;
+		sliders[NM_WAITBAR].maxValue = max;
 	}
 }

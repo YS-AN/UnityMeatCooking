@@ -22,8 +22,9 @@ public class CustomerMover : MonoBehaviour
 
 	public UnityAction<Customer> OnEnter;
 	public UnityAction<Customer> OnExit;
+	public UnityAction OnRemove;
 
-	private Rigidbody rigidbody;
+	//private Rigidbody rigidbody;
 
 	private void Awake()
 	{
@@ -31,10 +32,11 @@ public class CustomerMover : MonoBehaviour
 
 		meshAgent = GetComponent<NavMeshAgent>();
 		animator = GetComponent<Animator>();
-		rigidbody = GetComponent<Rigidbody>();
+		//rigidbody = GetComponent<Rigidbody>();
 
 		OnEnter += Enter;
 		OnExit += Exit;
+		OnRemove += ExitStore;
 	}
 
 	private void OnDisable()
@@ -95,8 +97,7 @@ public class CustomerMover : MonoBehaviour
 	{
 		animator.SetTrigger("Sit");
 
-		curCustomer.wait.WaitTime = 10;
-		curCustomer.wait.onWait?.Invoke(curCustomer); //대기 시작
+		curCustomer.Wait.onWait?.Invoke(curCustomer); //대기 시작
 	}
 
 

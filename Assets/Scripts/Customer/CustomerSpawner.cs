@@ -33,12 +33,20 @@ public class CustomerSpawner : MonoBehaviour
 
 			if(seat != null)
 			{
-				var custPrefab = GameManager.Resource.Load<Customer>(Customer.ResourcesPath);
-
-				var newCust = Instantiate(custPrefab, SpawnPoint.position, SpawnPoint.rotation);
-				newCust.mover.info.Init(seat, 0);
-				newCust.mover?.OnEnter(newCust);
+				Customer newCust = CreateCustomer(seat);
+				newCust.Mover?.OnEnter(newCust);
 			}
 		}
+	}
+
+	private Customer CreateCustomer(Seat seat)
+	{
+		var custPrefab = GameManager.Resource.Load<Customer>(Customer.ResourcesPath);
+
+		var newCust = Instantiate(custPrefab, SpawnPoint.position, SpawnPoint.rotation);
+		newCust.Mover.info.Init(seat, Random.Range(0, 2)); //todo.의자도 랜덤으로 앉기
+		newCust.Wait.WaitTime = Random.Range(30, 41); //대기 시간은 30~40초 사이
+
+		return newCust;
 	}
 }

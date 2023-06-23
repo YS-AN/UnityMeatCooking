@@ -199,7 +199,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7865700685401239178}
   - component: {fileID: 2601999673364064074}
-  - component: {fileID: 1067366149496707548}
   m_Layer: 5
   m_Name: WaitBar
   m_TagString: Untagged
@@ -280,18 +279,3 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1067366149496707548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9169514335328080816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3055946a86253b4a99953ea61c8345f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  followTarget: {fileID: 0}
-  followOffset: {x: 0, y: 0}
-  customer: {fileID: 0}

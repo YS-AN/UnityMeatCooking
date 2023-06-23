@@ -15,8 +15,10 @@ public class BaseUI : MonoBehaviour
     protected Dictionary<string, RectTransform> transforms; // UI는 transform을 상속받은 RectTransform을 사용함.
     protected Dictionary<string, Button> buttons;
     protected Dictionary<string, TMP_Text> texts;
-    
-    protected virtual void Awake()
+	protected Dictionary<string, Image> images;
+	protected Dictionary<string, Slider> sliders;
+
+	protected virtual void Awake()
     {
         BindChildren();
     }
@@ -26,6 +28,8 @@ public class BaseUI : MonoBehaviour
         transforms = new Dictionary<string, RectTransform>();
         buttons = new Dictionary<string, Button>(); 
         texts = new Dictionary<string, TMP_Text>();
+		images = new Dictionary<string, Image>();
+		sliders = new Dictionary<string, Slider>();
 
 		RectTransform[] children = GetComponentsInChildren<RectTransform>();
 
@@ -40,6 +44,8 @@ public class BaseUI : MonoBehaviour
 
 			BindDictionary(child, buttons);
 			BindDictionary(child, texts);
+            BindDictionary(child, images);
+			BindDictionary(child, sliders);
 		}
 	}
 

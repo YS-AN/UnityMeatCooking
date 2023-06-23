@@ -15,6 +15,5 @@ public class CustSeatInfo
 	{
 		_seat = seat;
 		_chair = _seat.Chairs[num];
-		//_anoChair = _seat.Chairs[num == 0 ? 1 : 0];
 	}
 }

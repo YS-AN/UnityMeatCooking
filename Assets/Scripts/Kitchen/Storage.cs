@@ -1,22 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class Storage : MonoBehaviour
+public class Storage : MonoBehaviour, IMoveable
 {
-	[SerializeField]
-	private Transform Door;
+	private const string INV_UI_PATH = "UI/OpenStorage";
 
-	public UnityAction OnOpenDoor;
+	private OpenStorage openStorage;
+
+	[SerializeField]
+	private Transform StorageDoor;
+
+	[SerializeField]
+	private Transform StopPosition;
+	public Vector3 StopPoint { get; set; }
 
 	private void Awake()
 	{
-		OnOpenDoor += OpenDoor;
+		StopPoint = StopPosition.position;
 	}
 
-	private void OpenDoor()
+	public void NextAction()
 	{
-		Door.eulerAngles = new Vector3(0, 90, 0);
+		openStorage = GameManager.UI.ShowInGameUI<OpenStorage>(INV_UI_PATH);
+		openStorage.SetTarget(transform);
+		openStorage.StorageDoor = StorageDoor;
+	}
+
+	public void ClearAction()
+	{
+		if(openStorage != null)
+		{
+			GameManager.UI.CloseInGameUI(openStorage);
+			StorageDoor.eulerAngles = new Vector3(0, -90, 0);
+			openStorage = null;
+		}
 	}
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckRange : MonoBehaviour
+public class BtnCook : MonoBehaviour
 {
+	public int FoodIndex;	
 }

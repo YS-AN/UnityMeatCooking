@@ -231,6 +231,8 @@ public class PoolManager : MonoBehaviour
 			if (!poolDic.ContainsKey(key))
 				return false;
 
+			Debug.Log(go.name);
+
 			poolDic[key].Release(go);
 			return true;
 		}
