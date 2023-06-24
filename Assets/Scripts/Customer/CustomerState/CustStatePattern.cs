@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CustStateType
-{
-	Wait,
-}
 
 public abstract class CustStatePattern<T> : StateBase<CustStateType, T> where T : MonoBehaviour
 {

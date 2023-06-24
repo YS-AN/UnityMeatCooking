@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachine<TState, TOwner> where TOwner : MonoBehaviour
+public class CustStateMachine<TState, TOwner> where TOwner : Customer
 {
 	private TOwner owner;
+	
+	/// <summary>
+	/// 전체 상태를 가지고 있는 Dictionary
+	/// </summary>
 	private Dictionary<TState, StateBase<TState, TOwner>> states;
+
+	/// <summary>
+	/// 현재 상태
+	/// </summary>
 	private StateBase<TState, TOwner> curState;
 
-	public StateMachine(TOwner owner)
+	public CustStateMachine(TOwner owner)
 	{
 		this.owner = owner;
 		this.states = new Dictionary<TState, StateBase<TState, TOwner>>();
@@ -37,7 +45,6 @@ public class StateMachine<TState, TOwner> where TOwner : MonoBehaviour
 	public void Update()
 	{
 		curState.Update();
-		//curState.Transition();
 	}
 
 	public void ChangeState(TState newState)

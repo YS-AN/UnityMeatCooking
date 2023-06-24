@@ -16,6 +16,5 @@ public abstract class StateBase<TState, TOwner> where TOwner : MonoBehaviour
 	public abstract void Setup();
 	public abstract void Enter();
 	public abstract void Update();
-	public abstract void Transition();
 	public abstract void Exit();
 }

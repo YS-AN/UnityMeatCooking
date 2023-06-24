@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace CustomerState
 {
-	public class WaitState : CustStatePattern<CustController>
+	public class CustWaitState : CustStatePattern<CustController>
 	{
-		public WaitState(CustController owner, StateMachine<CustStateType, CustController> stateMachine)
+		private const string UI_PATH = "UI/Waiting";
+
+		public CustWaitState(CustController owner, StateMachine<CustStateType, CustController> stateMachine)
 			: base(owner, stateMachine)
 		{
 		}
@@ -24,13 +26,9 @@ namespace CustomerState
 		{
 		}
 
-		public override void Transition()
-		{
-		
-		}
-
 		public override void Update()
 		{
+
 		}
 	}
 }

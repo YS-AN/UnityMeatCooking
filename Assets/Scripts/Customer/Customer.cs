@@ -5,6 +5,15 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum CustStateType
+{
+	Enter,
+	Wait,
+	Order,
+	Eating,
+	Exit
+}
+
 public class Customer : MonoBehaviour//, IMoveable
 {
 	public static string ResourcesPath { get { return GetCustomer(); } }
@@ -14,6 +23,8 @@ public class Customer : MonoBehaviour//, IMoveable
 		int num = Random.Range(1, 11);
 		return string.Format("Customer/Cust_{0}", num);
 	}
+
+	public CustStateType CurState;
 
 	private NavMeshAgent navAgent;
 	private CapsuleCollider capsuleCollider;

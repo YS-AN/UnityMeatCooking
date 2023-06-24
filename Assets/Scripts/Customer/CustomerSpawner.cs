@@ -44,8 +44,9 @@ public class CustomerSpawner : MonoBehaviour
 		var custPrefab = GameManager.Resource.Load<Customer>(Customer.ResourcesPath);
 
 		var newCust = Instantiate(custPrefab, SpawnPoint.position, SpawnPoint.rotation);
+		newCust.CurState = CustStateType.Enter;
 		newCust.Mover.info.Init(seat, Random.Range(0, 2)); //todo.의자도 랜덤으로 앉기
-		newCust.Wait.WaitTime = Random.Range(30, 41); //대기 시간은 30~40초 사이
+		
 
 		return newCust;
 	}

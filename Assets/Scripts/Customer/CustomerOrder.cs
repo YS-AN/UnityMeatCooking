@@ -31,6 +31,7 @@ public class CustomerOrder : MonoBehaviour
 	public void Order(Customer curCust)
 	{
 		curCustomer = curCust;
+		curCustomer.CurState = CustStateType.Order;
 
 		SetOrderInfo();
 

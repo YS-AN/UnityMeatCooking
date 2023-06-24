@@ -10,11 +10,14 @@ public class CustomerWait : MonoBehaviour, IPointerClickHandler, IMoveable
 
 	public Customer curCustomer;
 
-	public int WaitTime;
+	private int _waitTime;
+	public int WaitTime { get { return _waitTime; } }
 
 	public UnityAction<Customer> onWait;
 
 	public Vector3 StopPoint { get; set; }
+
+	private WaitBar waitBar;
 
 	private void Awake()
 	{
@@ -24,13 +27,15 @@ public class CustomerWait : MonoBehaviour, IPointerClickHandler, IMoveable
 	private void Wait(Customer cust)
 	{
 		curCustomer = cust;
+		curCustomer.CurState = CustStateType.Wait;
 
 		StopPoint = cust.Mover.info.Chair.StopPoint.position;
 
-		WaitBar waitBar = GameManager.UI.ShowInGameUI<WaitBar>(UI_PATH);
+		waitBar = GameManager.UI.ShowInGameUI<WaitBar>(UI_PATH);
 		waitBar.SetTarget(transform);
 		waitBar.customer = curCustomer;
 
+		_waitTime = Random.Range(30, 41); //대기 시간은 30~40초 사이
 		waitBar.StartSlider(WaitTime);
 	}
 
@@ -41,6 +46,7 @@ public class CustomerWait : MonoBehaviour, IPointerClickHandler, IMoveable
 
 	public void NextAction()
 	{
+		waitBar.StopSlider();
 		curCustomer.Order.OnOrder?.Invoke(curCustomer);
 	}
 
