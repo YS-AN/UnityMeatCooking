@@ -84,10 +84,8 @@ public class CustomerMover : MonoBehaviour
 	{
 		animator.SetTrigger("Side");
 
-		Vector3 destination = new Vector3(transform.position.x, transform.position.y, targetPoint.position.z);
-
 		Coroutines coroutines = new Coroutines();
-		moveRoutine = StartCoroutine(coroutines.MoveRoutine(transform, destination, 1, SitDown));
+		moveRoutine = StartCoroutine(coroutines.MoveRoutine(transform, targetPoint.position, 1, SitDown));
 	}
 
 	/// <summary>
@@ -97,7 +95,7 @@ public class CustomerMover : MonoBehaviour
 	{
 		animator.SetTrigger("Sit");
 
-		curCustomer.Wait.onWait?.Invoke(curCustomer); //대기 시작
+		curCustomer.Wait.OnStateAction?.Invoke(curCustomer, CustStateType.Wait); //대기 시작
 	}
 
 

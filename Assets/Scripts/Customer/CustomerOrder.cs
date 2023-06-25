@@ -9,29 +9,21 @@ public class CustOrderInfo
 	public FoodData OrderFood { get { return _orderFood; } }
 }
 
-public class CustomerOrder : MonoBehaviour
+public class CustomerOrder : CustomerState
 {
 	private const string UI_PATH = "UI/Ordering";
 
 	private FoodData _orderFood;
 	public FoodData OrderFood { get { return _orderFood; } }
 
-	public Customer curCustomer;
-
-	public int WaitTime;
-
-	public UnityAction<Customer> OnOrder;
-
-	private void Awake()
+	protected override void Awake()
 	{
-		OnOrder += Order;
+		base.Awake();
 	}
 
-	
-	public void Order(Customer curCust)
+	protected override void StateAction(Customer cust, CustStateType type)
 	{
-		curCustomer = curCust;
-		curCustomer.CurState = CustStateType.Order;
+		base.StateAction(cust, type);
 
 		SetOrderInfo();
 
@@ -39,8 +31,8 @@ public class CustomerOrder : MonoBehaviour
 		orderingUI.SetFoodIcon(_orderFood.Icon);
 		orderingUI.SetTarget(transform);
 
-		WaitTime = curCust.Wait.WaitTime * 2;
-		orderingUI.StartWait(curCust, WaitTime);
+		WaitTime = cust.Wait.WaitTime * 2;
+		orderingUI.StartWait(cust, WaitTime);
 	}
 
 	private void SetOrderInfo()
@@ -50,4 +42,15 @@ public class CustomerOrder : MonoBehaviour
 		_orderFood = FoodManager.GetInstance().CanCookDic[orderingNum];
 	}
 
+
+	public override void NextAction()
+	{
+		if (curCustomer.CurState == CustStateType.Order)
+		{
+		}
+	}
+
+	public override void ClearAction()
+	{
+	}
 }

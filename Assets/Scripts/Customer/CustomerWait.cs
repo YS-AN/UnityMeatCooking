@@ -4,30 +4,22 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class CustomerWait : MonoBehaviour, IPointerClickHandler, IMoveable
+public class CustomerWait : CustomerState
 {
 	private const string UI_PATH = "UI/Waiting";
 
-	public Customer curCustomer;
-
-	private int _waitTime;
-	public int WaitTime { get { return _waitTime; } }
-
-	public UnityAction<Customer> onWait;
-
-	public Vector3 StopPoint { get; set; }
-
 	private WaitBar waitBar;
 
-	private void Awake()
-	{
-		onWait += Wait;
+	protected override void Awake()
+	{ 
+		base.Awake();
 	}
 
-	private void Wait(Customer cust)
+	protected override void StateAction(Customer cust, CustStateType type)
 	{
-		curCustomer = cust;
-		curCustomer.CurState = CustStateType.Wait;
+		base.StateAction(cust, type);
+
+		Debug.Log(curCustomer.CurState);
 
 		StopPoint = cust.Mover.info.Chair.StopPoint.position;
 
@@ -35,22 +27,30 @@ public class CustomerWait : MonoBehaviour, IPointerClickHandler, IMoveable
 		waitBar.SetTarget(transform);
 		waitBar.customer = curCustomer;
 
-		_waitTime = Random.Range(30, 41); //대기 시간은 30~40초 사이
+		WaitTime = Random.Range(30, 41); //대기 시간은 30~40초 사이
 		waitBar.StartSlider(WaitTime);
 	}
 
-	public void OnPointerClick(PointerEventData eventData)
-	{
+	//public void OnPointerClick(PointerEventData eventData)
+	//{
+	//
+	//}
 
+	public override void NextAction()
+	{ 
+		if(curCustomer.CurState == CustStateType.Wait)
+		{
+			waitBar.StopSlider();
+			curCustomer.Order.OnStateAction?.Invoke(curCustomer, CustStateType.Order);
+		}
 	}
 
-	public void NextAction()
+	public override void ClearAction()
 	{
-		waitBar.StopSlider();
-		curCustomer.Order.OnOrder?.Invoke(curCustomer);
 	}
 
-	public void ClearAction()
+	public void Set(CustStateType type)
 	{
+		curCustomer.CurState = type;
 	}
 }

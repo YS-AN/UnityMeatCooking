@@ -46,8 +46,6 @@ public class CustomerSpawner : MonoBehaviour
 		var newCust = Instantiate(custPrefab, SpawnPoint.position, SpawnPoint.rotation);
 		newCust.CurState = CustStateType.Enter;
 		newCust.Mover.info.Init(seat, Random.Range(0, 2)); //todo.ÀÇÀÚµµ ·£´ýÀ¸·Î ¾É±â
-		
-
 		return newCust;
 	}
 }

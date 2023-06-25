@@ -12,6 +12,7 @@ public class OrderRange : MonoBehaviour
 
 	private OrderingUI ordering;
 
+	/*
 	private void OnTriggerEnter(Collider other)
 	{
 		if (PlayerMask.IsContain(other.gameObject.layer))
@@ -31,4 +32,5 @@ public class OrderRange : MonoBehaviour
 			}
 		}
 	}
+	//*/
 }
