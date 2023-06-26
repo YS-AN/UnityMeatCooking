@@ -29,8 +29,8 @@ public class TPSCameraController : MonoBehaviour
 	{
 		yRotation += lookDelta.x * mouseSensitivity * Time.deltaTime;
 
-		xRotation -= lookDelta.y * mouseSensitivity * Time.deltaTime;
-		xRotation = Mathf.Clamp(xRotation, -80f, 80f); //x각도가 ~80도 ~ 80도까지만 움직이도록 막아줌
+		//xRotation -= lookDelta.y * mouseSensitivity * Time.deltaTime;
+		//xRotation = Mathf.Clamp(xRotation, -80f, 80f); //x각도가 ~80도 ~ 80도까지만 움직이도록 막아줌
 
 		cameraRoot.rotation = Quaternion.Euler(0, yRotation, 0);
 	}

@@ -19,3 +19,4 @@ MonoBehaviour:
   ResultObject: {fileID: 1022633835389615164, guid: e0ef335903efa794b83f31aece38331d, type: 3}
   Price: 38000
   IsLearn: 1
+  IsOrder: 0

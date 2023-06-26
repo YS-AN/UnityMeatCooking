@@ -29,6 +29,8 @@ public class FoodManager : MonoBehaviour
 
 	public List<int> CanCookIndex { get { return CanCookDic.Keys.ToList(); } }
 
+	public Transform CookPos;
+
 	private void Awake()
 	{
 		instance = this;
@@ -41,7 +43,7 @@ public class FoodManager : MonoBehaviour
 		_foodDic = new Dictionary<int, FoodData>();
 		_orderList = new Dictionary<int, FoodData>();
 
-		Recipe recipe = GetComponent<Recipe>();
+		Recipe recipe = transform.GetComponent<Recipe>();
 
 		int index = 0;
 		foreach(var food in recipe.CookList)
@@ -68,8 +70,6 @@ public class FoodManager : MonoBehaviour
 
 	public void AddOrder(FoodData cook)
 	{
-		cook.IsOrder = true;
-
 		int key = (_orderList.Keys.Count > 0 ? _orderList.Keys.Max() : 0) + 1;
 		_orderList.Add(key, cook);
 	}

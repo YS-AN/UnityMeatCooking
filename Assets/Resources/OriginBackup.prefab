@@ -108,7 +108,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08aefea2342e78f4a87635a08864e3d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mover: {fileID: 0}
+  CurState: 0
+  Order: {fileID: 0}
+  Mover: {fileID: 0}
+  Wait: {fileID: 0}
 --- !u!114 &5053857468557689148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,6 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9403b87d0963cd4c9ce991fd73315cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curCustomer: {fileID: 0}
 --- !u!1001 &7207814511960320140
 PrefabInstance:
   m_ObjectHideFlags: 0

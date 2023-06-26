@@ -1,36 +1,62 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class HearthOven : MonoBehaviour, IMoveable
 {
 	private const string UI_PATH = "UI/CookList";
 
-	private CookListUI cookListPopUp = null;
+	private CookListUI cookListUI = null;
 
 	[SerializeField]
-	private Transform StopPosition;
+	private Transform stopPosition;
 	public Vector3 StopPoint { get; set; }
+
+	[SerializeField]
+	private Transform[] cookPositions;
+	private Stack<Transform> CookPoint;
+
+	public UnityAction<FoodData> OnCooking;
 
 	private void Awake()
 	{
-		StopPoint = StopPosition.position;
+		StopPoint = stopPosition.position;
+		OnCooking += DoCooking;
+
+		CookPoint = new Stack<Transform>();
+		foreach (var point in cookPositions)
+		{
+			CookPoint.Push(point);
+		}
 	}
 
 	public void NextAction()
 	{
-		cookListPopUp = GameManager.UI.ShowInGameUI<CookListUI>(UI_PATH);
-		cookListPopUp.SetTarget(transform);
+		cookListUI = GameManager.UI.ShowInGameUI<CookListUI>(UI_PATH);
+		cookListUI.SetTarget(transform);
+		cookListUI.SetCurrentOven(this);
 	}
 
 	public void ClearAction()
 	{
-		if(cookListPopUp != null)
+		if(cookListUI != null)
 		{
-			GameManager.UI.CloseInGameUI(cookListPopUp);
-			cookListPopUp = null;
+			GameManager.UI.CloseInGameUI(cookListUI);
+			cookListUI = null;
 		}
-			
 	}
 
+	public void DoCooking(FoodData foodData)
+	{
+		if(CookPoint.Count > 0)
+		{
+			Transform cookPnt = CookPoint.Pop();
+
+			Cook cookObj = GameManager.Resource.Load<Cook>(foodData.CookingObjectPath);
+			var newCook = Instantiate(cookObj, cookPnt.position, cookPnt.rotation);
+			newCook.transform.SetParent(FoodManager.GetInstance().transform, true);
+			newCook.Cooker?.OnCooking(newCook);
+		}
+	}
 }

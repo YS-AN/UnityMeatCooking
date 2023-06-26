@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Storage : MonoBehaviour, IMoveable
 {
-	private const string INV_UI_PATH = "UI/OpenStorage";
+	private const string UI_PATH = "UI/OpenStorage";
 
 	private OpenStorage openStorage;
 
@@ -22,7 +22,7 @@ public class Storage : MonoBehaviour, IMoveable
 
 	public void NextAction()
 	{
-		openStorage = GameManager.UI.ShowInGameUI<OpenStorage>(INV_UI_PATH);
+		openStorage = GameManager.UI.ShowInGameUI<OpenStorage>(UI_PATH);
 		openStorage.SetTarget(transform);
 		openStorage.StorageDoor = StorageDoor;
 	}

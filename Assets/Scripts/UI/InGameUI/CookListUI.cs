@@ -2,87 +2,99 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.UI;
 
 //버튼을 자신에 맞게 자동생성할 수 있는 방법이 없으띾?
 
 public class CookListUI : InGameUI
 {
-	private int Max = 16;
-
-	public FoodData foodData;
-
 	[SerializeField]
-	private Transform BtnContent; 
+	private Transform BtnContent;
 
-	private Button[] cookList;
-	private int curIndex;
-
-	public delegate bool OrderDelegate(BtnCook newCook);
-	public event OrderDelegate OnAddOrder;
+	CookListController uiController;
 
 	protected override void Awake()
 	{
 		base.Awake();
-		
+
+		uiController = new CookListController(new CookListModel());
 		InitButton();
 	}
 
 	private void OnEnable()
 	{
-		SetBtnContent();
+		uiController.SetBtnContent();
 	}
-
-
 
 	private void InitButton()
 	{
-		cookList = BtnContent.GetComponentsInChildren<Button>();
+		uiController.SetCookBtn(BtnContent.GetComponentsInChildren<Button>());
+	}
 
-		foreach(var btn in cookList)
+	/// <summary>
+	/// CookListUI를 호출한 오븐 오브젝트 설정
+	/// </summary>
+	/// <param name="oven"></param>
+	public void SetCurrentOven(HearthOven oven)
+	{
+		uiController.SetCalledOver(oven);
+	}
+}
+
+public class CookListController
+{
+	private CookListModel model;
+
+	public CookListController(CookListModel model)
+	{
+		this.model = model;
+	}
+
+	public void SetCookBtn(Button[] buttons)
+	{
+		model.CookList = buttons;
+
+		foreach (var btn in model.CookList)
 		{
-			btn.transform.AddComponent<Orderable>();
+			btn.transform.AddComponent<Cookable>();
 		}
 	}
 
-
-	/*
-	private bool AddNewFood(BtnCook newCook)
+	public void SetCalledOver(HearthOven oven)
 	{
-		if (curIndex <= Max)
+		model.CalledOven = oven;
+
+		foreach (var btn in model.CookList)
 		{
-			newCook.FoodIndex = curIndex;
-			cookList[curIndex++] = newCook;
-			return true;
+			var cookable = btn.transform.GetComponent<Cookable>();
+			cookable.Oven = model.CalledOven;
 		}
-		return false;
 	}
 
-	public BtnCook GetFood(int index)
-	{
-		if (index > curIndex)
-			return null;
-
-		return cookList[index];	
-	}
-	//*/
-
-	private void SetBtnContent()
+	public void SetBtnContent()
 	{
 		var orderList = FoodManager.GetInstance().GetOrderList();
 
 		int index = 0;
 		foreach (var food in orderList)
 		{
-			cookList[index++].image.sprite = food.Value.Icon;
+			var btn = model.CookList[index++];
+			btn.image.sprite = food.Value.Icon;
 
-			var order = cookList[index++].transform.GetComponent<Orderable>();
-			order.OderID = food.Key;
-			order.FoodInfo = food.Value;
+			var cookable = btn.transform.GetComponent<Cookable>();
+			cookable.FoodData = food.Value;
 		}
 	}
+}
 
+public class CookListModel
+{
+	public Button[] CookList;
+
+	public HearthOven CalledOven;
 }

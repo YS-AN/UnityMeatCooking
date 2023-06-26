@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd804a957d170e4e9b743095cd93b58, type: 3}
   m_Name: Drumstick
   m_EditorClassIdentifier: 
-  Name: TBornSteak
+  Name: Drumstick
   CookingTime: 30
   Icon: {fileID: 21300000, guid: 8735a22556dee704492c895431ffbb36, type: 3}
   CookingObject: {fileID: 4071031508982388590, guid: a8155e624198aca4886ba15f28e3f239, type: 3}
   ResultObject: {fileID: 4743613685047783973, guid: 667204485c8fea745bedd0b395f983ed, type: 3}
   Price: 35000
   IsLearn: 1
+  IsOrder: 0

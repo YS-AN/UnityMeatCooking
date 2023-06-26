@@ -12,7 +12,7 @@ public class OrderingUI : InGameUI
 	private const string NM_WAITBAR = "WaitBar";
 	private const string NM_WAIT_LAYER = "Waiting";
 
-	private FoodData foodData;
+	private OrderInfo orderInfo;
 
 	private CookListUI cookListUI;
 
@@ -23,10 +23,10 @@ public class OrderingUI : InGameUI
 		buttons[NM_FOOD_BTN].onClick.AddListener(() => { CheckOrder(); });
 	}
 
-	public void SetFood(FoodData foodData)
+	public void SetFood(OrderInfo orderInfo)
 	{ 
-		this.foodData = foodData;
-		buttons[NM_FOOD_BTN].image.sprite = foodData.Icon;
+		this.orderInfo = orderInfo;
+		buttons[NM_FOOD_BTN].image.sprite = orderInfo.FoodInfo.Icon;
 	}
 
 	public void StartWait(Customer curCust, int waitMax, int waitTime = 1)
@@ -45,8 +45,12 @@ public class OrderingUI : InGameUI
 
 	public void CheckOrder()
 	{
-		if(foodData.IsOrder == false)
-			FoodManager.GetInstance().AddOrder(foodData);
+		if(orderInfo.IsOrder == false) //중복 접수 방지
+		{
+			orderInfo.IsOrder = true;
+			FoodManager.GetInstance().AddOrder(orderInfo.FoodInfo);
+		}
+			
 	}
 
 }

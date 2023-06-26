@@ -3,18 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CustOrderInfo
-{
-	private FoodData _orderFood;
-	public FoodData OrderFood { get { return _orderFood; } }
-}
-
 public class CustomerOrder : CustomerState
 {
 	private const string UI_PATH = "UI/Ordering";
 
-	private FoodData _orderFood;
-	public FoodData OrderFood { get { return _orderFood; } }
+	private OrderInfo _orderFood;
+	public OrderInfo OrderFood { get { return _orderFood; } }
 
 	protected override void Awake()
 	{
@@ -40,8 +34,9 @@ public class CustomerOrder : CustomerState
 		int foodCnt = FoodManager.GetInstance().CanCookIndex.Count;
 		int orderingNum = Random.Range(0, foodCnt);
 
-		_orderFood = FoodManager.GetInstance().CanCookDic[orderingNum];
-		//_orderFood = 
+		_orderFood = new OrderInfo(FoodManager.GetInstance().CanCookDic[orderingNum]);
+		//_orderFood.FoodInfo = FoodManager.GetInstance().CanCookDic[orderingNum];
+		//_orderFood.IsOrder = false;
 	}
 
 
