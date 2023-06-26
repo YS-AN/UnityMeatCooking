@@ -75,3 +75,6 @@ crashlytics-build.properties
 /Assets/Imports
 /Assets/TextMesh Pro
 /Assets/Animations/*.fbx
+
+#food icon img
+/Assets/Resources/Food/*/*.png 

@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Drumstick
   CookingTime: 30
-  Icon: {fileID: 21300000, guid: 8735a22556dee704492c895431ffbb36, type: 3}
+  Icon: {fileID: 21300000, guid: c42d515b1fa746243a97f5481c03b4a8, type: 3}
   CookingObject: {fileID: 4071031508982388590, guid: a8155e624198aca4886ba15f28e3f239, type: 3}
   ResultObject: {fileID: 4743613685047783973, guid: 667204485c8fea745bedd0b395f983ed, type: 3}
   Price: 35000
   IsLearn: 1
-  IsOrder: 0
