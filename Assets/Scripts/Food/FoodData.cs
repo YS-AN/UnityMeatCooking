@@ -40,4 +40,9 @@ public class FoodData : ScriptableObject
 	/// 조리 가능 여부
 	/// </summary>
 	public bool IsLearn;
+
+	/// <summary>
+	/// 주문 여부
+	/// </summary>
+	public bool IsOrder;
 }

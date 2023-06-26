@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
-
 
 //버튼을 자신에 맞게 자동생성할 수 있는 방법이 없으띾?
 
@@ -17,18 +18,39 @@ public class CookListUI : InGameUI
 	[SerializeField]
 	private Transform BtnContent; 
 
-	private BtnCook[] cookList;
+	private Button[] cookList;
 	private int curIndex;
+
+	public delegate bool OrderDelegate(BtnCook newCook);
+	public event OrderDelegate OnAddOrder;
 
 	protected override void Awake()
 	{
 		base.Awake();
-
-		//cookList = BtnContent.GetComponentsInChildren<BtnCook>();
-		curIndex = 0;
+		
+		InitButton();
 	}
 
-	public bool AddNewFood(BtnCook newCook)
+	private void OnEnable()
+	{
+		SetBtnContent();
+	}
+
+
+
+	private void InitButton()
+	{
+		cookList = BtnContent.GetComponentsInChildren<Button>();
+
+		foreach(var btn in cookList)
+		{
+			btn.transform.AddComponent<Orderable>();
+		}
+	}
+
+
+	/*
+	private bool AddNewFood(BtnCook newCook)
 	{
 		if (curIndex <= Max)
 		{
@@ -46,4 +68,21 @@ public class CookListUI : InGameUI
 
 		return cookList[index];	
 	}
+	//*/
+
+	private void SetBtnContent()
+	{
+		var orderList = FoodManager.GetInstance().GetOrderList();
+
+		int index = 0;
+		foreach (var food in orderList)
+		{
+			cookList[index++].image.sprite = food.Value.Icon;
+
+			var order = cookList[index++].transform.GetComponent<Orderable>();
+			order.OderID = food.Key;
+			order.FoodInfo = food.Value;
+		}
+	}
+
 }

@@ -41,6 +41,8 @@ public class WaitBar : InGameUI
 			yield return new WaitForSeconds(waitTime);
 		}
 		Destroy(gameObject);
+		fillSliderRoutine = null;
+
 		customer.Mover.OnExit?.Invoke(customer);
 	}
 

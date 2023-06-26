@@ -6,9 +6,6 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.HID;
-using UnityEngine.Scripting;
-using UnityEngine.UI;
 
 public class PlayerMover : MonoBehaviour
 {

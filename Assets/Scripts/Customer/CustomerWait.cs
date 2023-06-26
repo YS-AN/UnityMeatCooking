@@ -19,8 +19,6 @@ public class CustomerWait : CustomerState
 	{
 		base.StateAction(cust, type);
 
-		Debug.Log(curCustomer.CurState);
-
 		StopPoint = cust.Mover.info.Chair.StopPoint.position;
 
 		waitBar = GameManager.UI.ShowInGameUI<WaitBar>(UI_PATH);

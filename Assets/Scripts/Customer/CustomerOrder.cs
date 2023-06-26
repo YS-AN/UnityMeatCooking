@@ -28,7 +28,7 @@ public class CustomerOrder : CustomerState
 		SetOrderInfo();
 
 		OrderingUI orderingUI = GameManager.UI.ShowInGameUI<OrderingUI>(UI_PATH);
-		orderingUI.SetFoodIcon(_orderFood.Icon);
+		orderingUI.SetFood(_orderFood);
 		orderingUI.SetTarget(transform);
 
 		WaitTime = cust.Wait.WaitTime * 2;
@@ -39,7 +39,9 @@ public class CustomerOrder : CustomerState
 	{
 		int foodCnt = FoodManager.GetInstance().CanCookIndex.Count;
 		int orderingNum = Random.Range(0, foodCnt);
+
 		_orderFood = FoodManager.GetInstance().CanCookDic[orderingNum];
+		//_orderFood = 
 	}
 
 

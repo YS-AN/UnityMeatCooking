@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HearthOven : MonoBehaviour, IMoveable
 {
-	private const string COOK_UI_PATH = "UI/CookList";
+	private const string UI_PATH = "UI/CookList";
 
 	private CookListUI cookListPopUp = null;
 
@@ -19,7 +19,7 @@ public class HearthOven : MonoBehaviour, IMoveable
 
 	public void NextAction()
 	{
-		cookListPopUp = GameManager.UI.ShowInGameUI<CookListUI>(COOK_UI_PATH);
+		cookListPopUp = GameManager.UI.ShowInGameUI<CookListUI>(UI_PATH);
 		cookListPopUp.SetTarget(transform);
 	}
 
