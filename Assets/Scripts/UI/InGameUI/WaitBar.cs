@@ -6,9 +6,11 @@ public class WaitBar : InGameUI
 {
 	private const string NM_WAITBAR = "WaitBar";
 
+	private Slider waitSlider;
 	private Coroutine fillSliderRoutine; 
 
 	public Customer customer;
+
 
 	protected override void Awake()
 	{
@@ -29,6 +31,8 @@ public class WaitBar : InGameUI
 
 	public void StartSlider(int max, int waitTime = 1)
 	{
+		waitSlider = sliders[NM_WAITBAR];
+
 		SetSliderValue(max);
 		fillSliderRoutine = StartCoroutine(FillSliderRoutine(max, waitTime));
 	}
@@ -40,10 +44,8 @@ public class WaitBar : InGameUI
 			sliders[NM_WAITBAR].value += 1;
 			yield return new WaitForSeconds(waitTime);
 		}
-		Destroy(gameObject);
 		fillSliderRoutine = null;
-
-		customer.Mover.OnExit?.Invoke(customer);
+		customer.Mover.OnExit?.Invoke();
 	}
 
 	public void StopSlider()
@@ -51,15 +53,15 @@ public class WaitBar : InGameUI
 		if(fillSliderRoutine != null)
 		{
 			StopCoroutine(fillSliderRoutine);
-			Destroy(gameObject);
+			GameManager.UI.CloseInGameUI(this);
 		}
 	}
 
 	private void SetSliderValue(int max)
 	{
-		sliders[NM_WAITBAR].value = 0;
+		waitSlider.value = 0;
 
-		sliders[NM_WAITBAR].minValue = 0;
-		sliders[NM_WAITBAR].maxValue = max;
+		waitSlider.minValue = 0;
+		waitSlider.maxValue = max;
 	}
 }

@@ -9,6 +9,8 @@ public class ExitRange : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
+		Debug.Log("ExitRange - OnTriggerEnter");
+
 		if (CustLayer.IsContain(other.gameObject.layer))
 		{
 			Customer customer = other.gameObject.GetComponent<Customer>();

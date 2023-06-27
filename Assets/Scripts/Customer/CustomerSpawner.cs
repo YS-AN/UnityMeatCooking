@@ -34,7 +34,7 @@ public class CustomerSpawner : MonoBehaviour
 			if(seat != null)
 			{
 				Customer newCust = CreateCustomer(seat);
-				newCust.Mover?.OnEnter(newCust);
+				newCust.Mover?.OnEnter();
 			}
 		}
 	}

@@ -1,16 +1,34 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class CustomerState : MonoBehaviour, IMoveable
+public abstract class MoveController : MonoBehaviour, IMoveable, IExitable
+{
+	protected CustomerExit customerExit;
+
+	protected virtual void Start()
+	{
+		customerExit = GetComponent<CustomerExit>();
+		customerExit.AddObserver(this);
+	}
+
+	public Vector3 StopPoint { get; set; }
+
+	public abstract void NextAction();
+
+	public abstract void ClearAction();
+
+	public abstract void TakeActionAfterNoti();
+}
+
+public abstract class CustomerState : MoveController
 {
 	public UnityAction<Customer, CustStateType> OnStateAction;
 
 	public Customer curCustomer;
+	
 
 	public int WaitTime;
-
-	public Vector3 StopPoint { get; set; }
-
+	
 	protected virtual void Awake()
 	{
 		OnStateAction += StateAction;
@@ -21,8 +39,4 @@ public abstract class CustomerState : MonoBehaviour, IMoveable
 		curCustomer = cust;
 		curCustomer.CurState = type;
 	}
-
-	public abstract void NextAction();
-
-	public abstract void ClearAction();
 }

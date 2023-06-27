@@ -46,11 +46,6 @@ public class PlayerMover : MonoBehaviour
 		Cursor.lockState = CursorLockMode.None;
 	}
 
-	private void Update()
-	{
-		
-	}
-
 	private void OnMove(InputValue value)
 	{
 		var ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());

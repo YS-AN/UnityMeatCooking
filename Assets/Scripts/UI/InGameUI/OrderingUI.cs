@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -31,7 +32,14 @@ public class OrderingUI : InGameUI
 
 	public void StartWait(Customer curCust, int waitMax, int waitTime = 1)
 	{
+		if(images[NM_WAIT_LAYER].IsActive() == false)
+		{
+			images[NM_WAIT_LAYER].gameObject.SetActive(true);
+		}
+
 		WaitBar waitBar = images[NM_WAIT_LAYER].GetComponent<WaitBar>();
+
+
 		//waitBar.SetTarget(transform);
 		waitBar.customer = curCust;
 
@@ -49,8 +57,6 @@ public class OrderingUI : InGameUI
 		{
 			orderInfo.IsOrder = true;
 			FoodManager.GetInstance().AddOrder(orderInfo.FoodInfo);
-		}
-			
+		}	
 	}
-
 }

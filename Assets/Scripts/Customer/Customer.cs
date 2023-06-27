@@ -14,7 +14,7 @@ public enum CustStateType
 	Exit
 }
 
-public class Customer : MonoBehaviour//, IMoveable
+public class Customer : MonoBehaviour
 {
 	public static string ResourcesPath { get { return GetCustomer(); } }
 
@@ -32,6 +32,7 @@ public class Customer : MonoBehaviour//, IMoveable
 	public CustomerOrder Order;
 	public CustomerMover Mover;
 	public CustomerWait Wait;
+	public CustomerExit Exit;
 
 	public CustomerInfo CustInfo;
 
@@ -48,6 +49,7 @@ public class Customer : MonoBehaviour//, IMoveable
 		this.AddComponent<CustomerMover>();
 		this.AddComponent<CustomerWait>();
 		this.AddComponent<CustomerOrder>();
+		this.AddComponent<CustomerExit>();
 
 		SetComponent();
 	}
@@ -67,5 +69,6 @@ public class Customer : MonoBehaviour//, IMoveable
 		Mover = GetComponent<CustomerMover>();
 		Wait = GetComponent<CustomerWait>();
 		Order = GetComponent<CustomerOrder>();
+		Exit = GetComponent<CustomerExit>();
 	}
 }

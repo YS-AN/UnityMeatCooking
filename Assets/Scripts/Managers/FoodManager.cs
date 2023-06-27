@@ -7,7 +7,11 @@ using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class FoodManager : MonoBehaviour
+public interface ICancelableOrder : IObservable
+{
+}
+
+public class FoodManager : NotifyContorller<ICancelableOrder>
 {
 	private static FoodManager instance;
 
@@ -31,8 +35,10 @@ public class FoodManager : MonoBehaviour
 
 	public Transform CookPos;
 
-	private void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
+
 		instance = this;
 
 		SetFoodDic();
@@ -77,6 +83,8 @@ public class FoodManager : MonoBehaviour
 	public void RemoveOrder(int index)
 	{
 		_orderList.Remove(index);
+
+		OnNotifyAction?.Invoke();
 	}
 
 	public Dictionary<int, FoodData> GetOrderList()

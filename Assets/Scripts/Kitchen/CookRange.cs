@@ -12,9 +12,10 @@ public class CookRange : MonoBehaviour
 	[SerializeField]
 	private LayerMask PlayerMask;
 
+	/*
 	CookListUI cookListPopUp = null;
 
-	/*
+	
 	private void OnTriggerEnter(Collider other)
 	{
 		

@@ -87,6 +87,7 @@ public class CookListController
 			btn.image.sprite = food.Value.Icon;
 
 			var cookable = btn.transform.GetComponent<Cookable>();
+			cookable.FoodId = food.Key;
 			cookable.FoodData = food.Value;
 		}
 	}

@@ -20,8 +20,8 @@ public class CustomerMover : MonoBehaviour
 	public Customer curCustomer;
 	public CustSeatInfo info;
 
-	public UnityAction<Customer> OnEnter;
-	public UnityAction<Customer> OnExit;
+	public UnityAction OnEnter;
+	public UnityAction OnExit;
 	public UnityAction OnRemove;
 
 	//private Rigidbody rigidbody;
@@ -51,9 +51,9 @@ public class CustomerMover : MonoBehaviour
 	/// 의자로 이동
 	/// </summary>
 	/// <param name="cust"></param>
-	private void Enter(Customer cust)
+	private void Enter()
 	{
-		curCustomer = cust;
+		curCustomer = transform.GetComponent<Customer>();
 		animator.SetTrigger("Move");
 
 		Coroutines coroutines = new Coroutines();
@@ -99,8 +99,10 @@ public class CustomerMover : MonoBehaviour
 	}
 
 
-	private void Exit(Customer cust)
+	private void Exit()
 	{
+		transform.GetComponent<Customer>().Exit.OnNotifyAction?.Invoke();
+
 		animator.SetTrigger("Stand");
 		//new WaitForSeconds(3); //todo.정확하게 다 일어난 순간을 캐치해야해. 
 

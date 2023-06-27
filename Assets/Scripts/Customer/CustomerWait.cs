@@ -15,6 +15,11 @@ public class CustomerWait : CustomerState
 		base.Awake();
 	}
 
+	protected override void Start()
+	{
+		base.Start();
+	}
+
 	protected override void StateAction(Customer cust, CustStateType type)
 	{
 		base.StateAction(cust, type);
@@ -39,6 +44,8 @@ public class CustomerWait : CustomerState
 		if(curCustomer.CurState == CustStateType.Wait)
 		{
 			waitBar.StopSlider();
+			waitBar = null;
+
 			curCustomer.Order.OnStateAction?.Invoke(curCustomer, CustStateType.Order);
 		}
 	}
@@ -50,5 +57,14 @@ public class CustomerWait : CustomerState
 	public void Set(CustStateType type)
 	{
 		curCustomer.CurState = type;
+	}
+
+	public override void TakeActionAfterNoti()
+	{
+		if (waitBar != null)
+		{
+			GameManager.UI.CloseInGameUI(waitBar);
+			waitBar = null;
+		}
 	}
 }
