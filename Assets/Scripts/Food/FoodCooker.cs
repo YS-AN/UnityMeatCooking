@@ -8,21 +8,52 @@ public class FoodCooker : MonoBehaviour, IPointerClickHandler
 {
 	private bool isfinished;
 
-	public UnityAction OnCooking;
+	public UnityAction<FoodData> OnCooking;
+	public UnityAction<FoodData> OnFinishedCook;
+
+	public Renderer renderer;
+
+	private FoodData makeFoodInfo;
+
+	private Coroutine cookRoutine;
+
+
 
 	private void Awake()
 	{
 		isfinished = false;
+		renderer = GetComponent<Renderer>();
 
 		OnCooking += Cooking;
 	}
 
-	private void Cooking()
+	private void Cooking(FoodData foodData)
 	{
+		makeFoodInfo = foodData;
+
 		//todo.조리 대기 중 ui 호출
 
-		StartCoroutine(tmpCookingRoutine());
+		cookRoutine = StartCoroutine(CookingRoutine());
 	}
+
+
+	private IEnumerator CookingRoutine()
+	{
+		yield return new WaitForSeconds(5);
+
+		StopCookingRoutine();
+		CookedFood();
+	}
+
+	private void StopCookingRoutine()
+	{
+		if (cookRoutine != null)
+		{
+			StopCoroutine(cookRoutine);
+			cookRoutine = null;
+		}
+	}
+
 
 	public void CookedFood()
 	{
@@ -35,28 +66,33 @@ public class FoodCooker : MonoBehaviour, IPointerClickHandler
 		StartCoroutine(tmpCookedRoutine());
 	}
 
-	private IEnumerator tmpCookingRoutine()
+	
+	private IEnumerator tmpCookedRoutine(float duration = 5f)
 	{
-		yield return new WaitForSeconds(5);
+		Color startColor = renderer.material.color; //todo.이건 후라이펜 색이 바뀌니까... 음식  색이 바뀌돋록 수정 필요
+		float time = 0f;
 
-		CookedFood();
-	}
-
-	public void OnPointerClick(PointerEventData eventData)
-	{
-		StopCoroutine(tmpCookingRoutine());
-		//OnFinishedCooking?.Invoke();
-	}
-
-	private IEnumerator tmpCookedRoutine()
-	{
-		yield return new WaitForSeconds(5);
+		while (time < 1f)
+		{
+			time += Time.deltaTime / duration;
+			renderer.material.color = Color.Lerp(startColor, Color.black, time);
+			yield return null;
+		}
 
 		BurnedFood();
 	}
 
 	private void BurnedFood()
 	{
+		//renderer.material.color = Color.black; //서서히 음식 오브젝트거 검정색으로 바뀌도록 해야함
+		//Destroy(gameObject);
+	}
+
+	public void OnPointerClick(PointerEventData eventData)
+	{
+		StopCookingRoutine();
 		Destroy(gameObject);
+
+		OnFinishedCook?.Invoke(makeFoodInfo);
 	}
 }

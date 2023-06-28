@@ -54,7 +54,7 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 		CloseUI();
 	}
 
-	public void DoCooking(FoodData foodData)
+	private void DoCooking(FoodData foodData)
 	{
 		if (CookPoint.Count > 0)
 		{
@@ -65,8 +65,14 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 			Cook cookObj = GameManager.Resource.Load<Cook>(foodData.CookingObjectPath);
 			var newCook = Instantiate(cookObj, cookPnt.position, cookPnt.rotation);
 			newCook.transform.SetParent(FoodManager.GetInstance().transform, true);
-			newCook.Cooker?.OnCooking();
+			newCook.Cooker.OnFinishedCook += FinishedCook;
+			newCook.Cooker?.OnCooking(foodData);
 		}
+	}
+
+	private void FinishedCook(FoodData foodData)
+	{
+		PlayerManager.GetInstance().Player.Cooker.HoldDish(foodData);
 	}
 
 	private void CloseUI()

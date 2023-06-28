@@ -7,7 +7,5 @@ using UnityEngine.Events;
 //플레이어한테 손에 요리가 들려있다고 알려줘야해...
 public class Dish : MonoBehaviour
 {
-	public UnityAction OnFinishedCooking;
-
-
+	
 }

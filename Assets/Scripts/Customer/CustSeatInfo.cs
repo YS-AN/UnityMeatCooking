@@ -8,6 +8,8 @@ public class CustSeatInfo
 	private Chair _chair;
 	public Chair Chair { get { return _chair; } }
 
+	public int SeatPointIndex;
+
 	//private Chair _anoChair;
 	//public Chair AnoChair { get { return _anoChair; } }
 

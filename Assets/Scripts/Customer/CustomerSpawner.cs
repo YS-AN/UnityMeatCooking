@@ -41,11 +41,14 @@ public class CustomerSpawner : MonoBehaviour
 
 	private Customer CreateCustomer(Seat seat)
 	{
+		//todo. 최대 4명까지 동시 입장 가능하게 변경해야함
+
 		var custPrefab = GameManager.Resource.Load<Customer>(Customer.ResourcesPath);
 
 		var newCust = Instantiate(custPrefab, SpawnPoint.position, SpawnPoint.rotation);
 		newCust.CurState = CustStateType.Enter;
-		newCust.Mover.info.Init(seat, Random.Range(0, 2)); //todo.의자도 랜덤으로 앉기
+		newCust.Mover.info.Init(seat, Random.Range(0, 2));
+		newCust.Mover.info.Chair.EntryCusts.Add(newCust);
 		return newCust;
 	}
 }

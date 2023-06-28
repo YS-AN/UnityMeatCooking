@@ -39,7 +39,6 @@ public class NotifyContorller<T> : MonoBehaviour where T : IObservable
 	{
 		foreach (var observer in observers)
 		{
-			Debug.Log(observer.GetType().ToString());
 			observer.TakeActionAfterNoti();
 		}
 	}

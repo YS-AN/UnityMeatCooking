@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1527244183102741993}
   - component: {fileID: 7933039115620109852}
   - component: {fileID: -861168478722325680}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dish_TBornSteak
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 6744924489246014229}
   - component: {fileID: 3851450954464463399}
   - component: {fileID: 5462753943845001723}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Beef
   m_TagString: Untagged
   m_Icon: {fileID: 0}

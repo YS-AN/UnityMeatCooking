@@ -72,8 +72,8 @@ public class CustomerMover : MonoBehaviour
 		float y = info.Chair.transform.rotation.y == 0 ? 90 : -90;
 		transform.rotation = Quaternion.Euler(0, y, 0);
 
-		int seatNum = (int)Random.Range(0f, info.Chair.SeatPoints.Count());
-		SitOnAChair(info.Chair.SeatPoints[seatNum].transform);
+		info.SeatPointIndex = (int)Random.Range(0f, info.Chair.SeatPoints.Count());
+		SitOnAChair(info.Chair.SeatPoints[info.SeatPointIndex].transform);
 	}
 
 	/// <summary>

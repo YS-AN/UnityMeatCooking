@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-//관찰자 = 구독자
 public class CustomerOrder : CustomerState
 {
 	private const string UI_PATH = "UI/Ordering";
@@ -55,6 +54,7 @@ public class CustomerOrder : CustomerState
 	{
 		if (curCustomer.CurState == CustStateType.Order)
 		{
+
 		}
 	}
 
@@ -66,10 +66,17 @@ public class CustomerOrder : CustomerState
 	{
 		if(orderingUI != null)
 		{
+			CloseUI();
+			RemoveOrder();
+		}
+	}
+
+	public void CloseUI()
+	{
+		if(orderingUI != null)
+		{
 			GameManager.UI.CloseInGameUI(orderingUI);
 			orderingUI = null;
-
-			RemoveOrder();
 		}
 	}
 

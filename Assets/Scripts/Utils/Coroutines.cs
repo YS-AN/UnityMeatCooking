@@ -43,4 +43,12 @@ public class Coroutines
 
 		OnNextAction?.Invoke();
 	}
+
+
+	public IEnumerator JustWaitRoutine(float waitTime, UnityAction OnNextAction = null)
+	{
+		yield return new WaitForSeconds(waitTime);
+
+		OnNextAction?.Invoke();
+	}
 }

@@ -17,6 +17,9 @@ public abstract class MoveController : MonoBehaviour, IMoveable, IExitable
 
 	public abstract void ClearAction();
 
+	/// <summary>
+	/// ¼Õ´Ô ÅðÀå ½Ã Çàµ¿
+	/// </summary>
 	public abstract void TakeActionAfterNoti();
 }
 

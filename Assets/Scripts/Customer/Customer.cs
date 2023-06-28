@@ -33,6 +33,7 @@ public class Customer : MonoBehaviour
 	public CustomerMover Mover;
 	public CustomerWait Wait;
 	public CustomerExit Exit;
+	public CustomerEater Eater;
 
 	public CustomerInfo CustInfo;
 
@@ -49,6 +50,7 @@ public class Customer : MonoBehaviour
 		this.AddComponent<CustomerMover>();
 		this.AddComponent<CustomerWait>();
 		this.AddComponent<CustomerOrder>();
+		this.AddComponent<CustomerEater>();
 		this.AddComponent<CustomerExit>();
 
 		SetComponent();
@@ -69,6 +71,8 @@ public class Customer : MonoBehaviour
 		Mover = GetComponent<CustomerMover>();
 		Wait = GetComponent<CustomerWait>();
 		Order = GetComponent<CustomerOrder>();
+		Eater = GetComponent<CustomerEater>();
 		Exit = GetComponent<CustomerExit>();
+		
 	}
 }

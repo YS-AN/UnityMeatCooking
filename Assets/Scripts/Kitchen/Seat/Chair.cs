@@ -11,4 +11,11 @@ public class Chair : MonoBehaviour
 	[SerializeField]
 	private Transform[] seatPoints;
 	public Transform[] SeatPoints { get { return seatPoints; } }
+
+	public List<Customer> EntryCusts;
+
+	private void Awake()
+	{
+		EntryCusts = new List<Customer>();
+	}
 }

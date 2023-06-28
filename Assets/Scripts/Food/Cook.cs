@@ -4,10 +4,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-//요리 중
-//시간 만큼 대기하다가 완성된 요리로 변경 (로테이션 변경)
-//요리를 클릭하면, Dish로 바뀌고..
+public enum CookedType
+{
+	None,
+	Undercooked,
+	Perfect,
+	Overcooked
+}
 
 public class Cook : MonoBehaviour
 {
@@ -16,6 +21,8 @@ public class Cook : MonoBehaviour
 	public Transform BeingCookedFood { get { return beingCookedFood; } }
 
 	public FoodCooker Cooker;
+
+	
 
 	private void Awake()
 	{
