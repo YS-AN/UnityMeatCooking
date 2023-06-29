@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -11,8 +12,8 @@ public class ChefCooker : MonoBehaviour
 	[SerializeField]
 	private Transform HoldingPoint;
 
-	public FoodData HoldingFood;
-	private Dish holdingDish;
+	public OrderInfo HoldingFood;
+	private Dish ServedDish;
 	private Animator animator;
 
 	private void Awake()
@@ -20,34 +21,47 @@ public class ChefCooker : MonoBehaviour
 		animator = GetComponent<Animator>();
 	}
 
-	public void HoldDish(FoodData foodData)
+	public void HoldDish(OrderInfo orderData)
 	{
-		HoldingFood = foodData;
+		HoldingFood = orderData;
 
-		animator.SetBool("IsServe", true);	
+		animator.SetBool("IsServe", true);
 
-		Dish dishPrefab = GameManager.Resource.Load<Dish>(foodData.ResultObjectPath);
-		holdingDish = Instantiate(dishPrefab, HoldingPoint.position, HoldingPoint.rotation);
-		holdingDish.transform.SetParent(HoldingPoint, true);
+		ServedDish = GameManager.Resource.Instantiate<Dish>(orderData.FoodInfo.ResultObjectPath, HoldingPoint.position, HoldingPoint.rotation);
+		ServedDish.transform.SetParent(HoldingPoint, true);
 
+		if(orderData.CookResultType == CookedType.Undercooked)
+		{
+			SetUndercookedFood(ServedDish);
+		}
 	}
 
-	public bool PutDownDish(Transform putDonwPoint, FoodData foodData)
+	public Dish PutDownDish(Transform putDonwPoint)
 	{
-		if(holdingDish != null)
+		if(ServedDish != null)
 		{
 			animator.SetBool("IsServe", false);
 
+			bool isUndercooked = HoldingFood.CookResultType == CookedType.Undercooked;
+			string dishObjPath = HoldingFood.FoodInfo.ResultObjectPath;
+
 			HoldingFood = null;
-			Destroy(holdingDish.gameObject);
+			Destroy(ServedDish.gameObject);
 
-			Dish dishPrefab = GameManager.Resource.Load<Dish>(foodData.ResultObjectPath);
-			var newDish = Instantiate(dishPrefab, putDonwPoint.position, putDonwPoint.rotation);
-			newDish.transform.SetParent(putDonwPoint, true);
+			Dish dish = GameManager.Resource.Instantiate<Dish>(dishObjPath, putDonwPoint.position, putDonwPoint.rotation);
+			dish.transform.SetParent(putDonwPoint, true);
 
-			return true;
+			if (isUndercooked)
+				SetUndercookedFood(dish);
+
+			return dish;
 		}
+		return null;
+	}
 
-		return false;
+	private void SetUndercookedFood(Dish dish)
+	{
+		dish.CookedFood.transform.localPosition = new Vector3(0, 0.02f, 0);
+		dish.CookedFood.transform.localRotation = Quaternion.Euler(0, 0, 180);
 	}
 }

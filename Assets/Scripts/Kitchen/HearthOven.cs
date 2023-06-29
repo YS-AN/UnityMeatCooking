@@ -18,7 +18,7 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 	private Transform[] cookPositions;
 	private Stack<Transform> CookPoint;
 
-	public UnityAction<FoodData> OnCooking;
+	public UnityAction<OrderInfo> OnCooking;
 
 	private CinemachineVirtualCamera cam2; //todo. 플레이어 카메라 무빙이 결정될 때 까지만 임시로...
 
@@ -54,25 +54,26 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 		CloseUI();
 	}
 
-	private void DoCooking(FoodData foodData)
+	private void DoCooking(OrderInfo orderData)
 	{
 		if (CookPoint.Count > 0)
 		{
 			CloseUI();
 
-			Transform cookPnt = CookPoint.Pop();
+			orderData.CookingPoint = CookPoint.Pop();
 
-			Cook cookObj = GameManager.Resource.Load<Cook>(foodData.CookingObjectPath);
-			var newCook = Instantiate(cookObj, cookPnt.position, cookPnt.rotation);
+			Cook cookObj = GameManager.Resource.Load<Cook>(orderData.FoodInfo.CookingObjectPath);
+			var newCook = Instantiate(cookObj, orderData.CookingPoint.position, orderData.CookingPoint.rotation);
 			newCook.transform.SetParent(FoodManager.GetInstance().transform, true);
 			newCook.Cooker.OnFinishedCook += FinishedCook;
-			newCook.Cooker?.OnCooking(foodData);
+			newCook.Cooker?.OnCooking(orderData);
 		}
 	}
 
-	private void FinishedCook(FoodData foodData)
+	private void FinishedCook(OrderInfo orderData)
 	{
-		PlayerManager.GetInstance().Player.Cooker.HoldDish(foodData);
+		CookPoint.Push(orderData.CookingPoint);
+		PlayerManager.GetInstance().Player.Cooker.HoldDish(orderData);
 	}
 
 	private void CloseUI()

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+	public bool IsInTrigger;
+
 	public ChefCooker Cooker;
 
 	private void Awake()

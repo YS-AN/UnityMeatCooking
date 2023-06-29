@@ -236,7 +236,6 @@ MonoBehaviour:
   seatPoints:
   - {fileID: 8633125754404268640}
   - {fileID: 4967408274483013643}
-  EntryCusts: []
 --- !u!1 &2261006899398190891
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,7 +384,6 @@ MonoBehaviour:
   seatPoints:
   - {fileID: 5633461279430475938}
   - {fileID: 6607722404718381376}
-  EntryCusts: []
 --- !u!1 &2261006899623648842
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,8 +698,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.8
+  m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!114 &8989159126768279321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -838,8 +836,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.8
+  m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!114 &8108375024161114360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -854,7 +852,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   SeatChair: {fileID: 7661016898289866783}
 --- !u!1 &7760102181637860529
 GameObject:

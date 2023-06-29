@@ -4,14 +4,13 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CustomerOrder : CustomerState
+public class CustomerOrder : StatusController
 {
 	private const string UI_PATH = "UI/Ordering";
-
-	private OrderInfo _orderFood;
-	public OrderInfo OrderFood { get { return _orderFood; } }
-
 	private OrderingUI orderingUI;
+
+	private OrderInfo _orderData;
+	public OrderInfo OrderData { get { return _orderData; } }
 
 	protected override void Awake()
 	{
@@ -25,18 +24,20 @@ public class CustomerOrder : CustomerState
 		base.Start();
 	}
 
-	protected override void StateAction(Customer cust, CustStateType type)
+	public override void StateAction(Customer cust, CustStateType type)
 	{
 		base.StateAction(cust, type);
 
 		SetOrderInfo();
 
 		orderingUI = GameManager.UI.ShowInGameUI<OrderingUI>(UI_PATH);
-		orderingUI.SetFood(_orderFood);
+		orderingUI.SetFood(_orderData);
 		orderingUI.SetTarget(transform);
 
 		WaitTime = cust.Wait.WaitTime * 2;
 		orderingUI.StartWait(cust, WaitTime);
+
+		curCustomer.Eater.OnStateAction?.Invoke(curCustomer, CustStateType.Eating);
 	}
 
 	private void SetOrderInfo()
@@ -44,7 +45,7 @@ public class CustomerOrder : CustomerState
 		int foodCnt = FoodManager.GetInstance().CanCookIndex.Count;
 		int orderingNum = Random.Range(0, foodCnt);
 
-		_orderFood = new OrderInfo(FoodManager.GetInstance().CanCookDic[orderingNum]);
+		_orderData = new OrderInfo(FoodManager.GetInstance().CanCookDic[orderingNum]);
 		//_orderFood.FoodInfo = FoodManager.GetInstance().CanCookDic[orderingNum];
 		//_orderFood.IsOrder = false;
 	}
@@ -52,10 +53,7 @@ public class CustomerOrder : CustomerState
 
 	public override void NextAction()
 	{
-		if (curCustomer.CurState == CustStateType.Order)
-		{
-
-		}
+		Debug.Log("Order");
 	}
 
 	public override void ClearAction()
@@ -82,9 +80,9 @@ public class CustomerOrder : CustomerState
 
 	private void RemoveOrder()
 	{
-		if (OrderFood != null && OrderFood.IsOrder)
+		if (OrderData != null && OrderData.IsOrder && curCustomer.CurState == CustStateType.Order) 
 		{
-			var foodInfo = FoodManager.GetInstance().GetOrderList().LastOrDefault(x => x.Value.Name == OrderFood.FoodInfo.Name); //퇴장하는 고객이 주문한 음식과 동일한 종류의 가장 마지막 음식을 제거
+			var foodInfo = FoodManager.GetInstance().GetOrderList().LastOrDefault(x => x.Value.FoodInfo.Name == OrderData.FoodInfo.Name); //퇴장하는 고객이 주문한 음식과 동일한 종류의 가장 마지막 음식을 제거
 
 			if (!foodInfo.Equals(default))
 			{

@@ -25,4 +25,9 @@ public class OrderInfo
 	/// 조리 결과
 	/// </summary>
 	public CookedType CookResultType { get; set; }
+
+	/// <summary>
+	/// 조리 위치
+	/// </summary>
+	public Transform CookingPoint { get; set; }
 }

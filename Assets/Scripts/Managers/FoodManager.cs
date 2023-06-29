@@ -29,7 +29,7 @@ public class FoodManager : NotifyContorller<ICancelableOrder>
 	private Dictionary<int, FoodData> _canCookDic;
 	public Dictionary<int, FoodData> CanCookDic { get { return _foodDic; } }
 
-	private Dictionary<int, FoodData> _orderList;
+	private Dictionary<int, OrderInfo> _orderList;
 
 	public List<int> CanCookIndex { get { return CanCookDic.Keys.ToList(); } }
 
@@ -47,7 +47,7 @@ public class FoodManager : NotifyContorller<ICancelableOrder>
 	private void SetFoodDic()
 	{
 		_foodDic = new Dictionary<int, FoodData>();
-		_orderList = new Dictionary<int, FoodData>();
+		_orderList = new Dictionary<int, OrderInfo>();
 
 		Recipe recipe = transform.GetComponent<Recipe>();
 
@@ -74,10 +74,10 @@ public class FoodManager : NotifyContorller<ICancelableOrder>
 		}
 	}
 
-	public void AddOrder(FoodData cook)
+	public void AddOrder(OrderInfo orderData)
 	{
 		int key = (_orderList.Keys.Count > 0 ? _orderList.Keys.Max() : 0) + 1;
-		_orderList.Add(key, cook);
+		_orderList.Add(key, orderData);
 	}
 
 	public void RemoveOrder(int index)
@@ -87,7 +87,7 @@ public class FoodManager : NotifyContorller<ICancelableOrder>
 		OnNotifyAction?.Invoke();
 	}
 
-	public Dictionary<int, FoodData> GetOrderList()
+	public Dictionary<int, OrderInfo> GetOrderList()
 	{
 		return _orderList.Where(x => x.Value != null).ToDictionary(k => k.Key, v => v.Value);
 	}

@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class CustomerWait : CustomerState
+public class CustomerWait : StatusController
 {
 	private const string UI_PATH = "UI/Waiting";
 
 	private WaitBar waitBar;
 
 	protected override void Awake()
-	{ 
+	{
 		base.Awake();
 	}
 
@@ -20,7 +20,7 @@ public class CustomerWait : CustomerState
 		base.Start();
 	}
 
-	protected override void StateAction(Customer cust, CustStateType type)
+	public override void StateAction(Customer cust, CustStateType type)
 	{
 		base.StateAction(cust, type);
 
@@ -34,29 +34,16 @@ public class CustomerWait : CustomerState
 		waitBar.StartSlider(WaitTime);
 	}
 
-	//public void OnPointerClick(PointerEventData eventData)
-	//{
-	//
-	//}
-
 	public override void NextAction()
-	{ 
-		if(curCustomer.CurState == CustStateType.Wait)
-		{
-			waitBar.StopSlider();
-			waitBar = null;
+	{
+		waitBar.StopSlider();
+		waitBar = null;
 
-			curCustomer.Order.OnStateAction?.Invoke(curCustomer, CustStateType.Order);
-		}
+		curCustomer.Order.OnStateAction?.Invoke(curCustomer, CustStateType.Order);
 	}
 
 	public override void ClearAction()
 	{
-	}
-
-	public void Set(CustStateType type)
-	{
-		curCustomer.CurState = type;
 	}
 
 	public override void TakeActionAfterNoti()

@@ -1,14 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
-using static System.Collections.Specialized.BitVector32;
 
 public class CustomerMover : MonoBehaviour
 {

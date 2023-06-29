@@ -12,7 +12,7 @@ public class Chair : MonoBehaviour
 	private Transform[] seatPoints;
 	public Transform[] SeatPoints { get { return seatPoints; } }
 
-	public List<Customer> EntryCusts;
+	public List<Customer> EntryCusts { get; set; }
 
 	private void Awake()
 	{

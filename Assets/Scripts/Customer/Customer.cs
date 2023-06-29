@@ -29,11 +29,13 @@ public class Customer : MonoBehaviour
 	private NavMeshAgent navAgent;
 	private CapsuleCollider capsuleCollider;
 
-	public CustomerOrder Order;
 	public CustomerMover Mover;
 	public CustomerWait Wait;
-	public CustomerExit Exit;
+	public CustomerOrder Order;
 	public CustomerEater Eater;
+	public CustomerExit Exit;
+	public CustomerRater Rater;
+	public CustomerStatus Status;
 
 	public CustomerInfo CustInfo;
 
@@ -52,6 +54,8 @@ public class Customer : MonoBehaviour
 		this.AddComponent<CustomerOrder>();
 		this.AddComponent<CustomerEater>();
 		this.AddComponent<CustomerExit>();
+		this.AddComponent<CustomerRater>();
+		this.AddComponent<CustomerStatus>();
 
 		SetComponent();
 	}
@@ -73,6 +77,7 @@ public class Customer : MonoBehaviour
 		Order = GetComponent<CustomerOrder>();
 		Eater = GetComponent<CustomerEater>();
 		Exit = GetComponent<CustomerExit>();
-		
+		Rater = GetComponent<CustomerRater>();
+		Status = GetComponent<CustomerStatus>();
 	}
 }

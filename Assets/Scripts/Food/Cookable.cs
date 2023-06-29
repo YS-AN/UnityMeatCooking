@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Cookable : MonoBehaviour
 {
 	public int FoodId;
-	public FoodData FoodData;
+	public OrderInfo OrderData;
 	public HearthOven Oven;
 
 	private Button btnCook;
@@ -23,9 +23,9 @@ public class Cookable : MonoBehaviour
 
 	public void DoCooking()
 	{
-		if (FoodData != null)
+		if (OrderData != null)
 		{
-			Oven.OnCooking(FoodData);
+			Oven.OnCooking(OrderData);
 			ClearButton();
 		}
 	}
@@ -34,6 +34,6 @@ public class Cookable : MonoBehaviour
 	{
 		btnCook.image.sprite = null;
 		FoodManager.GetInstance().RemoveOrder(FoodId);
-		FoodData = null;
+		OrderData = null;
 	}
 }

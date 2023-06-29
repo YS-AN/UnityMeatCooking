@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OrderRange : MonoBehaviour
@@ -14,7 +15,7 @@ public class OrderRange : MonoBehaviour
 	private Chair SeatChair;
 
 	private OrderingUI ordering;
-	
+
 
 	private void Awake()
 	{
@@ -25,18 +26,15 @@ public class OrderRange : MonoBehaviour
 	{
 		if (PlayerMask.IsContain(other.gameObject.layer))
 		{
-			FoodData holdingFood = PlayerManager.GetInstance().Player.Cooker.HoldingFood;
+			PlayerManager.GetInstance().Player.IsInTrigger = true;
+		}
+	}
 
-			if(holdingFood != null)
-			{
-				var orderedCust = SeatChair.EntryCusts.Where(x => x.Order.OrderFood.FoodInfo.Name == holdingFood.name).FirstOrDefault();
-
-				if (orderedCust != null)
-				{
-					orderedCust.Eater.OnStateAction?.Invoke(orderedCust, CustStateType.Eating);
-				}
-
-			}
+	private void OnTriggerExit(Collider other)
+	{
+		if (PlayerMask.IsContain(other.gameObject.layer))
+		{
+			PlayerManager.GetInstance().Player.IsInTrigger = false;
 		}
 	}
 }

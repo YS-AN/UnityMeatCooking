@@ -31,6 +31,11 @@ public class CookListUI : InGameUI
 		uiController.SetBtnContent();
 	}
 
+	private void OnDisable()
+	{
+		uiController.ClearCookListImage();
+	}
+
 	private void InitButton()
 	{
 		uiController.SetCookBtn(BtnContent.GetComponentsInChildren<Button>());
@@ -84,11 +89,19 @@ public class CookListController
 		foreach (var food in orderList)
 		{
 			var btn = model.CookList[index++];
-			btn.image.sprite = food.Value.Icon;
+			btn.image.sprite = food.Value.FoodInfo.Icon;
 
 			var cookable = btn.transform.GetComponent<Cookable>();
 			cookable.FoodId = food.Key;
-			cookable.FoodData = food.Value;
+			cookable.OrderData = food.Value;
+		}
+	}
+
+	public void ClearCookListImage()
+	{
+		for(int i=0; i<model.CookList.Length; i++)
+		{
+			model.CookList[i].image.sprite = null;
 		}
 	}
 }

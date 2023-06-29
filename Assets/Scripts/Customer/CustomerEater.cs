@@ -4,11 +4,12 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CustomerEater : CustomerState
+public class CustomerEater : StatusController
 {
 	private const string UI_PATH = "UI/Eated";
 
-	private FoodData foodData;
+	private OrderInfo orderData;
+	private Dish servedFood;
 
 	protected override void Awake()
 	{
@@ -20,41 +21,24 @@ public class CustomerEater : CustomerState
 		base.Start();
 	}
 
-	protected override void StateAction(Customer cust, CustStateType type)
+	public override void StateAction(Customer cust, CustStateType type)
 	{
 		base.StateAction(cust, type);
-
-		PutFoodDown();
 	}
-
-	private void PutFoodDown()
-	{
-		int seatPntIndex = curCustomer.Mover.info.SeatPointIndex;
-		var putDonwPoint = curCustomer.Mover.info.Chair.SeatPoints[seatPntIndex].GetComponentInChildren<FoodPoint>();
-
-		foodData = curCustomer.Order.OrderFood.FoodInfo;
-
-		if(PlayerManager.GetInstance().Player.Cooker.PutDownDish(putDonwPoint.transform, foodData))
-		{
-			DoEatingFood();
-		}
-	}
-
-	private void DoEatingFood()
-	{
-		curCustomer.Order.CloseUI();
-
-		WaitTime = Random.Range(30, 41);
-
-		Coroutines coroutines = new Coroutines();
-		StartCoroutine(coroutines.JustWaitRoutine(5, RateTaste));
-	}
-
+	
 	public override void NextAction()
 	{
-		if (curCustomer.CurState == CustStateType.Eating) 
+		if (PlayerManager.GetInstance().Player.IsInTrigger)
 		{
+			OrderInfo holdingFood = PlayerManager.GetInstance().Player.Cooker.HoldingFood;
 
+			if (holdingFood != null)
+			{
+				if(curCustomer.Order.OrderData.FoodInfo.Name == holdingFood.FoodInfo.Name)
+				{
+					PutFoodDown();
+				}
+			}
 		}
 	}
 
@@ -67,9 +51,42 @@ public class CustomerEater : CustomerState
 
 	}
 
+	private void PutFoodDown()
+	{
+		orderData = curCustomer.Order.OrderData;
+
+		int seatPntIndex = curCustomer.Mover.info.SeatPointIndex;
+		var putDonwPoint = curCustomer.Mover.info.Chair.SeatPoints[seatPntIndex].GetComponentInChildren<FoodPoint>();
+
+		servedFood = PlayerManager.GetInstance().Player.Cooker.PutDownDish(putDonwPoint.transform);
+		if (servedFood != null)
+			DoEatingFood();
+	}
+
+	private void DoEatingFood()
+	{
+		curCustomer.Order.CloseUI();
+
+		WaitTime = Random.Range(30, 41);
+
+		Coroutines coroutines = new Coroutines();
+		StartCoroutine(coroutines.JustWaitRoutine(5, RateTaste));
+	}
+
+
 	private void RateTaste()
 	{
-		//todo. ¸ÀÆò°¡ UI ¶ç¿ì±â
+		CustomerRateType rateType = CustomerRateType.None;
+		switch (orderData.CookResultType)
+		{
+			case CookedType.Undercooked:
+				rateType = CustomerRateType.Under; break;
+			case CookedType.Perfect:
+				rateType = CustomerRateType.Good; break;
+			case CookedType.Overcooked: 
+				rateType = CustomerRateType.Over; break;
+		}
+		curCustomer.Rater.OnRate?.Invoke(rateType);
 
 		Coroutines coroutines = new Coroutines();
 		StartCoroutine(coroutines.JustWaitRoutine(10, Payment)); 
@@ -77,10 +94,11 @@ public class CustomerEater : CustomerState
 
 	private void Payment()
 	{
-		//todo. ¸ÀÆò°¡ UI Áö¿ì±â
+		curCustomer.Rater.CloseRateView();
 
-		GameManager.Data.Revenue += foodData.Price; //µ· ÁöºÒ
-
+		GameManager.Data.Revenue += orderData.FoodInfo.Price; //µ· ÁöºÒ
+		
 		curCustomer.Mover.OnExit?.Invoke();
+		Destroy(servedFood.gameObject);
 	}
 }

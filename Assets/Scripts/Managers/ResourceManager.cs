@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ResourceManager : MonoBehaviour
 {
@@ -53,7 +54,6 @@ public class ResourceManager : MonoBehaviour
 	{
 		return Instantiate<T>(path, Vector3.zero, Quaternion.identity, pooling);
 	}
-
 
 	public void Destroy(GameObject obj)
 	{
