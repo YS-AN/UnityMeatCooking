@@ -7,8 +7,8 @@ public class CounterRange : MonoBehaviour
 {
 	public LayerMask CookerMask;
 
-	public UnityEvent<ChefrMover> OnInRangeCooker;
-	public UnityEvent<ChefrMover> OnOutRangeCooker;
+	public UnityEvent<ChefMover> OnInRangeCooker;
+	public UnityEvent<ChefMover> OnOutRangeCooker;
 
 	private void OnTriggerEnter(Collider other)
 	{

@@ -1,8 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+
+public class ServedDishModel
+{
+	public Dish ServedDish;
+
+	public OrderInfo HoldingFood;
+
+	public Transform HoldingPoint { get; set; }
+}
 
 public class ChefCooker : MonoBehaviour
 {
@@ -10,44 +20,68 @@ public class ChefCooker : MonoBehaviour
 	private LayerMask FoodLayer;
 
 	[SerializeField]
-	private Transform HoldingPoint;
+	private List<Transform> HoldingPoints;
 
-	public OrderInfo HoldingFood;
-	private Dish ServedDish;
+	private List<ServedDishModel> ServedInfo;
+
 	private Animator animator;
+	private bool IsRunningAnim;
+
+	public bool IsHoldable { get { return (ServedInfo != null && HoldingPoints.Count > 0); } }
 
 	private void Awake()
 	{
 		animator = GetComponent<Animator>();
+		IsRunningAnim = false;
+
+		ServedInfo = new List<ServedDishModel>();
 	}
 
+	/// <summary>
+	/// 음식을 잡기
+	/// </summary>
+	/// <param name="orderData">잡을 음식</param>
 	public void HoldDish(OrderInfo orderData)
 	{
-		HoldingFood = orderData;
+		ServedDishModel model = new ServedDishModel();
+		model.HoldingFood = orderData;
+		model.HoldingPoint = GetHoldingPoint();
 
-		animator.SetBool("IsServe", true);
-
-		ServedDish = GameManager.Resource.Instantiate<Dish>(orderData.FoodInfo.ResultObjectPath, HoldingPoint.position, HoldingPoint.rotation);
-		ServedDish.transform.SetParent(HoldingPoint, true);
-
-		if(orderData.CookResultType == CookedType.Undercooked)
+		if(model.HoldingPoint != null)
 		{
-			SetUndercookedFood(ServedDish);
+			model.ServedDish = GameManager.Resource.Instantiate<Dish>(orderData.FoodInfo.ResultObjectPath, model.HoldingPoint.position, model.HoldingPoint.rotation);
+			model.ServedDish.transform.SetParent(model.HoldingPoint, true);
+			model.ServedDish.OrderId = orderData.OderID;
+
+			if (orderData.CookResultType == CookedType.Undercooked)
+			{
+				SetUndercookedFood(model.ServedDish);
+			}
+			ServedInfo.Add(model);
+
+			if(IsRunningAnim == false) 
+				animator.SetBool("IsServe", GetAnimatorWorkValue());
 		}
 	}
 
-	public Dish PutDownDish(Transform putDonwPoint)
+	/// <summary>
+	/// 음식을 지정된 위치에 내려놓기
+	/// </summary>
+	/// <param name="putDonwPoint">음식 내려놓을 위치</param>
+	/// <param name="orderID">내려놓을 음식 id</param>
+	/// <returns></returns>
+	public Dish PutDownDish(Transform putDonwPoint, string orderID)
 	{
-		if(ServedDish != null)
+		var servedModel = GetHoldingFoodModel(orderID);
+
+		bool isUndercooked = servedModel.HoldingFood.CookResultType == CookedType.Undercooked;
+		string dishObjPath = servedModel.HoldingFood.FoodInfo.ResultObjectPath;
+
+		if (servedModel != null)
 		{
-			animator.SetBool("IsServe", false);
+			RemoveHoldingFood(servedModel); //들고 있던 음식 제거
 
-			bool isUndercooked = HoldingFood.CookResultType == CookedType.Undercooked;
-			string dishObjPath = HoldingFood.FoodInfo.ResultObjectPath;
-
-			HoldingFood = null;
-			Destroy(ServedDish.gameObject);
-
+			//지정된 위치에 음식 생성
 			Dish dish = GameManager.Resource.Instantiate<Dish>(dishObjPath, putDonwPoint.position, putDonwPoint.rotation);
 			dish.transform.SetParent(putDonwPoint, true);
 
@@ -59,9 +93,61 @@ public class ChefCooker : MonoBehaviour
 		return null;
 	}
 
+	/// <summary>
+	/// 잡았던 음식 제거
+	/// </summary>
+	/// <param name="servedModel"></param>
+	public void RemoveHoldingFood(ServedDishModel servedModel)
+	{
+		Destroy(servedModel.ServedDish.gameObject);
+		ReturnHoldingPoint(servedModel.HoldingPoint);
+		ServedInfo.Remove(servedModel);
+
+		if (IsRunningAnim)
+			animator.SetBool("IsServe", GetAnimatorWorkValue());
+	}
+
+	public void RemoveHoldingFood(string orderId)
+	{
+		RemoveHoldingFood(GetHoldingFoodModel(orderId));
+	}
+
+	private ServedDishModel GetHoldingFoodModel(string orderId)
+	{
+		return ServedInfo.Where(x => x.HoldingFood.OderID == orderId).FirstOrDefault();
+	}
+
+	public OrderInfo CurrentHoldingFood(string orderId)
+	{
+		var model = GetHoldingFoodModel(orderId);
+		return model == null ? null : model.HoldingFood;
+	}
+
 	private void SetUndercookedFood(Dish dish)
 	{
 		dish.CookedFood.transform.localPosition = new Vector3(0, 0.02f, 0);
 		dish.CookedFood.transform.localRotation = Quaternion.Euler(0, 0, 180);
+	}
+
+	private bool GetAnimatorWorkValue()
+	{
+		IsRunningAnim = !(ServedInfo.Count == 0);
+		return IsRunningAnim;
+	}
+
+	private Transform GetHoldingPoint()
+	{
+		if (HoldingPoints.Count > 0)
+		{
+			Transform point = HoldingPoints[0];
+			HoldingPoints.RemoveAt(0);
+			return point;
+		}
+		return null;
+	}
+
+	private void ReturnHoldingPoint(Transform point)
+	{
+		HoldingPoints.Add(point);
 	}
 }

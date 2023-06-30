@@ -51,4 +51,24 @@ public class Coroutines
 
 		OnNextAction?.Invoke();
 	}
+
+
+	public IEnumerator OpenDoorRoutine(Transform door, Quaternion targetRotation, float duration = 3f, UnityAction OnNextAction = null)
+	{
+		Quaternion startRotation = door.localRotation;
+
+		float elapsedTime = 0f;
+
+		while (elapsedTime < duration)
+		{
+			float time = elapsedTime / duration;
+			door.localRotation = Quaternion.Lerp(startRotation, targetRotation, time);
+
+			elapsedTime += Time.deltaTime;
+			yield return null;
+		}
+		door.localRotation = targetRotation;
+
+		OnNextAction?.Invoke();
+	}
 }

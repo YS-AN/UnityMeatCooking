@@ -22,8 +22,6 @@ public class Cook : MonoBehaviour
 
 	public FoodCooker Cooker;
 
-	
-
 	private void Awake()
 	{
 		InitComponent();

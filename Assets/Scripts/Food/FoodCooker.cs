@@ -91,9 +91,12 @@ public class FoodCooker : MonoBehaviour, IPointerClickHandler
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		StopCookingRoutine();
-		Destroy(gameObject);
+		if(PlayerManager.GetInstance().Player.Cooker.IsHoldable)
+		{
+			StopCookingRoutine();
+			Destroy(gameObject);
 
-		OnFinishedCook?.Invoke(coookingInfo);
+			OnFinishedCook?.Invoke(coookingInfo);
+		}
 	}
 }

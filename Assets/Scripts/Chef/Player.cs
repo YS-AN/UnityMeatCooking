@@ -7,9 +7,11 @@ public class Player : MonoBehaviour
 	public bool IsInTrigger;
 
 	public ChefCooker Cooker;
+	public ChefCleaner Cleaner;
 
 	private void Awake()
 	{
 		Cooker = transform.GetComponent<ChefCooker>();
+		Cleaner = transform.GetComponent<ChefCleaner>();
 	}
 }

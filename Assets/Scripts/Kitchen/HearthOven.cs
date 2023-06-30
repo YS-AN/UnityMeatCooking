@@ -35,7 +35,7 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 
 		FoodManager.GetInstance().AddObserver(this);
 
-		cam2 = GameObject.Find("CM vcam3").GetComponent<CinemachineVirtualCamera>();
+		cam2 = GameObject.Find("Cam_Oven").GetComponent<CinemachineVirtualCamera>();
 	}
 
 	public void NextAction()
@@ -62,8 +62,7 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 
 			orderData.CookingPoint = CookPoint.Pop();
 
-			Cook cookObj = GameManager.Resource.Load<Cook>(orderData.FoodInfo.CookingObjectPath);
-			var newCook = Instantiate(cookObj, orderData.CookingPoint.position, orderData.CookingPoint.rotation);
+			var newCook = GameManager.Resource.Instantiate<Cook>(orderData.FoodInfo.CookingObjectPath, orderData.CookingPoint.position, orderData.CookingPoint.rotation);
 			newCook.transform.SetParent(FoodManager.GetInstance().transform, true);
 			newCook.Cooker.OnFinishedCook += FinishedCook;
 			newCook.Cooker?.OnCooking(orderData);

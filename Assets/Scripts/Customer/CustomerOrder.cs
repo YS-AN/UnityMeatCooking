@@ -46,14 +46,11 @@ public class CustomerOrder : StatusController
 		int orderingNum = Random.Range(0, foodCnt);
 
 		_orderData = new OrderInfo(FoodManager.GetInstance().CanCookDic[orderingNum]);
-		//_orderFood.FoodInfo = FoodManager.GetInstance().CanCookDic[orderingNum];
-		//_orderFood.IsOrder = false;
 	}
 
 
 	public override void NextAction()
 	{
-		Debug.Log("Order");
 	}
 
 	public override void ClearAction()

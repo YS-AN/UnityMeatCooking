@@ -25,7 +25,7 @@ public class Cookable : MonoBehaviour
 	{
 		if (OrderData != null)
 		{
-			Oven.OnCooking(OrderData);
+			Oven.OnCooking?.Invoke(OrderData);
 			ClearButton();
 		}
 	}

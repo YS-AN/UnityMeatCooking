@@ -30,14 +30,11 @@ public class CustomerEater : StatusController
 	{
 		if (PlayerManager.GetInstance().Player.IsInTrigger)
 		{
-			OrderInfo holdingFood = PlayerManager.GetInstance().Player.Cooker.HoldingFood;
+			OrderInfo holdingFood = PlayerManager.GetInstance().Player.Cooker.CurrentHoldingFood(curCustomer.Order.OrderData.OderID);
 
 			if (holdingFood != null)
 			{
-				if(curCustomer.Order.OrderData.FoodInfo.Name == holdingFood.FoodInfo.Name)
-				{
-					PutFoodDown();
-				}
+				PutFoodDown();
 			}
 		}
 	}
@@ -58,7 +55,7 @@ public class CustomerEater : StatusController
 		int seatPntIndex = curCustomer.Mover.info.SeatPointIndex;
 		var putDonwPoint = curCustomer.Mover.info.Chair.SeatPoints[seatPntIndex].GetComponentInChildren<FoodPoint>();
 
-		servedFood = PlayerManager.GetInstance().Player.Cooker.PutDownDish(putDonwPoint.transform);
+		servedFood = PlayerManager.GetInstance().Player.Cooker.PutDownDish(putDonwPoint.transform, orderData.OderID);
 		if (servedFood != null)
 			DoEatingFood();
 	}

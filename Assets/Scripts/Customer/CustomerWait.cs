@@ -36,9 +36,11 @@ public class CustomerWait : StatusController
 
 	public override void NextAction()
 	{
-		waitBar.StopSlider();
-		waitBar = null;
-
+		if(waitBar != null)
+		{
+			waitBar.StopSlider();
+			waitBar = null;
+		}
 		curCustomer.Order.OnStateAction?.Invoke(curCustomer, CustStateType.Order);
 	}
 

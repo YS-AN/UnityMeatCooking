@@ -9,7 +9,7 @@ public class Storage : MonoBehaviour, IMoveable
 	private OpenStorage openStorage;
 
 	[SerializeField]
-	private Transform StorageDoor;
+	private Transform storageDoor;
 
 	[SerializeField]
 	private Transform StopPosition;
@@ -24,7 +24,7 @@ public class Storage : MonoBehaviour, IMoveable
 	{
 		openStorage = GameManager.UI.ShowInGameUI<OpenStorage>(UI_PATH);
 		openStorage.SetTarget(transform);
-		openStorage.StorageDoor = StorageDoor;
+		openStorage.OnOpenDoor += OpenStorageDoor;
 	}
 
 	public void ClearAction()
@@ -32,8 +32,14 @@ public class Storage : MonoBehaviour, IMoveable
 		if(openStorage != null)
 		{
 			GameManager.UI.CloseInGameUI(openStorage);
-			StorageDoor.eulerAngles = new Vector3(0, -90, 0);
+			storageDoor.eulerAngles = new Vector3(0, -90, 0);
 			openStorage = null;
 		}
+	}
+
+	public void OpenStorageDoor()
+	{
+		Coroutines coroutines = new Coroutines();
+		StartCoroutine(coroutines.OpenDoorRoutine(storageDoor, Quaternion.Euler(new Vector3(0, 0, 0))));
 	}
 }

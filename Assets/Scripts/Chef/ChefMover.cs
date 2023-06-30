@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class ChefrMover : MonoBehaviour
+public class ChefMover : MonoBehaviour
 {
 	[SerializeField]
 	private float MoveSpeed;
