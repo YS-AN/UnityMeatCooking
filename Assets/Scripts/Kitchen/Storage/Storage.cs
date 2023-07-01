@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Storage : MonoBehaviour, IMoveable
 {
-	private const string UI_PATH = "UI/OpenStorage";
+	private const string UI_PATH_BTN = "UI/OpenStorage";
+	private const string UI_PATH_INV = "";
 
 	private OpenStorage openStorage;
+	private InventoryUI inventoryUI;
 
 	[SerializeField]
 	private Transform storageDoor;
@@ -22,7 +24,7 @@ public class Storage : MonoBehaviour, IMoveable
 
 	public void NextAction()
 	{
-		openStorage = GameManager.UI.ShowInGameUI<OpenStorage>(UI_PATH);
+		openStorage = GameManager.UI.ShowInGameUI<OpenStorage>(UI_PATH_BTN);
 		openStorage.SetTarget(transform);
 		openStorage.OnOpenDoor += OpenStorageDoor;
 	}
@@ -40,6 +42,11 @@ public class Storage : MonoBehaviour, IMoveable
 	public void OpenStorageDoor()
 	{
 		Coroutines coroutines = new Coroutines();
-		StartCoroutine(coroutines.OpenDoorRoutine(storageDoor, Quaternion.Euler(new Vector3(0, 0, 0))));
+		StartCoroutine(coroutines.OpenDoorRoutine(storageDoor, Quaternion.Euler(new Vector3(0, 0, 0)), 3, OpenInventroy));
+	}
+
+	private void OpenInventroy()
+	{
+		inventoryUI = GameManager.UI.ShowPopUpUI<InventoryUI>(UI_PATH_INV);
 	}
 }

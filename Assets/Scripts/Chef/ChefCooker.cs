@@ -29,6 +29,8 @@ public class ChefCooker : MonoBehaviour
 
 	public bool IsHoldable { get { return (ServedInfo != null && HoldingPoints.Count > 0); } }
 
+	public bool IsHoldAnyFood { get { return (ServedInfo != null && ServedInfo.Count > 0); } }
+
 	private void Awake()
 	{
 		animator = GetComponent<Animator>();

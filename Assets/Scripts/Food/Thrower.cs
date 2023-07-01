@@ -10,7 +10,7 @@ public class Thrower : MonoBehaviour, IPointerClickHandler
 	{
 		Player palyer = PlayerManager.GetInstance().Player;
 
-		if (palyer.Cooker.IsHoldable)
+		if (palyer.Cooker.IsHoldAnyFood)
 		{
 			if (palyer.Cleaner.IsUseTrashCan)
 			{

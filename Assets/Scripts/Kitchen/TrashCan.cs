@@ -15,12 +15,9 @@ public class TrashCan : MonoBehaviour, IMoveable
 
 	private CinemachineVirtualCamera cam2; //todo. 플레이어 카메라 무빙이 결정될 때 까지만 임시로...
 
-	private bool IsStandPlayer;
-
 	private void Awake()
 	{
 		StopPoint = stopPosition.position;
-		IsStandPlayer = false;
 
 		cam2 = GameObject.Find("Cam_TrashCan").GetComponent<CinemachineVirtualCamera>();
 	}
@@ -29,7 +26,7 @@ public class TrashCan : MonoBehaviour, IMoveable
 	{
 		cam2.Priority = 30;
 
-		IsStandPlayer = true;
+		PlayerManager.GetInstance().Player.Cleaner.IsUseTrashCan = true;
 		OpenTrashCanCover();
 	}
 
@@ -37,7 +34,7 @@ public class TrashCan : MonoBehaviour, IMoveable
 	{
 		cam2.Priority = 10;
 
-		IsStandPlayer = false;
+		PlayerManager.GetInstance().Player.Cleaner.IsUseTrashCan = false;
 		trashCanCover.localRotation = Quaternion.identity;
 	}
 
