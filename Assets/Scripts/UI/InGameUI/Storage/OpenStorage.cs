@@ -8,20 +8,21 @@ public class OpenStorage : InGameUI
 {
 	private const string UI_PATH = "UI/InventroyUI";
 
-	public Transform StorageDoor;
-
 	public UnityAction OnOpenDoor;
 
 	protected override void Awake()
 	{
-		base.Awake();
-
+ 		base.Awake();
+		         
 		buttons["BtnStgOpen"].onClick.AddListener(() => { OpenInventory(); });
+
+		Debug.Log(buttons["BtnStgOpen"].name);
 	}
 
 	private void OpenInventory()
 	{
-		OnOpenDoor?.Invoke();
+		Debug.Log("Å¬¸¯!");
+		//OnOpenDoor?.Invoke();
 	}
 
 }

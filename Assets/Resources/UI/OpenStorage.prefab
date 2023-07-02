@@ -92,7 +92,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followTarget: {fileID: 0}
   followOffset: {x: 0, y: 50}
-  Door: {fileID: 0}
 --- !u!1 &2515317136291967822
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,10 +158,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Open?
+  m_text: OPEN?
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e7764c8fa05a36c438d5933dd5cc7c57, type: 2}
+  m_sharedMaterial: {fileID: 5324327159825233232, guid: e7764c8fa05a36c438d5933dd5cc7c57, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

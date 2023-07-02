@@ -26,7 +26,6 @@ public class OpenRange : MonoBehaviour
 
 			openStorage = GameManager.UI.ShowInGameUI<OpenStorage>(UI_PATH);
 			openStorage.SetTarget(transform);
-			openStorage.StorageDoor = StorageDoor;
 		}
 	}
 
