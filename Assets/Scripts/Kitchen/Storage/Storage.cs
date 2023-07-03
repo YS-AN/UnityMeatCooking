@@ -5,10 +5,14 @@ using UnityEngine;
 public class Storage : MonoBehaviour, IMoveable
 {
 	private const string UI_PATH_BTN = "UI/OpenStorage";
-	private const string UI_PATH_INV = "";
+	private const string UI_PATH_INV = "UI/InventroyUI";
+	private const string UI_PATH_PIK = "UI/InvPickupUI";
 
 	private OpenStorage openStorage;
 	private InventoryUI inventoryUI;
+	private InvPickupUI invPickUI;
+
+	private Coroutine OpenDoorRoutine;
 
 	[SerializeField]
 	private Transform storageDoor;
@@ -31,22 +35,45 @@ public class Storage : MonoBehaviour, IMoveable
 
 	public void ClearAction()
 	{
+		if(OpenDoorRoutine != null)
+		{
+			StopCoroutine(OpenDoorRoutine);
+			OpenDoorRoutine = null;
+		}
+
 		if(openStorage != null)
 		{
 			GameManager.UI.CloseInGameUI(openStorage);
-			storageDoor.eulerAngles = new Vector3(0, -90, 0);
 			openStorage = null;
+
+			storageDoor.localRotation = Quaternion.identity;
+		}
+
+		if (inventoryUI != null)
+		{
+			GameManager.UI.CloseInGameUI(inventoryUI);
+			inventoryUI = null;
+		}
+
+		if (invPickUI != null)
+		{
+			GameManager.UI.CloseInGameUI(invPickUI);
+			invPickUI = null;
 		}
 	}
 
 	public void OpenStorageDoor()
 	{
 		Coroutines coroutines = new Coroutines();
-		StartCoroutine(coroutines.OpenDoorRoutine(storageDoor, Quaternion.Euler(new Vector3(0, 0, 0)), 3, OpenInventroy));
+		OpenDoorRoutine = StartCoroutine(coroutines.OpenDoorRoutine(storageDoor, Quaternion.Euler(new Vector3(0, 90, 0)), 2, OpenInventroy));
 	}
 
 	private void OpenInventroy()
 	{
-		inventoryUI = GameManager.UI.ShowPopUpUI<InventoryUI>(UI_PATH_INV);
+		if(OpenDoorRoutine != null)
+		{
+			inventoryUI = GameManager.UI.ShowInGameUI<InventoryUI>(UI_PATH_INV);
+			invPickUI = GameManager.UI.ShowInGameUI<InvPickupUI>(UI_PATH_PIK);
+		}
 	}
 }

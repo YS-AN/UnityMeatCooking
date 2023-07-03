@@ -15,14 +15,10 @@ public class OpenStorage : InGameUI
  		base.Awake();
 		         
 		buttons["BtnStgOpen"].onClick.AddListener(() => { OpenInventory(); });
-
-		Debug.Log(buttons["BtnStgOpen"].name);
 	}
 
 	private void OpenInventory()
 	{
-		Debug.Log("Å¬¸¯!");
-		//OnOpenDoor?.Invoke();
+		OnOpenDoor?.Invoke();
 	}
-
 }

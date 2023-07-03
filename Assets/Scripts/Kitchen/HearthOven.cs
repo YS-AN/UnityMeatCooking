@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,7 +12,7 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 	private CookListUI cookListUI = null;
 
 	[SerializeField]
-	private Transform stopPosition;
+	public Transform stopPosition;
 	public Vector3 StopPoint { get; set; }
 
 	[SerializeField]
@@ -21,6 +22,8 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 	public UnityAction<OrderInfo> OnCooking;
 
 	private CinemachineVirtualCamera cam2; //todo. 플레이어 카메라 무빙이 결정될 때 까지만 임시로...
+
+	private HearthOvenMover mover = null;
 
 	private void Awake()
 	{
@@ -36,6 +39,9 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 		FoodManager.GetInstance().AddObserver(this);
 
 		cam2 = GameObject.Find("Cam_Oven").GetComponent<CinemachineVirtualCamera>();
+
+		this.AddComponent<HearthOvenMover>();
+		mover = GetComponent<HearthOvenMover>();
 	}
 
 	public void NextAction()

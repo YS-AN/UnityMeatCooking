@@ -25,9 +25,13 @@ public class UIManager : MonoBehaviour
 		eventSystem = GameManager.Resource.Instantiate<EventSystem>("UI/EventSystem");
 		eventSystem.transform.parent = transform; //UIManager로 넣어주면 자연스럽게 DontDestory 안으로 들어가니 모든 씬에서 존재하는 효과를 볼 수 있음
 
+		inGameCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
+		inGameCanvas.gameObject.name = "InGameCanvas";
+		inGameCanvas.sortingOrder = 30;
+
 		popUpCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
 		popUpCanvas.gameObject.name = "PopUpCanvas";
-		popUpCanvas.sortingOrder = 100; //모든 게임 씬 위에 나타나도록 order를 좀 높게 줌
+		popUpCanvas.sortingOrder = 20; //모든 게임 씬 위에 나타나도록 order를 좀 높게 줌
 
 		popUpStack = new Stack<PopUpUI>();
 
@@ -38,9 +42,7 @@ public class UIManager : MonoBehaviour
 
 		//gameSceneCanvas.sortingOrder = 1;
 
-		inGameCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
-		inGameCanvas.gameObject.name = "InGameCanvas";
-		inGameCanvas.sortingOrder = 0; //모든 ui보다 아래에 있어야 해 -> 거의 게임씬과 비슷한 order여야 해.
+		
 	}
 
 	public T ShowPopUpUI<T>(T popUpUi) where T : PopUpUI

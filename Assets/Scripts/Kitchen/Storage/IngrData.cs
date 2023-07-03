@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public enum IngredientType
@@ -13,15 +14,25 @@ public enum IngredientType
 
 public class IngrInfo
 {
-	public IngrInfo(IngrData data, int count = 0)
+	public IngrInfo(IngrData data)
 	{
 		Data = data;
-		Count = count;
 	}
 
 	public IngrData Data { get; set; }
 
-	public int Count { get; set; }
+	public int Count
+	{
+		get { return Data.IngrCnt; }
+		set
+		{
+			Data.IngrCnt = value;
+			OnChangedCnt?.Invoke(Data.IngrCnt); 
+		}
+	}
+
+	public UnityAction<int> OnChangedCnt;
+
 }
 
 [CreateAssetMenu(fileName = "IngrData", menuName = "Data/Ingredient")]
@@ -36,6 +47,16 @@ public class IngrData : ScriptableObject
 	/// 재료 종류
 	/// </summary>
 	public IngredientType IngrType;
+
+	/// <summary>
+	/// 재료 개수 
+	/// </summary>
+	public int IngrCnt;
+
+	/// <summary>
+	/// 음식 이미지
+	/// </summary>
+	public Sprite Icon;
 
 	/// <summary>
 	/// 폴더 이름

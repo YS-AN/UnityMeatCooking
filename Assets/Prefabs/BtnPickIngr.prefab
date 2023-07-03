@@ -302,9 +302,9 @@ GameObject:
   - component: {fileID: 6397327049106454394}
   - component: {fileID: 6397327049106454397}
   - component: {fileID: 6397327049106454396}
-  - component: {fileID: 6982232234670669247}
+  - component: {fileID: 286122531643194636}
   m_Layer: 5
-  m_Name: BtnIngredient
+  m_Name: BtnPickIngr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -414,8 +414,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6982232234670669247}
-        m_TargetAssemblyTypeName: InvBtnIngr, Assembly-CSharp
+      - m_Target: {fileID: 286122531643194636}
+        m_TargetAssemblyTypeName: PikBtnIngr, Assembly-CSharp
         m_MethodName: Click
         m_Mode: 1
         m_Arguments:
@@ -426,7 +426,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6982232234670669247
+--- !u!114 &286122531643194636
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -435,9 +435,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6397327049106454398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d57509296f7bd243944c655bfe8a360, type: 3}
+  m_Script: {fileID: 11500000, guid: 3870d9957f7882840a097293cef5cb0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   imgIngr: {fileID: 1987182933259914616}
   imgCount: {fileID: 884981560}
-  BtnId: -1
