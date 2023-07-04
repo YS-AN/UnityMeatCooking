@@ -5,65 +5,82 @@ using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
-public class InvBtnIngr : MonoBehaviour
+public abstract class BtnIngr<T> : MonoBehaviour 
 {
 	[SerializeField]
-	private Image imgIngr;
+	protected Image imgIngr;
 
 	[SerializeField]
-	private Image imgCount;
+	protected Image imgCount;
 
-	public int BtnId { get; private set; }
-	public IngrInfo Info { get; private set; }
-
-	private void Awake()
-	{
-	}
+	public IngredientName BtnId { get; private set; }
+	public T Info { get; private set; }
 
 	public void InitData()
 	{
-		BtnId = -1;
+		BtnId = IngredientName.None;
 	}
 
-	public void SetBtnInfo(int btnId, IngrInfo data, int count)
-	{
-		BtnId = btnId;
-		Info = data;
-
-		imgIngr.sprite = Info.Data.Icon;
-		Info.OnChangedCnt += AddCount;
-
-		Info.Count = count;
-	}
-
-	private void AddCount(int count)
+	protected virtual void AddCount(int count)
 	{
 		bool isActive = count >= 2;
 		imgCount.gameObject.SetActive(isActive);
 		imgCount.GetComponentInChildren<TextMeshProUGUI>().text = count.ToString();
 	}
 
-	public void ClearBtnInfo()
+	public virtual void SetBtnInfo(IngredientName btnId, T info, int count)
 	{
-		BtnId = -1;
-		Info = null;
-
-		imgIngr.sprite = StorageManager.GetInstance().EmptyIngrData.Icon;
+		BtnId = btnId;
+		Info = info;
 	}
 
-	public void Click()
+	public virtual void ClearBtnInfo()
+	{
+		BtnId = IngredientName.None;
+		Info = default;
+
+		imgIngr.sprite = StorageManager.GetInstance().EmptyIngrData.Icon;
+		imgCount.gameObject.SetActive(false);
+	}
+
+	public abstract void Click();
+}
+
+
+public class InvBtnIngr : BtnIngr<IngrInfo>
+{
+	public override void SetBtnInfo(IngredientName btnId, IngrInfo info, int count)
+	{
+		base.SetBtnInfo(btnId, info, count);
+		
+		imgIngr.sprite = Info.Data.Icon;
+
+		Info.OnChangedCnt += AddCount;
+
+		Info.Count = count;
+	}
+
+	public override void ClearBtnInfo()
+	{
+		if(Info != null)
+		{
+			Info.OnChangedCnt -= AddCount;
+		}
+		base.ClearBtnInfo();
+	}
+
+	public override void Click()
 	{
 		if(Info != null && Info.Count > 0)
 		{
-			int btnId = BtnId;
+			IngredientName id = BtnId;
 
 			Info.Count -= 1;
 			if (Info.Count <= 0)
 			{
 				ClearBtnInfo();
 			}
-
-			StorageManager.GetInstance().OnSelectIngr?.Invoke(btnId);
+			StorageManager.GetInstance().OnSelectIngr?.Invoke(id);
 		}
 	}
 }

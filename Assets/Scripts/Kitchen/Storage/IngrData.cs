@@ -12,6 +12,15 @@ public enum IngredientType
 	Garnish
 }
 
+public enum IngredientName
+{
+	None = -1,
+	Drumstick = 0,
+	TBornSteak,
+	ChiliPepper,
+	Tomato
+}
+
 public class IngrInfo
 {
 	public IngrInfo(IngrData data)
@@ -41,7 +50,7 @@ public class IngrData : ScriptableObject
 	/// <summary>
 	/// 재료 이름
 	/// </summary>
-	public string Name;
+	public IngredientName Name;
 
 	/// <summary>
 	/// 재료 종류
@@ -54,27 +63,13 @@ public class IngrData : ScriptableObject
 	public int IngrCnt;
 
 	/// <summary>
-	/// 음식 이미지
+	/// 재료 이미지
 	/// </summary>
 	public Sprite Icon;
 
 	/// <summary>
-	/// 폴더 이름
+	/// 재료 가격
 	/// </summary>
-	private string folderName = "Storage";
-
-	/// <summary>
-	/// 파일 위치
-	/// </summary>
-	public string Path 
-	{ 
-		get 
-		{
-			if (IngrType == IngredientType.None)
-				return string.Format("{0}/Empty", folderName);
-
-			return string.Format("{0}/{1}/Image/{2}", folderName, IngrType, Name); 
-		}
-	}
+	public int Price;
 }
 

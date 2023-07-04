@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43f7403c13d3a6f48a4a77722c44531b, type: 3}
   m_Name: Tomato
   m_EditorClassIdentifier: 
-  Name: Tomato
+  Name: 3
   IngrType: 2
   IngrCnt: 10
   Icon: {fileID: 21300000, guid: 40c62f73228b903489141df3bc8d31a7, type: 3}
+  Price: 50

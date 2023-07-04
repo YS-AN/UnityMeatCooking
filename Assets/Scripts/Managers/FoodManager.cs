@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public interface ICancelableOrder : IObservable
@@ -49,10 +50,10 @@ public class FoodManager : NotifyContorller<ICancelableOrder>
 		_foodDic = new Dictionary<int, FoodData>();
 		_orderList = new Dictionary<int, OrderInfo>();
 
-		Recipe recipe = transform.GetComponent<Recipe>();
+		Menu menu = transform.GetComponent<Menu>();
 
 		int index = 0;
-		foreach(var food in recipe.CookList)
+		foreach(var food in menu.CookList)
 		{
 			_foodDic.Add(index++, food);
 		}

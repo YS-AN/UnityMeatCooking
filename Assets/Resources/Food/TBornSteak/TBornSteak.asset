@@ -17,5 +17,12 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 917413daa0c6254468099b272f1b4de1, type: 3}
   CookingObject: {fileID: 8275942040929014743, guid: acb9b2341bf831c43a2f6da85d408725, type: 3}
   ResultObject: {fileID: 1022633835389615164, guid: e0ef335903efa794b83f31aece38331d, type: 3}
-  Price: 38000
+  Price: 380
   IsLearn: 1
+  Recipe:
+  - Name: 1
+    Count: 1
+  - Name: 2
+    Count: 1
+  - Name: 3
+    Count: 1

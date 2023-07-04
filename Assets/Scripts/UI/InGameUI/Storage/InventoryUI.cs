@@ -23,18 +23,18 @@ public class InventoryUI : InGameUI
 
 		uiController = new InventoryController(new InventoryModel());
 		InitButton();
-
-		StorageManager.GetInstance().OnDeselectIngr += uiController.AddDeselectIngr;
 	}
 
 	private void OnEnable()
 	{
 		uiController.SetBtnContent(IngredientType.None);
+		StorageManager.GetInstance().OnDeselectIngr += uiController.AddDeselectIngr;
 	}
 
 	private void OnDisable()
 	{
 		uiController.ClearInventoryImage();
+		StorageManager.GetInstance().OnDeselectIngr -= uiController.AddDeselectIngr;
 	}
 
 	private void InitButton()
@@ -88,14 +88,11 @@ public class InventoryController
 		{
 			var btnIngr = model.Inventory[i].GetComponent<InvBtnIngr>();
 
-			if (btnIngr.BtnId >= 0)
-			{
-				btnIngr.ClearBtnInfo();
-			}
+			btnIngr.ClearBtnInfo();
 		}
 	}
 
-	public void AddDeselectIngr(int btnId)
+	public void AddDeselectIngr(IngredientName btnId)
 	{
 		var existedBtn = model.Inventory.Where(x => x.GetComponent<InvBtnIngr>().BtnId == btnId).FirstOrDefault();
 		if (existedBtn != null)
@@ -104,7 +101,7 @@ public class InventoryController
 		}
 		else
 		{
-			var newBtn = model.Inventory.Where(x => x.GetComponent<InvBtnIngr>().BtnId == -1).FirstOrDefault();
+			var newBtn = model.Inventory.Where(x => x.GetComponent<InvBtnIngr>().BtnId == IngredientName.None).FirstOrDefault();
 			if (newBtn != null)
 			{
 				IngrInfo info = StorageManager.GetInstance().Ingredients[btnId];

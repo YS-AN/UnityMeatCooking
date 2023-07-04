@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43f7403c13d3a6f48a4a77722c44531b, type: 3}
   m_Name: TBornSteak
   m_EditorClassIdentifier: 
-  Name: TBornSteak
+  Name: 1
   IngrType: 1
   IngrCnt: 10
   Icon: {fileID: 21300000, guid: a690a5c5dd6539a47a34ac4920580b62, type: 3}
+  Price: 200

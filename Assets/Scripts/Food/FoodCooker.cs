@@ -36,7 +36,6 @@ public class FoodCooker : MonoBehaviour, IPointerClickHandler
 		cookRoutine = StartCoroutine(CookingRoutine());
 	}
 
-
 	private IEnumerator CookingRoutine()
 	{
 		yield return new WaitForSeconds(5);

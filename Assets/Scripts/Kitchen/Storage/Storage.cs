@@ -43,6 +43,7 @@ public class Storage : MonoBehaviour, IMoveable
 
 		if(openStorage != null)
 		{
+			openStorage.OnOpenDoor -= OpenStorageDoor;
 			GameManager.UI.CloseInGameUI(openStorage);
 			openStorage = null;
 
@@ -72,8 +73,11 @@ public class Storage : MonoBehaviour, IMoveable
 	{
 		if(OpenDoorRoutine != null)
 		{
-			inventoryUI = GameManager.UI.ShowInGameUI<InventoryUI>(UI_PATH_INV);
-			invPickUI = GameManager.UI.ShowInGameUI<InvPickupUI>(UI_PATH_PIK);
+			if(inventoryUI == null)
+			{
+				inventoryUI = GameManager.UI.ShowInGameUI<InventoryUI>(UI_PATH_INV);
+				invPickUI = GameManager.UI.ShowInGameUI<InvPickupUI>(UI_PATH_PIK);
+			}
 		}
 	}
 }

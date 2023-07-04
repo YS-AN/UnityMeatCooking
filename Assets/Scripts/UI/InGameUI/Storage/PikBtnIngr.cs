@@ -5,72 +5,57 @@ using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
-
-
-public class PikBtnIngr : MonoBehaviour
+public class PikBtnIngr : BtnIngr<HavingIngrInfo>
 {
-	[SerializeField]
-	private Image imgIngr;
-
-	[SerializeField]
-	private Image imgCount;
-
-	public int BtnId { get; private set; }
-	public HavingIngrInfo Info { get; private set; }
-
-	private void Awake()
+	public void SetBtnInfo(IngredientName btnId, HavingIngrInfo ingrInfo)
 	{
+		base.SetBtnInfo(btnId, ingrInfo, ingrInfo.Count);
+
+		imgIngr.sprite = ingrInfo.IngrImg;
+		ChangeCount();
 	}
 
-	public void InitData()
+	public void SetBtnInfo(IngredientName btnId, IngrInfo ingrInfo, int count)
 	{
-		BtnId = -1;
-	}
-
-
-	public void SetBtnInfo(int btnId)
-	{
-		var ingrInfo = StorageManager.GetInstance().Ingredients[btnId];
-
-		BtnId = btnId;
-		Info = new HavingIngrInfo(1, ingrInfo.Data.Icon);
+		base.SetBtnInfo(btnId, new HavingIngrInfo(1, ingrInfo.Data.Icon), count);
 
 		StorageManager.GetInstance().HavingList.Add(btnId, Info);
 
 		imgIngr.sprite = ingrInfo.Data.Icon;
 	}
 
-	public void ClearBtnInfo()
+	public void ClearBtnInfo(bool isRemoveInfo = true)
 	{
-		StorageManager.GetInstance().HavingList.Remove(BtnId);
+		if(isRemoveInfo)
+			StorageManager.GetInstance().HavingList.Remove(BtnId);
 
-		BtnId = -1;
-		Info = null;
-
-		imgIngr.sprite = StorageManager.GetInstance().EmptyIngrData.Icon;
+		base.ClearBtnInfo();
 	}
 
-	public void AddCount(int count)
+	public void AddPickIngrCount(int count)
 	{
 		Info.Count += count;
-
-		bool isActive = Info.Count >= 2;
-		imgCount.gameObject.SetActive(isActive);
-		imgCount.GetComponentInChildren<TextMeshProUGUI>().text = Info.Count.ToString();
+		ChangeCount();
 	}
 
-	public void Click()
+	private void ChangeCount()
+	{
+		base.AddCount(Info.Count);
+	}
+
+	public override void Click()
 	{
 		if(Info != null && Info.Count > 0)
 		{
-			int btnId = BtnId;
+			StorageManager.GetInstance().OnDeselectIngr?.Invoke(BtnId);
 
-			AddCount(-1);
+			AddPickIngrCount(-1);
+			
 			if (Info.Count <= 0)
 			{
 				ClearBtnInfo();
 			}
-			StorageManager.GetInstance().OnDeselectIngr?.Invoke(btnId);
+			
 		}
 	}
 }

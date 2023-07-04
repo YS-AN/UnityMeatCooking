@@ -44,4 +44,17 @@ public class FoodData : ScriptableObject
 	/// 조리 가능 여부
 	/// </summary>
 	public bool IsLearn;
+
+	/// <summary>
+	/// 레시피
+	/// </summary>
+	public List<Recipe> Recipe;
+}
+
+
+[System.Serializable]
+public class Recipe
+{
+	public IngredientName Name;
+	public int Count;
 }

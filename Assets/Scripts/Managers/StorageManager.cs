@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,7 +13,8 @@ public class HavingIngrInfo
 		IngrImg = sprite;
 	}
 
-	public int Count;
+	private int _count;
+	public int Count { get { return _count; } set { _count = value; } }
 	public Sprite IngrImg;
 }
 
@@ -31,13 +33,13 @@ public class StorageManager : MonoBehaviour
 
 	public IngrData EmptyIngrData { get; private set; }
 
-	private Dictionary<int, IngrInfo> _ingredients;
-	public Dictionary<int, IngrInfo> Ingredients { get { return _ingredients; } }
+	private Dictionary<IngredientName, IngrInfo> _ingredients;
+	public Dictionary<IngredientName, IngrInfo> Ingredients { get { return _ingredients; } }
 
-	public Dictionary<int, HavingIngrInfo> HavingList;
+	public Dictionary<IngredientName, HavingIngrInfo> HavingList;
 
-	public UnityAction<int> OnSelectIngr;
-	public UnityAction<int> OnDeselectIngr;
+	public UnityAction<IngredientName> OnSelectIngr;
+	public UnityAction<IngredientName> OnDeselectIngr;
 
 	private void Awake()
 	{
@@ -48,20 +50,19 @@ public class StorageManager : MonoBehaviour
 
 	private void SetDictionary()
 	{
-		_ingredients = new Dictionary<int, IngrInfo>();
-		HavingList = new Dictionary<int, HavingIngrInfo>();
+		_ingredients = new Dictionary<IngredientName, IngrInfo>();
+		HavingList = new Dictionary<IngredientName, HavingIngrInfo>();
 
 		Ingredients ingredients = transform.GetComponent<Ingredients>();
 
-		int index = 0;
 		foreach (var data in ingredients.ingrDatas)
 		{
-			_ingredients.Add(index++, new IngrInfo(data));
+			_ingredients.Add(data.Name, new IngrInfo(data));
 		}
 		EmptyIngrData = ingredients.None;
 	}
 
-	public Dictionary<int, IngrInfo> GetInventoryList(IngredientType type)
+	public Dictionary<IngredientName, IngrInfo> GetInventoryList(IngredientType type)
 	{
 		var retVales = _ingredients.Where(x => x.Value.Count > 0);
 
