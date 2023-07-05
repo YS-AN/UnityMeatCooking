@@ -22,6 +22,7 @@ public class InventoryUI : InGameUI
 		base.Awake();
 
 		uiController = new InventoryController(new InventoryModel());
+		
 		InitButton();
 	}
 
@@ -80,6 +81,7 @@ public class InventoryController
 
 			btnIngr.SetBtnInfo(item.Key, item.Value, item.Value.Count);
 		}
+		PlayerManager.GetInstance().Player.Camera.IsRotation = false;
 	}
 
 	public void ClearInventoryImage()
@@ -90,6 +92,7 @@ public class InventoryController
 
 			btnIngr.ClearBtnInfo();
 		}
+		PlayerManager.GetInstance().Player.Camera.IsRotation = true;
 	}
 
 	public void AddDeselectIngr(IngredientName btnId)

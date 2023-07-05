@@ -18,7 +18,21 @@ public enum IngredientName
 	Drumstick = 0,
 	TBornSteak,
 	ChiliPepper,
-	Tomato
+	Tomato,
+
+
+	test_Tomato1,
+	test_Tomato2,
+	test_Tomato3,
+		
+	test_Tomato4,
+	test_Tomato5,
+	test_Tomato6,
+	test_Tomato7,
+		
+	test_Tomato8,
+	test_Tomato9,
+	test_Tomato10,
 }
 
 public class IngrInfo

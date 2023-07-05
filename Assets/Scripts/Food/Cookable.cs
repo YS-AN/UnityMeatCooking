@@ -33,10 +33,10 @@ public class Cookable : MonoBehaviour
 				Oven.OnCooking?.Invoke(OrderData);
 				ClearButton();
 			}
-		}
-		else
-		{
-			//todo. 재료 부족 메시지 보내기 
+			else
+			{
+				GuidMessageManager.GetInstance().ShowMessage($"{OrderData.FoodInfo.Name} 만들기에는 재료가 부족합니다. \n창고에서 재료를 가져온 뒤 다시 실행해주세요");
+			}
 		}
 	}
 

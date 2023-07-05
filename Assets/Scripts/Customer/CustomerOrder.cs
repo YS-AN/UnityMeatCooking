@@ -59,6 +59,8 @@ public class CustomerOrder : StatusController
 
 	public override void TakeActionAfterNoti()
 	{
+		Debug.Log("CustomerOrder");
+
 		if(orderingUI != null)
 		{
 			CloseUI();

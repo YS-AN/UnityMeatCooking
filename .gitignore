@@ -76,5 +76,26 @@ crashlytics-build.properties
 /Assets/TextMesh Pro
 /Assets/Animations/*.fbx
 
-#food icon img
+#test data
 /Assets/Resources/Food/*/*.png 
+Assets/Resources/Storage/Garnish/testIngr.meta
+Assets/Resources/Storage/Garnish/testIngr/Tomato 1.asset
+Assets/Resources/Storage/Garnish/testIngr/Tomato 1.asset.meta
+Assets/Resources/Storage/Garnish/testIngr/Tomato 2.asset
+Assets/Resources/Storage/Garnish/testIngr/Tomato 2.asset.meta
+Assets/Resources/Storage/Garnish/testIngr/Tomato 3.asset
+Assets/Resources/Storage/Garnish/testIngr/Tomato 3.asset.meta
+Assets/Resources/Storage/Garnish/testIngr/Tomato 4.asset
+Assets/Resources/Storage/Garnish/testIngr/Tomato 4.asset.meta
+Assets/Resources/Storage/Garnish/testIngr/Tomato 5.asset
+Assets/Resources/Storage/Garnish/testIngr/Tomato 5.asset.meta
+Assets/Resources/Storage/Garnish/testIngr/Tomato 6.asset
+Assets/Resources/Storage/Garnish/testIngr/Tomato 6.asset.meta
+Assets/Resources/Storage/Garnish/testIngr/Tomato 7.asset
+Assets/Resources/Storage/Garnish/testIngr/Tomato 7.asset.meta
+Assets/Resources/Storage/Garnish/testIngr/Tomato 8.asset
+Assets/Resources/Storage/Garnish/testIngr/Tomato 8.asset.meta
+Assets/Resources/Storage/Garnish/testIngr/Tomato 9.asset
+Assets/Resources/Storage/Garnish/testIngr/Tomato 9.asset.meta
+Assets/Resources/Storage/Garnish/testIngr/Tomato.asset
+Assets/Resources/Storage/Garnish/testIngr/Tomato.asset.meta

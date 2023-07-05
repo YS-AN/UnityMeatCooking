@@ -89,5 +89,7 @@ public class ChefMover : MonoBehaviour
 	{
 		isMove = isMoveAction;
 		animator.SetBool("IsMove", isMove);
+
+		PlayerManager.GetInstance().Player.Camera.IsRotation = !isMove;
 	}
 }

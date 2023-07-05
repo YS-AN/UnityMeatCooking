@@ -16,6 +16,9 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 	public Vector3 StopPoint { get; set; }
 
 	[SerializeField]
+	private Transform CookObject;
+
+	[SerializeField]
 	private Transform[] cookPositions;
 	private Stack<Transform> CookPoint;
 
@@ -69,7 +72,7 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 			orderData.CookingPoint = CookPoint.Pop();
 
 			var newCook = GameManager.Resource.Instantiate<Cook>(orderData.FoodInfo.CookingObjectPath, orderData.CookingPoint.position, orderData.CookingPoint.rotation);
-			newCook.transform.SetParent(FoodManager.GetInstance().transform, true);
+			newCook.transform.SetParent(CookObject, true);
 			newCook.Cooker.OnFinishedCook += FinishedCook;
 			newCook.Cooker?.OnCooking(orderData);
 		}
@@ -92,7 +95,7 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 
 	public void TakeActionAfterNoti()
 	{
-		Debug.Log("주문한 메뉴가 삭제 됨!");
+		Debug.Log("HearthOven");
 		//주문내역에 변동사항이 생김
 	}
 }
