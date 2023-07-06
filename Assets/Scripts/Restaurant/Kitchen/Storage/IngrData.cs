@@ -55,25 +55,10 @@ public class IngrInfo
 	}
 
 	public UnityAction<int> OnChangedCnt;
-
-}
-
-
-public class SaleItemData : ScriptableObject
-{
-	/// <summary>
-	/// 재료 이미지
-	/// </summary>
-	public Sprite Icon;
-
-	/// <summary>
-	/// 재료 가격
-	/// </summary>
-	public int Price;
 }
 
 [CreateAssetMenu(fileName = "IngrData", menuName = "Data/Ingredient")]
-public class IngrData : SaleItemData
+public class IngrData : ScriptableObject
 {
 	/// <summary>
 	/// 재료 이름
@@ -89,5 +74,15 @@ public class IngrData : SaleItemData
 	/// 재료 개수 
 	/// </summary>
 	public int IngrCnt;
+
+	/// <summary>
+	/// 재료 이미지
+	/// </summary>
+	public Sprite Icon;
+
+	/// <summary>
+	/// 재료 가격
+	/// </summary>
+	public int Price;
 }
 
