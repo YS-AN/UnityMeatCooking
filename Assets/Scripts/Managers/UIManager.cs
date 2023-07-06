@@ -139,4 +139,15 @@ public class UIManager : MonoBehaviour
 	{
 		GameManager.Pool.ReleaseUI(inGameUI.gameObject);
 	}
+
+	public void CloseAllInGameUI<T>() where T : InGameUI
+	{
+		var ui = inGameCanvas.GetComponentsInChildren<T>();
+
+		foreach(var item in ui)
+		{
+			CloseInGameUI(item);
+		}
+
+	}
 }

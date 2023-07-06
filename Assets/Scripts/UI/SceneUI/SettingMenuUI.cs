@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class SettingMenuUI : SceneUI
 {
-	private void Awake()
+	[SerializeField]
+	private Decoration decoration;
+
+	private RestaurantUI restaurantUI;
+
+	protected override void Awake()
 	{
 		base.Awake();
 
 		buttons["BtnSetting"].onClick.AddListener(() => { ClickBtnSetting(); } );
 		buttons["BtnDecoration"].onClick.AddListener(() => { ClickBtnDecoration(); });
 		buttons["BtnPause"].onClick.AddListener(() => { ClickBtnPause(); });
+
+		restaurantUI = transform.GetComponentInParent<RestaurantUI>();
 	}
 
 	private void ClickBtnSetting()
@@ -20,7 +27,15 @@ public class SettingMenuUI : SceneUI
 
 	private void ClickBtnDecoration()
 	{
+		restaurantUI.gameObject.SetActive(false);
 
+		decoration.OnEndDecoration += EndDecoration;
+		decoration.OnStartDecoration?.Invoke();
+	}
+
+	private void EndDecoration()
+	{
+		restaurantUI.gameObject.SetActive(true);
 	}
 
 	private void ClickBtnPause()

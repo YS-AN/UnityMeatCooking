@@ -62,22 +62,22 @@ public class Customer : MonoBehaviour
 
 	private void SetComponent()
 	{
-		navAgent = GetComponent<NavMeshAgent>();
+		navAgent = transform.GetComponent<NavMeshAgent>();
 		navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
 		navAgent.areaMask = (1 << NavMesh.GetAreaFromName("CustWalkable"));
 
-		capsuleCollider = GetComponent<CapsuleCollider>();
+		capsuleCollider = transform.GetComponent<CapsuleCollider>();
 		capsuleCollider.isTrigger = true;
 		capsuleCollider.center = new Vector3(0, 1, 0);
 		capsuleCollider.radius = 0.3f;
 		capsuleCollider.height = 2;
 
-		Mover = GetComponent<CustomerMover>();
-		Wait = GetComponent<CustomerWait>();
-		Order = GetComponent<CustomerOrder>();
-		Eater = GetComponent<CustomerEater>();
-		Exit = GetComponent<CustomerExit>();
-		Rater = GetComponent<CustomerRater>();
-		Status = GetComponent<CustomerStatus>();
+		Mover = transform.GetComponent<CustomerMover>();
+		Wait = transform.GetComponent<CustomerWait>();
+		Order = transform.GetComponent<CustomerOrder>();
+		Eater = transform.GetComponent<CustomerEater>();
+		Exit = transform.GetComponent<CustomerExit>();
+		Rater = transform.GetComponent<CustomerRater>();
+		Status = transform.GetComponent<CustomerStatus>();
 	}
 }

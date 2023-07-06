@@ -8,9 +8,7 @@ public class TrashCan : MonoBehaviour, IMoveable
 	[SerializeField]
 	private Transform trashCanCover;
 
-	[SerializeField]
-	private Transform stopPosition;
-
+	public Transform stopPosition;
 	public Vector3 StopPoint { get; set; }
 
 	private CinemachineVirtualCamera cam2; //todo. 플레이어 카메라 무빙이 결정될 때 까지만 임시로...

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -25,9 +26,19 @@ public class TPSCameraController : MonoBehaviour
 
 	public bool IsRotation;
 
+	[SerializeField]
+	private CinemachineVirtualCamera virtualCamera;
+	private CinemachineTransposer transposer;
+
 	private void Awake()
 	{
 		IsRotation = true;
+	}
+
+	private void Start()
+	{
+		//virtualCamera = GetComponent<CinemachineVirtualCamera>();
+		transposer = virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
 	}
 
 	private void LateUpdate()
@@ -56,7 +67,6 @@ public class TPSCameraController : MonoBehaviour
 	private void OnPointer(InputValue value)
 	{
 		Vector2 mousePos = value.Get<Vector2>();
-
 		direction = MovePosition(mousePos.x, Screen.width); //Screen.width : 스크린의 가로 크기
 	}
 
@@ -83,7 +93,10 @@ public class TPSCameraController : MonoBehaviour
 	}
 	private void Pointer(float direction)
 	{
-		cameraRoot.Rotate(Vector3.up * 50 * direction * Time.deltaTime);
+		if (IsRotation == false || direction == 0)
+			return;
 
+		//PlayerManager.GetInstance().Player.transform.Rotate(Vector3.up * 50 * direction * Time.deltaTime, Space.World);
+		cameraRoot.Rotate(Vector3.up * 50 * direction * Time.deltaTime, Space.World);
 	}
 }

@@ -8,14 +8,14 @@ using static UnityEditor.Progress;
 
 public class Store : InGameUI
 {
+	const string UI_PATH = "UI/SaleItem";
+
 	[SerializeField]
 	private Transform SaleContent;
-
-	[SerializeField]
-	private SaleItem SaleItemPrefab;
-
+	/*
 	StoreController uiController;
 
+	
 	protected override void Awake()
 	{
 		base.Awake();
@@ -47,7 +47,7 @@ public class Store : InGameUI
 		for (int i = 0; i < ingrCnt; i++)
 			CreateItem();
 
-		uiController.SetSaleItems(SaleContent.GetComponentsInChildren<SaleItem>());
+		uiController.SetSaleItems(SaleContent.GetComponentsInChildren<SaleItem<>>());
 	}
 
 	private void CreateItem()
@@ -55,6 +55,7 @@ public class Store : InGameUI
 		var newItem = Instantiate(SaleItemPrefab, Vector3.zero, Quaternion.identity);
 		newItem.transform.SetParent(SaleContent);
 	}
+	
 }
 
 
@@ -91,5 +92,5 @@ public class StoreController
 
 public class StoreModel
 {
-	public SaleItem[] Items { get; set; }
+	public SaleItem[] Items { get; set; }//*/
 }

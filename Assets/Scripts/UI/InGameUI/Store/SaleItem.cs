@@ -4,7 +4,34 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SaleItem : MonoBehaviour
+
+public class SaleInfo<T> where T : SaleItemData
+{
+	private Image ImgItem;
+	private TextMeshProUGUI TxtPrice;
+	private Button BtnBuy;
+
+	private T _salesData;
+	public T SaleData { get { return _salesData; } set { _salesData = value; InitItemInfo(value); } }
+
+	public SaleInfo(Image item, TextMeshProUGUI price, Button buy)
+	{
+		ImgItem = item;
+		TxtPrice = price;
+		BtnBuy = buy;
+	}
+
+	private void InitItemInfo(T saleData)
+	{
+		ImgItem.sprite = saleData.Icon;
+		TxtPrice.text = saleData.Price.ToString();
+
+		BtnBuy.onClick.AddListener(() => { BtnBuy.transform.GetComponent<Buyer<T>>().ClickedBuyBtn(saleData); });
+	}
+}
+
+
+public class SaleItem<T> : MonoBehaviour where T : SaleItemData
 {
 	[SerializeField]
 	private Image ImgItem;
@@ -15,14 +42,14 @@ public class SaleItem : MonoBehaviour
 	[SerializeField]
 	private Button BtnBuy;
 
-	private IngrData _ingredient;
-	public IngrData Ingredient { get { return _ingredient; } set { _ingredient = value; InitItemInfo(value); }  }
+	private T _salesData;
+	public T SaleData { get { return _salesData; } set { _salesData = value; InitItemInfo(value); }  }
 
-	private void InitItemInfo(IngrData ingrData)
+	private void InitItemInfo(T saleData)
 	{
-		ImgItem.sprite = ingrData.Icon;
-		TxtPrice.text = ingrData.Price.ToString();
+		ImgItem.sprite = saleData.Icon;
+		TxtPrice.text = saleData.Price.ToString();
 
-		BtnBuy.onClick.AddListener(() => { BtnBuy.transform.GetComponent<Buyer>().ClickedBuyBtn(ingrData); });
+		BtnBuy.onClick.AddListener(() => { BtnBuy.transform.GetComponent<Buyer<T>>().ClickedBuyBtn(saleData); });
 	}
 }

@@ -11,7 +11,6 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 
 	private CookListUI cookListUI = null;
 
-	[SerializeField]
 	public Transform stopPosition;
 	public Vector3 StopPoint { get; set; }
 

@@ -23,31 +23,33 @@ public class CustomerStatus : MonoBehaviour, IMoveable
 
 	public void ClearAction()
 	{
-		GetStatusComponent().ClearAction();
+		GetStatusComponent()?.ClearAction();
 	}
 
 	public void NextAction()
 	{
-		GetStatusComponent().NextAction();
+		GetStatusComponent()?.NextAction();
 	}
 
 	private StatusController GetStatusComponent()
 	{
 		Customer customer = transform.GetComponent<Customer>();
 
-		switch (customer.CurState)
+		if(customer != null)
 		{
-			case CustStateType.Wait:
-				return customer.Wait;
+			switch (customer.CurState)
+			{
+				case CustStateType.Wait:
+					return customer.Wait;
 
-			case CustStateType.Order:
-				return customer.Order;
+				case CustStateType.Order:
+					return customer.Order;
 
-			case CustStateType.Eating:
-				return customer.Eater;
-
-			default:
-				return default;
+				case CustStateType.Eating:
+					return customer.Eater;
+					
+			}
 		}
+		return default;
 	}
 }

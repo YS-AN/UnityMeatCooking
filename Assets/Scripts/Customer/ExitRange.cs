@@ -12,7 +12,7 @@ public class ExitRange : MonoBehaviour
 		if (CustLayer.IsContain(other.gameObject.layer))
 		{
 			Customer customer = other.gameObject.GetComponent<Customer>();
-			if (customer != null)
+			if (customer != null && customer.CurState != CustStateType.Enter)
 			{
 				customer.Mover.OnRemove?.Invoke();
 			}

@@ -13,6 +13,8 @@ public class CustomerSpawner : MonoBehaviour
 
 	private Coroutine createEnemyRoutine;
 
+	public bool IsOpenStore;
+
 	private void OnEnable()
 	{
 		createEnemyRoutine = StartCoroutine(SpawnRoutine());
@@ -29,12 +31,15 @@ public class CustomerSpawner : MonoBehaviour
 		{
 			yield return new WaitForSeconds(SpawnTime);
 
-			var seat = SeatManager.GetInstance().GetSeat();
-
-			if(seat != null)
+			if(IsOpenStore)
 			{
-				Customer newCust = CreateCustomer(seat);
-				newCust.Mover?.OnEnter();
+				var seat = SeatManager.GetInstance().GetSeat();
+
+				if (seat != null)
+				{
+					Customer newCust = CreateCustomer(seat);
+					newCust.Mover?.OnEnter();
+				}
 			}
 		}
 	}
@@ -46,6 +51,7 @@ public class CustomerSpawner : MonoBehaviour
 		var custPrefab = GameManager.Resource.Load<Customer>(Customer.ResourcesPath);
 
 		var newCust = Instantiate(custPrefab, SpawnPoint.position, SpawnPoint.rotation);
+		newCust.transform.SetParent(transform, true);
 		newCust.CurState = CustStateType.Enter;
 		newCust.Mover.info.Init(seat, Random.Range(0, 2));
 		newCust.Mover.info.Chair.EntryCusts.Add(newCust);

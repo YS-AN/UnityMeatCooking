@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Buyer : MonoBehaviour
+public class Buyer<T> : MonoBehaviour where T : SaleItemData
 {
-	public void ClickedBuyBtn(IngrData item)
+	public UnityAction<T> OnBuy;
+
+	public void ClickedBuyBtn(T item) 
 	{
 		if (GameManager.Data.Revenue - item.Price >= 0)
 		{
 			GameManager.Data.Revenue -= item.Price;
 
-			if (StorageManager.GetInstance().Ingredients.ContainsKey(item.Name))
-				StorageManager.GetInstance().Ingredients[item.Name].Count++;
+			OnBuy?.Invoke(item);
+			//if (StorageManager.GetInstance().Ingredients.ContainsKey(item.Name))
+			//	StorageManager.GetInstance().Ingredients[item.Name].Count++;
 		}
 		else
 		{

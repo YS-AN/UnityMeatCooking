@@ -95,7 +95,7 @@ public class CustomerMover : MonoBehaviour
 
 
 	private void Exit()
-	{
+	{ 
 		transform.GetComponent<Customer>().Exit.OnNotifyAction?.Invoke();
 
 		animator.SetTrigger("Stand");
@@ -120,6 +120,6 @@ public class CustomerMover : MonoBehaviour
 	private void ExitStore()
 	{
 		SeatManager.GetInstance().ReturnSeat(info.Seat);
-		Destroy(gameObject);
+		Destroy(transform.gameObject);
 	}
 }
