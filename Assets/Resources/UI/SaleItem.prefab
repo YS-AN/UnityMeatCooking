@@ -652,6 +652,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a84ca4cb6f3bd54999ad613f71c6a75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ImgItem: {fileID: 2008983579321089256}
-  TxtPrice: {fileID: 2008983578040470453}
-  BtnBuy: {fileID: 2008983578621086638}
+  imgItem: {fileID: 2008983579321089256}
+  txtPrice: {fileID: 2008983578040470453}
+  btnBuy: {fileID: 2008983578621086638}

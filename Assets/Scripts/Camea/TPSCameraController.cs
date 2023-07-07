@@ -93,10 +93,10 @@ public class TPSCameraController : MonoBehaviour
 	}
 	private void Pointer(float direction)
 	{
-		if (IsRotation == false || direction == 0)
+		if (IsRotation == false || direction == 0 || GameManager.Data.IsPlaceable)
 			return;
 
-		//PlayerManager.GetInstance().Player.transform.Rotate(Vector3.up * 50 * direction * Time.deltaTime, Space.World);
-		cameraRoot.Rotate(Vector3.up * 50 * direction * Time.deltaTime, Space.World);
+		PlayerManager.GetInstance().Player.transform.Rotate(Vector3.up * 50 * direction * Time.deltaTime, Space.World);
+		//cameraRoot.Rotate(Vector3.up * 50 * direction * Time.deltaTime, Space.World);
 	}
 }

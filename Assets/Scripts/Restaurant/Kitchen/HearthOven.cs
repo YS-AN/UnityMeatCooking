@@ -25,8 +25,6 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 
 	private CinemachineVirtualCamera cam2; //todo. 플레이어 카메라 무빙이 결정될 때 까지만 임시로...
 
-	private HearthOvenMover mover = null;
-
 	private void Awake()
 	{
 		StopPoint = stopPosition.position;
@@ -41,14 +39,11 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 		FoodManager.GetInstance().AddObserver(this);
 
 		cam2 = GameObject.Find("Cam_Oven").GetComponent<CinemachineVirtualCamera>();
-
-		this.AddComponent<HearthOvenMover>();
-		mover = GetComponent<HearthOvenMover>();
 	}
 
 	public void NextAction()
 	{
-		cam2.Priority = 30;
+		//cam2.Priority = 30;
 
 		cookListUI = GameManager.UI.ShowInGameUI<CookListUI>(UI_PATH);
 		cookListUI.SetTarget(transform);
@@ -57,8 +52,8 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 
 	public void ClearAction()
 	{
-		cam2.Priority = 10;
-
+		//cam2.Priority = 10;
+		
 		CloseUI();
 	}
 

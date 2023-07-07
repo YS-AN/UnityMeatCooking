@@ -17,22 +17,23 @@ public class SaleItemData
 public class SaleItem : MonoBehaviour
 {
 	[SerializeField]
-	private Image ImgItem;
+	private Image imgItem;
 
 	[SerializeField]
-	private TextMeshProUGUI TxtPrice;
+	private TextMeshProUGUI txtPrice;
 
 	[SerializeField]
-	private Button BtnBuy;
+	private Button btnBuy;
+	public Button BtnBuy { get { return btnBuy; } }
 
 	private SaleItemData _salesData;
 	public SaleItemData SaleData { get { return _salesData; } set { _salesData = value; InitItemInfo(value); }  }
 
 	private void InitItemInfo(SaleItemData saleData)
 	{
-		ImgItem.sprite = saleData.ItemIcon;
-		TxtPrice.text = saleData.ItemPrice.ToString();
+		imgItem.sprite = saleData.ItemIcon;
+		txtPrice.text = saleData.ItemPrice.ToString();
 
-		BtnBuy.onClick.AddListener(() => { BtnBuy.transform.GetComponent<Buyer>().ClickedBuyBtn(saleData); });
+		btnBuy.onClick.AddListener(() => { btnBuy.transform.GetComponent<Buyer>().ClickedBuyBtn(saleData); });
 	}
 }

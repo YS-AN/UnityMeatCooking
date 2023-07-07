@@ -13,16 +13,7 @@ public class Buyer : MonoBehaviour
 		{
 			GameManager.Data.Revenue -= item.ItemPrice;
 
-			if(GameManager.Data.IsPlaceable)
-			{
-				//todo. 하늘에서 가구가 툭하고 떨어져야해
-			}
-			else
-			{
-				if (StorageManager.GetInstance().Ingredients.ContainsKey((IngredientName)item.ItemId))
-					StorageManager.GetInstance().Ingredients[(IngredientName)item.ItemId].Count++;
-			}
-
+			OnBuy?.Invoke(item);
 		}
 		else
 		{

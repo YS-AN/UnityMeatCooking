@@ -48,6 +48,9 @@ public class ChefMover : MonoBehaviour
 
 	private void OnMove(InputValue value)
 	{
+		if (GameManager.Data.IsPlaceable)
+			return;
+
 		var ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 		if (Physics.Raycast(ray: ray, hitInfo: out var hit) && hit.collider)
 		{
@@ -61,10 +64,18 @@ public class ChefMover : MonoBehaviour
 			if (moveAction == null)
 				return;
 
-			moveRoutine = StartCoroutine(MoveRoutine(moveAction));
+			Move();
+
+
 		}
 	}
 
+	private void Move()
+	{
+		//StartCoroutine(PlayerManager.GetInstance().Player.Camera.RotateCamera());
+
+		moveRoutine = StartCoroutine(MoveRoutine(moveAction));
+	}
 	private IEnumerator MoveRoutine(IMoveable moveable)
 	{
 		SetMoveAction(true);
@@ -87,6 +98,8 @@ public class ChefMover : MonoBehaviour
 
 	private void SetMoveAction(bool isMoveAction)
 	{
+		meshAgent.ResetPath(); 
+
 		isMove = isMoveAction;
 		animator.SetBool("IsMove", isMove);
 

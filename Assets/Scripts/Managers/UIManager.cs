@@ -126,7 +126,6 @@ public class UIManager : MonoBehaviour
 	{
 		T ui = GameManager.Pool.GetUI(inGameUI);
 		ui.transform.SetParent(inGameCanvas.transform, false);
-
 		return ui;
 	}
 
@@ -138,16 +137,5 @@ public class UIManager : MonoBehaviour
 	public void CloseInGameUI<T>(T inGameUI) where T : InGameUI
 	{
 		GameManager.Pool.ReleaseUI(inGameUI.gameObject);
-	}
-
-	public void CloseAllInGameUI<T>() where T : InGameUI
-	{
-		var ui = inGameCanvas.GetComponentsInChildren<T>();
-
-		foreach(var item in ui)
-		{
-			CloseInGameUI(item);
-		}
-
 	}
 }

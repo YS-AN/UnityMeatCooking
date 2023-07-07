@@ -31,8 +31,8 @@ public class OpenStoreController
 
 	public void OpenStore()
 	{
-		Store store = GameManager.UI.ShowInGameUI<Store>(model.UI_PATH);
-
+		if (GameManager.Data.IsGamePause == false)
+			GameManager.UI.ShowInGameUI<Store>(model.UI_PATH);
 	}
 }
 

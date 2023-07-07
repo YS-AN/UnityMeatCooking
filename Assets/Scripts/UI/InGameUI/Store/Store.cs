@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.UI;
@@ -23,13 +25,12 @@ public class Store : InGameUI
 	{
 		base.Awake();
 		buttons["BtnClose"].onClick.AddListener(() => { CloseStore(); });
-
-		uiController = new StoreController(new StoreModel(SaleItemPrefab, SaleContent));
 	}
 
 	private void OnEnable()
 	{
-		uiController = new StoreController(new StoreModel(SaleItemPrefab, SaleContent));
+		StoreModel model = new StoreModel(SaleItemPrefab, SaleContent);
+		uiController = GameManager.Data.IsPlaceable ? new FurnStoreController(model) : new IngrStoreController(model);
 		uiController.SetSalesContent();
 	}
 
@@ -45,21 +46,63 @@ public class Store : InGameUI
 }
 
 
-public class StoreController : MonoBehaviour
+public class StoreModel
 {
-	private StoreModel model;
+	public StoreModel(SaleItem item, Transform saleContent)
+	{
+		SaleContent = saleContent;
+		SaleItemPrefab = item;
+		Items = new List<SaleItem>();
+	}
+
+	/// <summary>
+	/// store ui list content object
+	/// </summary>
+	public Transform SaleContent { get; set; }
+
+	/// <summary>
+	/// list object 
+	/// </summary>
+	public SaleItem SaleItemPrefab;
+
+	/// <summary>
+	/// list data
+	/// </summary>
+	public List<SaleItem> Items { get; set; }
+
+	/// <summary>
+	/// setting data
+	/// </summary>
+	public List<SaleItemData> SalesItems { get; set; }
+}
+
+public abstract class StoreController : MonoBehaviour
+{
+	protected StoreModel model;
 
 	public StoreController(StoreModel model)
 	{
 		this.model = model;
 	}
 
-	public void SetSalesContent()
+	/// <summary>
+	/// store UI 리스트 목록을 셋업
+	/// </summary>
+	public virtual void SetSalesContent()
 	{
-		model.SalesItems = GameManager.Data.IsPlaceable ? GetSaleItemsFromFurniture() : GetSaleItemsFromIngredient();
-
+		model.SalesItems = GetSaleItemDatas();
 		model.Items = model.SaleContent.GetComponentsInChildren<SaleItem>().ToList();
 
+		AdjustSalesList();
+
+		PlayerManager.GetInstance().Player.Camera.IsRotation = false;
+	}
+
+	/// <summary>
+	/// store UI 리스트 목록을 개수에 맞게 정리
+	/// </summary>
+	protected void AdjustSalesList()
+	{
 		if (model.Items.Count < model.SalesItems.Count)
 			InitSaleContent(model.SalesItems.Count - model.Items.Count);
 
@@ -68,26 +111,22 @@ public class StoreController : MonoBehaviour
 			int count = model.Items.Count - model.SalesItems.Count;
 			int max = model.Items.Count - 1;
 
-			for (int i=0; i<count; i++)
+			for (int i = 0; i < count; i++)
 				Destroy(model.Items[max - i].gameObject);
 
 			model.Items = model.Items.Take(model.SalesItems.Count).ToList();
 		}
-
-		int index = 0;
-		
-		foreach (var item in model.Items)
-		{
-			item.SaleData = model.SalesItems[index++];
-		}
-		PlayerManager.GetInstance().Player.Camera.IsRotation = false;
 	}
 
-	public void ClearSalesContent()
-	{
-		PlayerManager.GetInstance().Player.Camera.IsRotation = true;
-	}
+	/// <summary>
+	/// store UI 리스트에 들어갈 데이터 가져오기
+	/// </summary>
+	protected abstract List<SaleItemData> GetSaleItemDatas();
 
+	/// <summary>
+	/// store UI 리스트 필요한 만큼 생성
+	/// </summary>
+	/// <param name="createdCnt"></param>
 	private void InitSaleContent(int createdCnt)
 	{
 		for (int i = 0; i < createdCnt; i++)
@@ -96,13 +135,29 @@ public class StoreController : MonoBehaviour
 		model.Items = model.SaleContent.GetComponentsInChildren<SaleItem>().ToList();
 	}
 
+	/// <summary>
+	/// 리스트 안에 내부 오브젝트 생성
+	/// </summary>
 	private void CreateItem()
 	{
 		var newItem = Instantiate(model.SaleItemPrefab, Vector3.zero, Quaternion.identity);
 		newItem.transform.SetParent(model.SaleContent);
 	}
 
-	private List<SaleItemData> GetSaleItemsFromIngredient()
+	/// <summary>
+	/// 리스트 내용 정리
+	/// </summary>
+	public virtual void ClearSalesContent()
+	{
+		PlayerManager.GetInstance().Player.Camera.IsRotation = true;
+	}
+}
+
+public class IngrStoreController : StoreController
+{
+	public IngrStoreController(StoreModel model) : base(model) { }
+
+	protected override List<SaleItemData> GetSaleItemDatas()
 	{
 		List<SaleItemData> items = new List<SaleItemData>();
 
@@ -120,7 +175,44 @@ public class StoreController : MonoBehaviour
 		return items;
 	}
 
-	private List<SaleItemData> GetSaleItemsFromFurniture()
+	public override void SetSalesContent()
+	{
+		base.SetSalesContent();
+
+		int index = 0;
+		foreach (var item in model.Items)
+		{
+			item.SaleData = model.SalesItems[index++];
+			item.BtnBuy.transform.GetComponent<Buyer>().OnBuy += BuyItem;
+		}
+	}
+
+	/// <summary>
+	/// 아이템 구매 시 동작
+	/// </summary>
+	/// <param name="item"></param>
+	private void BuyItem(SaleItemData item)
+	{
+		if (StorageManager.GetInstance().Ingredients.ContainsKey((IngredientName)item.ItemId))
+			StorageManager.GetInstance().Ingredients[(IngredientName)item.ItemId].Count++;
+	}
+
+	public override void ClearSalesContent()
+	{
+		base.ClearSalesContent();
+
+		foreach (var item in model.Items)
+		{
+			item.BtnBuy.transform.GetComponent<Buyer>().OnBuy -= BuyItem;
+		}
+	}
+}
+
+public class FurnStoreController : StoreController
+{
+	public FurnStoreController(StoreModel model) : base(model) { }
+
+	protected override List<SaleItemData> GetSaleItemDatas()
 	{
 		List<SaleItemData> items = new List<SaleItemData>();
 
@@ -136,24 +228,37 @@ public class StoreController : MonoBehaviour
 		}
 		return items;
 	}
-}
 
-public class StoreModel
-{
-	public StoreModel(SaleItem item, Transform saleContent)
+	public override void SetSalesContent()
 	{
-		SaleContent = saleContent;
-		SaleItemPrefab = item;
-		Items = new List<SaleItem>();
+		base.SetSalesContent();
+
+		int index = 0;
+		foreach (var item in model.Items)
+		{
+			item.SaleData = model.SalesItems[index++];
+			item.BtnBuy.transform.GetComponent<Buyer>().OnBuy += BuyItem;
+		}
 	}
 
-	public Transform SaleContent { get; set; }
+	/// <summary>
+	/// 아이템 구매 시 동작
+	/// </summary>
+	/// <param name="item"></param>
+	private void BuyItem(SaleItemData item)
+	{
+		//오브젝트 생성
+	}
 
-	public SaleItem SaleItemPrefab;
+	public override void ClearSalesContent()
+	{
+		base.ClearSalesContent();
 
-	public List<SaleItem> Items { get; set; }
+		foreach (var item in model.Items)
+		{
+			item.BtnBuy.transform.GetComponent<Buyer>().OnBuy -= BuyItem;
+		}
+	}
 
-	public List<SaleItemData> SalesItems { get; set; }
-
-	
 }
+
