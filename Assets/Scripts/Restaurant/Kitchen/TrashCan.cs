@@ -8,14 +8,14 @@ public class TrashCan : MonoBehaviour, IMoveable
 	[SerializeField]
 	private Transform trashCanCover;
 
-	public Transform stopPosition;
+	public Transform StopPosition;
 	public Vector3 StopPoint { get; set; }
 
 	private CinemachineVirtualCamera cam2; //todo. 플레이어 카메라 무빙이 결정될 때 까지만 임시로...
 
 	private void Awake()
 	{
-		StopPoint = stopPosition.position;
+		StopPoint = StopPosition.position;
 
 		cam2 = GameObject.Find("Cam_TrashCan").GetComponent<CinemachineVirtualCamera>();
 	}

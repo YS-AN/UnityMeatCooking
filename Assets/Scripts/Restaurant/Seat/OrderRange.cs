@@ -16,6 +16,8 @@ public class OrderRange : MonoBehaviour
 
 	private OrderingUI ordering;
 
+	public bool IsInTrigger { get; private set; }
+
 
 	private void Awake()
 	{
@@ -26,7 +28,7 @@ public class OrderRange : MonoBehaviour
 	{
 		if (PlayerMask.IsContain(other.gameObject.layer))
 		{
-			PlayerManager.GetInstance().Player.IsInTrigger = true;
+			IsInTrigger = true;
 		}
 	}
 
@@ -34,7 +36,7 @@ public class OrderRange : MonoBehaviour
 	{
 		if (PlayerMask.IsContain(other.gameObject.layer))
 		{
-			PlayerManager.GetInstance().Player.IsInTrigger = false;
+			IsInTrigger = false;
 		}
 	}
 }

@@ -28,14 +28,11 @@ public class CustomerEater : StatusController
 	
 	public override void NextAction()
 	{
-		if (PlayerManager.GetInstance().Player.IsInTrigger)
-		{
-			OrderInfo holdingFood = PlayerManager.GetInstance().Player.Cooker.CurrentHoldingFood(curCustomer.Order.OrderData.OderID);
+		OrderInfo holdingFood = PlayerManager.GetInstance().Player.Cooker.CurrentHoldingFood(curCustomer.Order.OrderData.OderID);
 
-			if (holdingFood != null)
-			{
-				PutFoodDown();
-			}
+		if (holdingFood != null)
+		{
+			PutFoodDown();
 		}
 	}
 

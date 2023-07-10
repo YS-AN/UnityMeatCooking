@@ -17,10 +17,18 @@ public class OrderingUI : InGameUI
 
 	private CookListUI cookListUI;
 
+	/// <summary>
+	/// 주문 가능 여부 (플레이어가 trigger 안에 들어 왔는지 확인)
+	/// </summary>
+	public bool IsOrderable { get; set; }
+
+	public UnityAction OnTakeOrder;
+
 	protected override void Awake()
 	{
 		base.Awake();
 
+		IsOrderable = false;
 		buttons[NM_FOOD_BTN].onClick.AddListener(() => { CheckOrder(); });
 	}
 
@@ -38,11 +46,7 @@ public class OrderingUI : InGameUI
 		}
 
 		WaitBar waitBar = images[NM_WAIT_LAYER].GetComponent<WaitBar>();
-
-
-		//waitBar.SetTarget(transform);
 		waitBar.customer = curCust;
-
 		waitBar.StartSlider(waitMax, waitTime);
 	}
 
@@ -53,12 +57,14 @@ public class OrderingUI : InGameUI
 
 	public void CheckOrder()
 	{
-		if(PlayerManager.GetInstance().Player.IsInTrigger)
+		if(IsOrderable)
 		{
 			if (orderData.IsOrder == false) //중복 접수 방지
 			{
 				orderData.IsOrder = true;
 				FoodManager.GetInstance().AddOrder(orderData);
+
+				OnTakeOrder?.Invoke();
 			}
 		}
 	}

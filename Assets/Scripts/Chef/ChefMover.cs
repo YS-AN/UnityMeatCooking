@@ -65,8 +65,6 @@ public class ChefMover : MonoBehaviour
 				return;
 
 			Move();
-
-
 		}
 	}
 

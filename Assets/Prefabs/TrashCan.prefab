@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashCanCover: {fileID: 1857486052188382890}
-  stopPosition: {fileID: 6646205097837332730}
+  StopPosition: {fileID: 6646205097837332730}
 --- !u!208 &521928613668166947
 NavMeshObstacle:
   m_ObjectHideFlags: 0

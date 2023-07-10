@@ -247,7 +247,7 @@ public class FurnStoreController : StoreController
 	/// <param name="item"></param>
 	private void BuyItem(SaleItemData item)
 	{
-		//오브젝트 생성
+		FurnitureManager.GetInstance().Spawner.OnCreateFurniture?.Invoke(item);
 	}
 
 	public override void ClearSalesContent()

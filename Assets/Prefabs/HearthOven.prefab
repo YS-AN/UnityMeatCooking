@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2686adfc8720bb045898d990bf250c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopPosition: {fileID: 6669098643235672770}
+  StopPosition: {fileID: 6669098643235672770}
   CookObject: {fileID: 6669098642868106629}
   cookPositions:
   - {fileID: 6669098644309558096}
@@ -455,7 +455,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0

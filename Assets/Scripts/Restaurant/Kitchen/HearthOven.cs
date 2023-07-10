@@ -11,7 +11,7 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 
 	private CookListUI cookListUI = null;
 
-	public Transform stopPosition;
+	public Transform StopPosition;
 	public Vector3 StopPoint { get; set; }
 
 	[SerializeField]
@@ -27,7 +27,7 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 
 	private void Awake()
 	{
-		StopPoint = stopPosition.position;
+		StopPoint = StopPosition.position;
 		OnCooking += DoCooking;
 
 		CookPoint = new Stack<Transform>();

@@ -50,8 +50,6 @@ public class CustomerWait : StatusController
 
 	public override void TakeActionAfterNoti()
 	{
-		Debug.Log("CustomerWait");
-
 		if (waitBar != null)
 		{
 			GameManager.UI.CloseInGameUI(waitBar);

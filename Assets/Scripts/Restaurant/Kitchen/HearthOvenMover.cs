@@ -7,6 +7,6 @@ public class HearthOvenMover : Placeable
 	public override void EndDragAction()
 	{
 		var oven = transform.GetComponent<HearthOven>();
-		oven.StopPoint = oven.stopPosition.position;
+		oven.StopPoint = oven.StopPosition.position;
 	}
 }

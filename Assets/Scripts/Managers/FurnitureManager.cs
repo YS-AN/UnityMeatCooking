@@ -15,6 +15,10 @@ public class FurnitureManager : MonoBehaviour
 		return instance;
 	}
 
+	[SerializeField]
+	private FurnitureSpawner _spawner;
+	public FurnitureSpawner Spawner { get { return _spawner; } }
+
 	private Dictionary<FurnitureName, FurnData> _furnitures;
 	public Dictionary<FurnitureName, FurnData> Furnitures { get { return _furnitures; } }
 

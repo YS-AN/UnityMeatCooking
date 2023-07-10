@@ -33,13 +33,16 @@ public class CustomerOrder : StatusController
 		orderingUI = GameManager.UI.ShowInGameUI<OrderingUI>(UI_PATH);
 		orderingUI.SetFood(_orderData);
 		orderingUI.SetTarget(transform);
+		orderingUI.IsOrderable = true;
+		orderingUI.OnTakeOrder += TakeOrder;
 
 		WaitTime = cust.Wait.WaitTime * 2;
 		orderingUI.StartWait(cust, WaitTime);
-
-		curCustomer.Eater.OnStateAction?.Invoke(curCustomer, CustStateType.Eating);
 	}
 
+	/// <summary>
+	/// 주문할 메뉴 세팅
+	/// </summary>
 	private void SetOrderInfo()
 	{
 		int foodCnt = FoodManager.GetInstance().CanCookIndex.Count;
@@ -48,19 +51,28 @@ public class CustomerOrder : StatusController
 		_orderData = new OrderInfo(FoodManager.GetInstance().CanCookDic[orderingNum]);
 	}
 
+	/// <summary>
+	/// 주문 받은 후 행동
+	/// </summary>
+	private void TakeOrder()
+	{
+		curCustomer.Eater.OnStateAction?.Invoke(curCustomer, CustStateType.Eating);
+	}
 
 	public override void NextAction()
 	{
+		if(orderingUI != null) 
+			orderingUI.IsOrderable = true;
 	}
 
 	public override void ClearAction()
 	{
+		if (orderingUI != null)
+			orderingUI.IsOrderable = false;
 	}
 
 	public override void TakeActionAfterNoti()
 	{
-		Debug.Log("CustomerOrder");
-
 		if(orderingUI != null)
 		{
 			CloseUI();
@@ -68,6 +80,9 @@ public class CustomerOrder : StatusController
 		}
 	}
 
+	/// <summary>
+	/// 주문 메뉴 창 제거
+	/// </summary>
 	public void CloseUI()
 	{
 		if(orderingUI != null)
@@ -77,6 +92,9 @@ public class CustomerOrder : StatusController
 		}
 	}
 
+	/// <summary>
+	/// 주문 메뉴 삭제
+	/// </summary>
 	private void RemoveOrder()
 	{
 		if (OrderData != null && OrderData.IsOrder && curCustomer.CurState == CustStateType.Order) 
