@@ -9,8 +9,8 @@ public abstract class StatusController : ExitController, IActionableByStatus
 
 	public int WaitTime;
 
-	private Vector3 _stopPoint;
-	public Vector3 StopPoint
+	private Transform _stopPoint;
+	public Transform StopPoint
 	{
 		get { return _stopPoint; }
 		set 

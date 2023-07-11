@@ -78,21 +78,33 @@ public class ChefMover : MonoBehaviour
 	{
 		SetMoveAction(true);
 
-		Vector3 target = moveable.StopPoint;
+		Vector3 target = moveable.StopPoint.position;
 		meshAgent.destination = target;
 
 		//y축은 고정
 		float playerDistancetoFloor = transform.position.y - target.y;
 		target.y += playerDistancetoFloor;
 
+		//todo.Distance -> 루트연산이 들어가기 때문에 게임에 영향을 줌. -> 최적화 필요
 		while (Vector3.Distance(transform.position, target) > 0.1f)
 		{
 			yield return null;
 		}
 		SetMoveAction(false);
+		TurnToDestination(moveable.StopPoint);
 
 		moveable.NextAction();
 	}
+
+	/*
+	private Vector3 GetDistance(Vector3 start, Vector3 target)
+	{
+		Vector3 difference = target - start;
+		float squaredDistance = Vector3.Dot(difference, difference); //제곱 거리 구하기
+
+		float distance = Mathf.Sqrt(squaredDistance);
+	}
+	*/
 
 	private void SetMoveAction(bool isMoveAction)
 	{
@@ -103,4 +115,12 @@ public class ChefMover : MonoBehaviour
 
 		PlayerManager.GetInstance().Player.Camera.IsRotation = !isMove;
 	}
+
+	private void TurnToDestination(Transform stopPostion)
+	{
+		Coroutines coroutines = new Coroutines();
+		StartCoroutine(coroutines.LocalBasedRotationRoutine(transform, Quaternion.Euler(0, stopPostion.rotation.y, 0), 2f));
+	}
 }
+
+	//GraduallyRotateRoutine

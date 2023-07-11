@@ -18,12 +18,12 @@ public class Storage : MonoBehaviour, IMoveable
 	private Transform storageDoor;
 
 	[SerializeField]
-	private Transform StopPosition;
-	public Vector3 StopPoint { get; set; }
+	public Transform StopPosition;
+	public Transform StopPoint { get; set; }
 
 	private void Awake()
 	{
-		StopPoint = StopPosition.position;
+		StopPoint = StopPosition;
 	}
 
 	public void NextAction()
@@ -66,7 +66,7 @@ public class Storage : MonoBehaviour, IMoveable
 	public void OpenStorageDoor()
 	{
 		Coroutines coroutines = new Coroutines();
-		OpenDoorRoutine = StartCoroutine(coroutines.OpenDoorRoutine(storageDoor, Quaternion.Euler(new Vector3(0, 90, 0)), 2, OpenInventroy));
+		OpenDoorRoutine = StartCoroutine(coroutines.LocalBasedRotationRoutine(storageDoor, Quaternion.Euler(new Vector3(0, 90, 0)), 2, OpenInventroy));
 	}
 
 	private void OpenInventroy()

@@ -9,13 +9,13 @@ public class TrashCan : MonoBehaviour, IMoveable
 	private Transform trashCanCover;
 
 	public Transform StopPosition;
-	public Vector3 StopPoint { get; set; }
+	public Transform StopPoint { get; set; }
 
 	private CinemachineVirtualCamera cam2; //todo. 플레이어 카메라 무빙이 결정될 때 까지만 임시로...
 
 	private void Awake()
 	{
-		StopPoint = StopPosition.position;
+		StopPoint = StopPosition;
 
 		cam2 = GameObject.Find("Cam_TrashCan").GetComponent<CinemachineVirtualCamera>();
 	}
@@ -39,6 +39,6 @@ public class TrashCan : MonoBehaviour, IMoveable
 	private void OpenTrashCanCover()
 	{
 		Coroutines coroutines = new Coroutines();
-		StartCoroutine(coroutines.OpenDoorRoutine(trashCanCover, Quaternion.Euler(new Vector3(-50, 0, 0)), 1.5f));
+		StartCoroutine(coroutines.LocalBasedRotationRoutine(trashCanCover, Quaternion.Euler(new Vector3(-50, 0, 0)), 1.5f));
 	}
 }

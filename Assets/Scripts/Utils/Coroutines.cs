@@ -53,21 +53,56 @@ public class Coroutines
 	}
 
 
-	public IEnumerator OpenDoorRoutine(Transform door, Quaternion targetRotation, float duration = 3f, UnityAction OnNextAction = null)
+	/// <summary>
+	/// 주어진 시간에 동안 서서히 로컬 기반으로 회전하는 루틴
+	/// </summary>
+	/// <param name="transform">회전할 오브젝트 transform</param>
+	/// <param name="targetRotation">회전 각도</param>
+	/// <param name="duration">회전 시간</param>
+	/// <param name="OnNextAction">회전 후 다음 동작</param>
+	/// <returns></returns>
+	public IEnumerator LocalBasedRotationRoutine(Transform transform, Quaternion targetRotation, float duration = 3f, UnityAction OnNextAction = null)
 	{
-		Quaternion startRotation = door.localRotation;
+		Quaternion startRotation = transform.localRotation;
 
 		float elapsedTime = 0f;
 
 		while (elapsedTime < duration)
 		{
 			float time = elapsedTime / duration;
-			door.localRotation = Quaternion.Lerp(startRotation, targetRotation, time);
+			transform.localRotation = Quaternion.Lerp(startRotation, targetRotation, time);
 
 			elapsedTime += Time.deltaTime;
 			yield return null;
 		}
-		door.localRotation = targetRotation;
+		transform.localRotation = targetRotation;
+
+		OnNextAction?.Invoke();
+	}
+
+	/// <summary>
+	/// 주어진 시간에 동안 서서히 세상 기반으로 회전하는 루틴
+	/// </summary>
+	/// <param name="transform">회전할 오브젝트 transform</param>
+	/// <param name="targetRotation">회전 각도</param>
+	/// <param name="duration">회전 시간</param>
+	/// <param name="OnNextAction">회전 후 다음 동작</param>
+	/// <returns></returns>
+	public IEnumerator WorldBasedRotationRoutine(Transform transform, Quaternion targetRotation, float duration = 3f, UnityAction OnNextAction = null)
+	{
+		Quaternion startRotation = transform.rotation;
+
+		float elapsedTime = 0f;
+
+		while (elapsedTime < duration)
+		{
+			float time = elapsedTime / duration;
+			transform.rotation = Quaternion.Lerp(startRotation, targetRotation, time);
+
+			elapsedTime += Time.deltaTime;
+			yield return null;
+		}
+		transform.rotation = targetRotation;
 
 		OnNextAction?.Invoke();
 	}

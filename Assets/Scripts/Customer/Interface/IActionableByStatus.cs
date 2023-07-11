@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface IActionableByStatus
 {
-	public Vector3 StopPoint { get; set; }
+	public Transform StopPoint { get; set; }
 
 	public void NextAction();
 

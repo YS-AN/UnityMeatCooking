@@ -24,7 +24,7 @@ public class CustomerWait : StatusController
 	{
 		base.StateAction(cust, type);
 
-		StopPoint = cust.Mover.info.Chair.StopPoint.position;
+		StopPoint = cust.Mover.info.Chair.StopPoint;
 
 		waitBar = GameManager.UI.ShowInGameUI<WaitBar>(UI_PATH);
 		waitBar.SetTarget(transform);

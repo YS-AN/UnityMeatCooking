@@ -42,7 +42,6 @@ public class CustomerEater : StatusController
 
 	public override void TakeActionAfterNoti()
 	{
-		Debug.Log("CustomerEater");
 	}
 
 	private void PutFoodDown()

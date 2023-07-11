@@ -5,18 +5,16 @@ using UnityEngine.Events;
 
 public class CustomerStatus : MonoBehaviour, IMoveable
 {
-	//todo. ClearAction 동작보다 customer의 destory가 더 빨라서 오류나 나면 어떡하지?? 이거 어떻게 해결함?? ㅠㅛㅠ
+	public Transform StopPoint { get; set; }
 
-	public Vector3 StopPoint { get; set; }
-
-	public UnityAction<Vector3> OnChangeStopPoint;
+	public UnityAction<Transform> OnChangeStopPoint;
 
 	private void Awake()
 	{
 		OnChangeStopPoint += ChangeStopPoint;
 	}
 
-	private void ChangeStopPoint(Vector3 point)
+	private void ChangeStopPoint(Transform point)
 	{
 		StopPoint = point;
 	}

@@ -5,14 +5,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
+public class HearthOven : MonoBehaviour, IMoveable
 {
 	private const string UI_PATH = "UI/CookList";
 
 	private CookListUI cookListUI = null;
 
 	public Transform StopPosition;
-	public Vector3 StopPoint { get; set; }
+	public Transform StopPoint { get; set; }
 
 	[SerializeField]
 	private Transform CookObject;
@@ -27,7 +27,7 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 
 	private void Awake()
 	{
-		StopPoint = StopPosition.position;
+		StopPoint = StopPosition;
 		OnCooking += DoCooking;
 
 		CookPoint = new Stack<Transform>();
@@ -36,7 +36,7 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 			CookPoint.Push(point);
 		}
 
-		FoodManager.GetInstance().AddObserver(this);
+		//FoodManager.GetInstance().AddObserver(this);
 
 		cam2 = GameObject.Find("Cam_Oven").GetComponent<CinemachineVirtualCamera>();
 	}
@@ -85,11 +85,5 @@ public class HearthOven : MonoBehaviour, IMoveable, ICancelableOrder
 			GameManager.UI.CloseInGameUI(cookListUI);
 			cookListUI = null;
 		}
-	}
-
-	public void TakeActionAfterNoti()
-	{
-		Debug.Log("HearthOven");
-		//주문내역에 변동사항이 생김
 	}
 }

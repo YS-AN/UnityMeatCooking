@@ -4,16 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-public class SaleItemData
-{
-	public int ItemId; 
-
-	public Sprite ItemIcon;
-
-	public int ItemPrice;
-}
-
 public class SaleItem : MonoBehaviour
 {
 	[SerializeField]

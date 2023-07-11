@@ -12,7 +12,7 @@ public interface ICancelableOrder : IObservable
 {
 }
 
-public class FoodManager : NotifyContorller<ICancelableOrder>
+public class FoodManager : MonoBehaviour //: NotifyContorller<ICancelableOrder>
 {
 	private static FoodManager instance;
 
@@ -36,12 +36,12 @@ public class FoodManager : NotifyContorller<ICancelableOrder>
 
 	public Transform CookPos;
 
-	protected override void Awake()
+	//protected override void Awake()
+	//{
+	//	base.Awake();
+	private void Awake()
 	{
-		base.Awake();
-
 		instance = this;
-
 		SetFoodDic();
 	}
 
@@ -84,8 +84,6 @@ public class FoodManager : NotifyContorller<ICancelableOrder>
 	public void RemoveOrder(int index)
 	{
 		_orderList.Remove(index);
-
-		OnNotifyAction?.Invoke();
 	}
 
 	public Dictionary<int, OrderInfo> GetOrderList()
