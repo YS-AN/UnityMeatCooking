@@ -16,7 +16,7 @@ public class SettingMenuUI : SceneUI
 
 		buttons["BtnSetting"].onClick.AddListener(() => { ClickBtnSetting(); } );
 		buttons["BtnDecoration"].onClick.AddListener(() => { ClickBtnDecoration(); });
-		buttons["BtnPause"].onClick.AddListener(() => { ClickBtnPause(); });
+		buttons["BtnPause"].onClick.AddListener(() => { TempGameOver(); });
 
 		restaurantUI = transform.GetComponentInParent<RestaurantUI>();
 	}
@@ -60,5 +60,10 @@ public class SettingMenuUI : SceneUI
 		}
 		Time.timeScale = GameManager.Data.IsGamePause ? 0 : 1;
 		buttons["BtnPause"].transform.GetComponentInChildren<TextMeshProUGUI>().text = btnMsg;
+	}
+	
+	private void TempGameOver()
+	{
+		
 	}
 }
