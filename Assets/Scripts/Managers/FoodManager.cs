@@ -45,6 +45,11 @@ public class FoodManager : MonoBehaviour //: NotifyContorller<ICancelableOrder>
 		SetFoodDic();
 	}
 
+	private void Start()
+	{
+		
+	}
+
 	private void SetFoodDic()
 	{
 		_foodDic = new Dictionary<int, FoodData>();
@@ -61,11 +66,18 @@ public class FoodManager : MonoBehaviour //: NotifyContorller<ICancelableOrder>
 		SetPossibleCook();
 	}
 
+	/// <summary>
+	/// 전체 레시피에서 제조 가능한 음식 자겨오기
+	/// </summary>
 	private void SetPossibleCook()
 	{
 		_canCookDic = _foodDic.Where(x => x.Value.IsLearn).ToDictionary(key => key.Key, val => val.Value);
 	}
 
+	/// <summary>
+	/// 새로운 레시피 배우기
+	/// </summary>
+	/// <param name="index">제조 가능한 음식 추가하기</param>
 	public void LearnCook(int index)
 	{
 		if(_foodDic.ContainsKey(index))
@@ -75,17 +87,37 @@ public class FoodManager : MonoBehaviour //: NotifyContorller<ICancelableOrder>
 		}
 	}
 
+	/// <summary>
+	/// 주문 내역 추가
+	/// </summary>
+	/// <param name="orderData">추가할 주문 내역</param>
 	public void AddOrder(OrderInfo orderData)
 	{
 		int key = (_orderList.Keys.Count > 0 ? _orderList.Keys.Max() : 0) + 1;
 		_orderList.Add(key, orderData);
 	}
 
+	/// <summary>
+	/// 주문 내역 삭제
+	/// </summary>
+	/// <param name="index">삭제할 인덱스</param>
 	public void RemoveOrder(int index)
 	{
 		_orderList.Remove(index);
 	}
 
+	/// <summary>
+	/// 주문 내역 전체 삭제
+	/// </summary>
+	public void RemoveAllOrder()
+	{
+		_orderList.Clear();
+	}
+
+	/// <summary>
+	/// 주문 내역 반환
+	/// </summary>
+	/// <returns></returns>
 	public Dictionary<int, OrderInfo> GetOrderList()
 	{
 		return _orderList.Where(x => x.Value != null).ToDictionary(k => k.Key, v => v.Value);

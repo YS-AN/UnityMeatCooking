@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Environment
   - CustEntryPoint
+  - CustSpawner
   layers:
   - Default
   - TransparentFX

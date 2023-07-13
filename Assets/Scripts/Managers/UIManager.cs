@@ -17,14 +17,15 @@ public class UIManager : MonoBehaviour
 	private Canvas inGameCanvas;
 
 	private Stack<PopUpUI> popUpStack; //ui는 statck 형식임!! -> 열린 순서에 맞게 차례대로 닫혀야 함
-	private List<WindowUI> windowUI; 
+	private List<WindowUI> windowUI;
 
 	private void Awake()
 	{
-		//EventSystem이 무조건 필요하니까 리소시스화 해서 처음 시작과 동시에 이벤트 시스템을 추가하도록 함
-		eventSystem = GameManager.Resource.Instantiate<EventSystem>("UI/EventSystem");
-		eventSystem.transform.parent = transform; //UIManager로 넣어주면 자연스럽게 DontDestory 안으로 들어가니 모든 씬에서 존재하는 효과를 볼 수 있음
+		InitEventSystem();
+	}
 
+	public void InitUICanvas()
+	{
 		inGameCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
 		inGameCanvas.gameObject.name = "InGameCanvas";
 		inGameCanvas.sortingOrder = 30;
@@ -41,8 +42,13 @@ public class UIManager : MonoBehaviour
 		windowCanvas.sortingOrder = 10;
 
 		//gameSceneCanvas.sortingOrder = 1;
+	}
 
-		
+	private void InitEventSystem()
+	{
+		//EventSystem이 무조건 필요하니까 리소시스화 해서 처음 시작과 동시에 이벤트 시스템을 추가하도록 함
+		eventSystem = GameManager.Resource.Instantiate<EventSystem>("UI/EventSystem");
+		eventSystem.transform.parent = transform; //UIManager로 넣어주면 자연스럽게 DontDestory 안으로 들어가니 모든 씬에서 존재하는 효과를 볼 수 있음
 	}
 
 	public T ShowPopUpUI<T>(T popUpUi) where T : PopUpUI

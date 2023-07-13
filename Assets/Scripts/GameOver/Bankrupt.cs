@@ -22,4 +22,9 @@ public class Bankrupt : MonoBehaviour
 		gameOverUI = GameManager.UI.ShowInGameUI<GameOverUI>(UI_PATH);
 	}
 
+	private void InitGameData()
+	{
+		FoodManager.GetInstance().RemoveAllOrder();
+	}
+
 }
