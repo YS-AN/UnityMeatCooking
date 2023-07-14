@@ -1,17 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class OrderingUI : InGameUI
 {
 	private const string NM_FOOD_BTN = "BtnFood";
 	private const string NM_WAITBAR = "WaitBar";
 	private const string NM_WAIT_LAYER = "Waiting";
+
+	[SerializeField]
+	private RectTransform FxHolder;
+
+	[SerializeField]
+	private Image CircleImg;
+
+	[SerializeField]
+	[Range(0, 1)]
+	private float progress;
+
+	private Customer customer;
 
 	private OrderInfo orderData;
 
@@ -38,16 +51,44 @@ public class OrderingUI : InGameUI
 		buttons[NM_FOOD_BTN].image.sprite = orderData.FoodInfo.Icon;
 	}
 
+	private void StartWaitBar(int waitMax, int waitTime)
+	{
+		StartCoroutine(FillSliderRoutine(waitMax, waitTime));
+	}
+
+	IEnumerator FillSliderRoutine(int waitMax, int waitTime)
+	{
+		int digitCount = waitMax.ToString().Length;
+		float elapsedTime = 0;
+		progress = 0;
+		CircleImg.fillAmount = 0;
+
+		while (elapsedTime < waitMax)
+		{
+			float increment = 1f / waitMax;
+			progress += increment;
+
+			elapsedTime += Time.deltaTime;
+			
+			progress = Mathf.Clamp(progress, 0, 1); // currentValue가 targetValue를 넘어가지 않도록 클램핑
+
+			CircleImg.fillAmount = progress;
+			FxHolder.rotation = Quaternion.Euler(new Vector3(0, 0, -progress * 360));
+			yield return new WaitForSeconds(waitTime);
+		}
+		customer.Mover.OnExit?.Invoke();
+	}
+
 	public void StartWait(Customer curCust, int waitMax, int waitTime = 1)
 	{
-		if(images[NM_WAIT_LAYER].IsActive() == false)
-		{
-			images[NM_WAIT_LAYER].gameObject.SetActive(true);
-		}
+		customer = curCust;
 
-		WaitBar waitBar = images[NM_WAIT_LAYER].GetComponent<WaitBar>();
-		waitBar.customer = curCust;
-		waitBar.StartSlider(waitMax, waitTime);
+		//if (images[NM_WAIT_LAYER].IsActive() == false)
+		//{
+		//	images[NM_WAIT_LAYER].gameObject.SetActive(true);
+		//}
+
+		StartWaitBar(waitMax, waitTime);
 	}
 
 	public void StopWait()

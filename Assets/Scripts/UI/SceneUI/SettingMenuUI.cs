@@ -25,7 +25,7 @@ public class SettingMenuUI : SceneUI
 	{
 		if (GameManager.Data.IsGamePause == false)
 		{
-			//todo. open setting view
+			GameManager.UI.ShowPopUpUI<SettingUI>("UI/GameSetting");
 		}
 	}
 

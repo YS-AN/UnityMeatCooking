@@ -47,5 +47,7 @@ public class SceneLoading : MonoBehaviour
 		custSpawner.IsOpenStore = true;
 
 		Destroy(loadingCanvas.gameObject);
+
+		AudioManager.GetInstance().PlayBgm(true);
 	}
 }

@@ -91,7 +91,7 @@ public class ChefMover : MonoBehaviour
 			yield return null;
 		}
 		SetMoveAction(false);
-		TurnToDestination(moveable.StopPoint);
+		//TurnToDestination(moveable.StopPoint);
 
 		moveable.NextAction();
 	}

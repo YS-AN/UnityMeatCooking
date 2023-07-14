@@ -8233,7 +8233,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.20082916, y: -0.677988, z: 0.20082916, w: 0.677988}
-  m_LocalPosition: {x: 14.309486, y: 7.1247463, z: 3.3300002}
+  m_LocalPosition: {x: 13.169486, y: 4.9347463, z: 3.3300002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8937,7 +8937,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038142943}
   m_LocalRotation: {x: -0.23210742, y: 0.6524047, z: -0.22039689, w: -0.68696386}
-  m_LocalPosition: {x: 14.309486, y: 7.1247463, z: 3.3300002}
+  m_LocalPosition: {x: 13.169486, y: 4.9347463, z: 3.3300002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11808,7 +11808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damping: {x: 1.62, y: 1.46, z: 0.33}
-  ShoulderOffset: {x: 0, y: 4.2, z: -1}
+  ShoulderOffset: {x: 0, y: 2.01, z: 0.14}
   VerticalArmLength: 0.4
   CameraSide: 1
   CameraDistance: 2
@@ -18425,6 +18425,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4756151477291860060, guid: e48d86a425838a943af300f1d629ca62, type: 3}
   m_PrefabInstance: {fileID: 2076746974}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2078080692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2078080694}
+  - component: {fileID: 2078080693}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2078080693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078080692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96250c2a0cd92f4abfdc68af1a6efec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmClip: {fileID: 8300000, guid: 4f3c875fb802fba4bb1a36dca0200200, type: 3}
+  sfxClips: []
+  sfxPlayers: []
+  channels: 0
+--- !u!4 &2078080694
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078080692}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2088247440
 GameObject:
   m_ObjectHideFlags: 0
