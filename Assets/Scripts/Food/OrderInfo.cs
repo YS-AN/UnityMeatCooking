@@ -7,10 +7,11 @@ using UnityEngine.UI;
 
 public class OrderInfo
 {
-	public OrderInfo(FoodData foodInfo, bool isOrder = false)
+	public OrderInfo(FoodData foodInfo, Customer customer = null, bool isOrder = false)
 	{
 		OderID = Guid.NewGuid().ToString();
 		FoodInfo = foodInfo;
+		Orderer = customer;
 		IsOrder = isOrder;
 		CookResultType = CookedType.None;
 	}
@@ -33,4 +34,9 @@ public class OrderInfo
 	/// 조리 위치
 	/// </summary>
 	public Transform CookingPoint { get; set; }
+
+	/// <summary>
+	/// 주문자
+	/// </summary>
+	public Customer Orderer { get; set; }
 }

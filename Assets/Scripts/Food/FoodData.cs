@@ -50,11 +50,3 @@ public class FoodData : ScriptableObject
 	/// </summary>
 	public List<Recipe> Recipe;
 }
-
-
-[System.Serializable]
-public class Recipe
-{
-	public IngredientName Name;
-	public int Count;
-}

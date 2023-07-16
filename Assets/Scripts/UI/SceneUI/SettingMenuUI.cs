@@ -8,6 +8,8 @@ public class SettingMenuUI : SceneUI
 	[SerializeField]
 	private Decoration decoration;
 
+	private Bankrupt bankrupt;
+
 	private RestaurantUI restaurantUI;
 
 	protected override void Awake()
@@ -16,13 +18,14 @@ public class SettingMenuUI : SceneUI
 
 		buttons["BtnSetting"].onClick.AddListener(() => { ClickBtnSetting(); } );
 		buttons["BtnDecoration"].onClick.AddListener(() => { ClickBtnDecoration(); });
-		buttons["BtnPause"].onClick.AddListener(() => { TempGameOver(); });
+		buttons["BtnPause"].onClick.AddListener(() => { ClickBtnPause(); });
 
 		restaurantUI = transform.GetComponentInParent<RestaurantUI>();
+		bankrupt = transform.GetComponentInParent<Bankrupt>();
 	}
 
 	private void ClickBtnSetting()
-	{
+	{ 
 		if (GameManager.Data.IsGamePause == false)
 		{
 			GameManager.UI.ShowPopUpUI<SettingUI>("UI/GameSetting");
@@ -60,10 +63,5 @@ public class SettingMenuUI : SceneUI
 		}
 		Time.timeScale = GameManager.Data.IsGamePause ? 0 : 1;
 		buttons["BtnPause"].transform.GetComponentInChildren<TextMeshProUGUI>().text = btnMsg;
-	}
-	
-	private void TempGameOver()
-	{
-		
 	}
 }

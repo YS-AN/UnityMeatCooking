@@ -24,7 +24,7 @@ public class Ingredients : MonoBehaviour
 	{
 		foreach (var ingr in ingrDatas)
 		{
-			ingr.IngrCnt = 10;
+			ingr.IngrCnt = 3;
 		}
 	}
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -8005154277993936586}
   m_Layer: 0
   m_Name: Cust_6
-  m_TagString: Untagged
+  m_TagString: Customer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,7 +67,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08aefea2342e78f4a87635a08864e3d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mover: {fileID: 0}
+  CurState: 0
+  Mover: {fileID: 0}
+  Wait: {fileID: 0}
+  Order: {fileID: 0}
+  Eater: {fileID: 0}
+  Exit: {fileID: 0}
+  Rater: {fileID: 0}
+  Status: {fileID: 0}
 --- !u!1001 &7207814511960320140
 PrefabInstance:
   m_ObjectHideFlags: 0

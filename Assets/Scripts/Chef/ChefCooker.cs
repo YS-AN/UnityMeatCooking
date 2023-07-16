@@ -105,6 +105,8 @@ public class ChefCooker : MonoBehaviour
 		ReturnHoldingPoint(servedModel.HoldingPoint);
 		ServedInfo.Remove(servedModel);
 
+		servedModel.HoldingFood.IsOrder = false;
+
 		if (IsRunningAnim)
 			animator.SetBool("IsServe", GetAnimatorWorkValue());
 	}

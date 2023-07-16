@@ -29,8 +29,6 @@ public class SceneLoading : MonoBehaviour
 			yield return null;
 			progressbar.value = Mathf.MoveTowards(progressbar.value, 1f, Time.deltaTime);
 		}
-
-
 		FinishedLoad();
 	}
 

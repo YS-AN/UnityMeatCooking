@@ -68,7 +68,7 @@ public class OrderingUI : InGameUI
 			float increment = 1f / waitMax;
 			progress += increment;
 
-			elapsedTime += Time.deltaTime;
+			elapsedTime += 1;//Time.deltaTime;
 			
 			progress = Mathf.Clamp(progress, 0, 1); // currentValue가 targetValue를 넘어가지 않도록 클램핑
 

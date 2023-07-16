@@ -9,8 +9,6 @@ public class PropertyUI : SceneUI
 		base.Awake();
 
 		GameManager.Data.OnChangeRevenue += UpdateRevenue;
-
-		GameManager.Data.Revenue = 2000;
 	}
 
 	private void UpdateRevenue()
