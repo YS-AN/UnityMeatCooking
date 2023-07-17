@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2d4f78ecae687b46a69b81d1eabc319, type: 3}
-  m_Name: TrashCan
+  m_Name: Expansion
   m_EditorClassIdentifier: 
-  Name: 2
-  Icon: {fileID: 21300000, guid: d9d5bc292a747384b869371875b1d034, type: 3}
-  FuncObject: {fileID: 3963157111888078305, guid: 2b0f02bb740732f4eb5ad44fdd49bd7e, type: 3}
-  Price: 200
+  Name: 0
+  Icon: {fileID: 21300000, guid: 5b08e683a277909419a5b64fc5383d16, type: 3}
+  FuncObject: {fileID: 0}
+  Price: 10000

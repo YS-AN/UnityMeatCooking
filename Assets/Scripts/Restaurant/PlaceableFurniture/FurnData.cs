@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public enum FurnitureName
 {
 	None = -1,
-	HearthOven = 0,
+	Expansion = 0,
+	HearthOven,
 	TrashCan,
 
 }

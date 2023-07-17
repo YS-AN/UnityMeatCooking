@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d4f78ecae687b46a69b81d1eabc319, type: 3}
   m_Name: HearthOven
   m_EditorClassIdentifier: 
-  Name: 0
+  Name: 1
   Icon: {fileID: 21300000, guid: 37fa133c9a7b6ad47b1e40bb021c2b27, type: 3}
   FuncObject: {fileID: 192010499100742278, guid: 5c072ae4418afca488672d7f075621cb, type: 3}
   Price: 2000

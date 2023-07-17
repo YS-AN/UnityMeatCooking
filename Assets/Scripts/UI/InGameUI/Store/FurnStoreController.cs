@@ -41,7 +41,10 @@ public class FurnStoreController : StoreController
 	/// <param name="item"></param>
 	private void BuyItem(SaleItemData item)
 	{
-		FurnitureManager.GetInstance().Spawner.OnCreateFurniture?.Invoke(item);
+		if(item.ItemId == 0)
+			FurnitureManager.GetInstance().Spawner.OnCreateFurniture?.Invoke(item);
+		else
+			FurnitureManager.GetInstance().Spawner.OnCreateFurniture?.Invoke(item);
 	}
 
 	public override void ClearSalesContent()

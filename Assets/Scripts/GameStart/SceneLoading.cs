@@ -34,6 +34,7 @@ public class SceneLoading : MonoBehaviour
 
 	private void InitGameSetting()
 	{
+		GameManager.Pool.InitPool();
 		GameManager.UI.InitUICanvas();
 		
 		FoodManager.GetInstance().RemoveAllOrder();
