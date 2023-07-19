@@ -56,8 +56,6 @@ public abstract class Placeable : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		Debug.Log($"OnEndDrag : {shadow.IsEnterOffLimits}");
-
 		transform.transform.position = shadow.IsEnterOffLimits ? initialPosition : new Vector3(transform.position.x, 0, transform.position.z);
 		shadow.OnPlacedOffLimits?.Invoke();
 

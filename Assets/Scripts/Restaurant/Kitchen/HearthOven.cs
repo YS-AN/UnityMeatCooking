@@ -44,6 +44,7 @@ public class HearthOven : MonoBehaviour, IMoveable
 	public void NextAction()
 	{
 		//cam2.Priority = 30;
+		Camera.main.transform.Translate(Vector3.forward * 30 * Time.deltaTime, Space.Self);
 
 		cookListUI = GameManager.UI.ShowInGameUI<CookListUI>(UI_PATH);
 		cookListUI.SetTarget(transform);
