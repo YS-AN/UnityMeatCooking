@@ -43,7 +43,7 @@ public abstract class Placeable : MonoBehaviour, IBeginDragHandler, IDragHandler
 			offset.y = 2f; // y 축은 고정하여 수직 이동 방지
 
 			transform.position = initialPosition + offset;
-			shadow.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+			shadow.transform.position = new Vector3(transform.position.x, 0.1f, transform.position.z);
 		}
 	}
 
@@ -56,7 +56,7 @@ public abstract class Placeable : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		transform.transform.position = shadow.IsEnterOffLimits ? initialPosition : new Vector3(transform.position.x, 0, transform.position.z);
+		transform.transform.position = (shadow.IsOutsideStore || shadow.IsEnterOffLimits) ? initialPosition : new Vector3(transform.position.x, 0, transform.position.z);
 		shadow.OnPlacedOffLimits?.Invoke();
 
 		shadow.gameObject.SetActive(false);

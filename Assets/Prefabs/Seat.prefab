@@ -749,6 +749,9 @@ MonoBehaviour:
   ShadowLayer:
     serializedVersion: 2
     m_Bits: 1024
+  FloorLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   exceptionObj: {fileID: 0}
 --- !u!1 &4601091210434592581
 GameObject:
@@ -921,6 +924,9 @@ MonoBehaviour:
   ShadowLayer:
     serializedVersion: 2
     m_Bits: 1024
+  FloorLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   exceptionObj: {fileID: 0}
 --- !u!1 &7760102181637860529
 GameObject:

@@ -7,11 +7,19 @@ public class OffLimitsRange : MonoBehaviour
 	[SerializeField]
 	private LayerMask ShadowLayer;
 
+	[SerializeField]
+	private LayerMask FloorLayer;
+
 	/// <summary>
-	/// ÀÚ½ÅÀÇ Shadow box
+	/// Shadow box
 	/// </summary>
 	[SerializeField]
 	private GameObject exceptionObj;
+
+	private void Update()
+	{
+		IsGround();
+	}
 
 	private void OnTriggerEnter(Collider other)
 	{
@@ -37,6 +45,22 @@ public class OffLimitsRange : MonoBehaviour
 		if(shadow != null)
 		{
 			shadow.IsEnterOffLimits = isEnter;
+		}
+	}
+
+	private void IsGround()
+	{
+		float groundDistance = 5f;
+
+		bool isGrounded = Physics.Raycast(transform.position, Vector3.down, out var hit, groundDistance, FloorLayer);
+
+		//Debug.DrawRay(transform.position, Vector3.down * groundDistance);
+
+		if(exceptionObj != null)
+		{
+			Shadow shadow = exceptionObj.gameObject.GetComponent<Shadow>();
+			if (shadow != null)
+				shadow.IsOutsideStore = !isGrounded;
 		}
 	}
 }

@@ -6759,7 +6759,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4446221380502339419, guid: 2b0f02bb740732f4eb5ad44fdd49bd7e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.28
+      value: 8.27
       objectReference: {fileID: 0}
     - target: {fileID: 4446221380502339419, guid: 2b0f02bb740732f4eb5ad44fdd49bd7e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6767,7 +6767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4446221380502339419, guid: 2b0f02bb740732f4eb5ad44fdd49bd7e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4446221380502339419, guid: 2b0f02bb740732f4eb5ad44fdd49bd7e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6796,6 +6796,10 @@ PrefabInstance:
     - target: {fileID: 4446221380502339419, guid: 2b0f02bb740732f4eb5ad44fdd49bd7e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5913122827401917900, guid: 2b0f02bb740732f4eb5ad44fdd49bd7e, type: 3}
+      propertyPath: FloorLayer.m_Bits
+      value: 2048
       objectReference: {fileID: 0}
     - target: {fileID: 7187424146855491179, guid: 2b0f02bb740732f4eb5ad44fdd49bd7e, type: 3}
       propertyPath: groundMask.m_Bits
@@ -8146,7 +8150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &507156935
 Transform:
   m_ObjectHideFlags: 0
@@ -12498,6 +12502,9 @@ MonoBehaviour:
   ShadowLayer:
     serializedVersion: 2
     m_Bits: 1024
+  FloorLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   exceptionObj: {fileID: 0}
 --- !u!1001 &733436332
 PrefabInstance:
@@ -37096,6 +37103,10 @@ PrefabInstance:
     - target: {fileID: 712123051797104700, guid: 5c072ae4418afca488672d7f075621cb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260923846693409510, guid: 5c072ae4418afca488672d7f075621cb, type: 3}
+      propertyPath: FloorLayer.m_Bits
+      value: 2048
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c072ae4418afca488672d7f075621cb, type: 3}
