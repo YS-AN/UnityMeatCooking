@@ -101,11 +101,15 @@ public class ChefCooker : MonoBehaviour
 	/// <param name="servedModel"></param>
 	public void RemoveHoldingFood(ServedDishModel servedModel)
 	{
+		Debug.Log("[ChefCooker] RemoveHoldingFood222");
+
 		Destroy(servedModel.ServedDish.gameObject);
 		ReturnHoldingPoint(servedModel.HoldingPoint);
 		ServedInfo.Remove(servedModel);
 
 		servedModel.HoldingFood.IsOrder = false;
+
+		Debug.Log("[ChefCooker] HoldingFood.IsOrder = false;");
 
 		if (IsRunningAnim)
 			animator.SetBool("IsServe", GetAnimatorWorkValue());
@@ -113,6 +117,8 @@ public class ChefCooker : MonoBehaviour
 
 	public void RemoveHoldingFood(string orderId)
 	{
+		Debug.Log("[ChefCooker] RemoveHoldingFood");
+
 		RemoveHoldingFood(GetHoldingFoodModel(orderId));
 	}
 

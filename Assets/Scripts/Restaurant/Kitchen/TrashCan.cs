@@ -22,7 +22,7 @@ public class TrashCan : MonoBehaviour, IMoveable
 
 	public void NextAction()
 	{
-		cam2.Priority = 30;
+		//cam2.Priority = 30;
 
 		PlayerManager.GetInstance().Player.Cleaner.IsUseTrashCan = true;
 		OpenTrashCanCover();
@@ -30,7 +30,7 @@ public class TrashCan : MonoBehaviour, IMoveable
 
 	public void ClearAction()
 	{
-		cam2.Priority = 10;
+		//cam2.Priority = 10;
 
 		PlayerManager.GetInstance().Player.Cleaner.IsUseTrashCan = false;
 		trashCanCover.localRotation = Quaternion.identity;

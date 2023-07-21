@@ -91,7 +91,7 @@ public class ChefMover : MonoBehaviour
 			yield return null;
 		}
 		SetMoveAction(false);
-		//TurnToDestination(moveable.StopPoint);
+		TurnToDestination(moveable.StopPoint);
 
 		moveable.NextAction();
 	}
@@ -119,8 +119,6 @@ public class ChefMover : MonoBehaviour
 	private void TurnToDestination(Transform stopPostion)
 	{
 		Coroutines coroutines = new Coroutines();
-		StartCoroutine(coroutines.LocalBasedRotationRoutine(transform, Quaternion.Euler(0, stopPostion.rotation.y, 0), 2f));
+		StartCoroutine(coroutines.LocalBasedRotationRoutine(transform, stopPostion.rotation, 1f));
 	}
 }
-
-	//GraduallyRotateRoutine
