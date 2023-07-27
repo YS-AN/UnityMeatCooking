@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ public class ServedDishModel
 	public OrderInfo HoldingFood;
 
 	public Transform HoldingPoint { get; set; }
+
+	public int HoldingAnimationKey { get; set; }
 }
 
 public class ChefCooker : MonoBehaviour
@@ -21,6 +24,7 @@ public class ChefCooker : MonoBehaviour
 
 	[SerializeField]
 	private List<Transform> HoldingPoints;
+	private Dictionary<int, bool> HoldingAnimations;
 
 	private List<ServedDishModel> ServedInfo;
 
@@ -37,6 +41,8 @@ public class ChefCooker : MonoBehaviour
 		IsRunningAnim = false;
 
 		ServedInfo = new List<ServedDishModel>();
+
+		HoldingAnimations = new Dictionary<int, bool>() { { 1, false }, { 2, false } };
 	}
 
 	/// <summary>
@@ -61,8 +67,7 @@ public class ChefCooker : MonoBehaviour
 			}
 			ServedInfo.Add(model);
 
-			if(IsRunningAnim == false) 
-				animator.SetBool("IsServe", GetAnimatorWorkValue());
+			model.HoldingAnimationKey = GetHoldingAnimationKey();
 		}
 	}
 
@@ -104,7 +109,7 @@ public class ChefCooker : MonoBehaviour
 		Debug.Log("[ChefCooker] RemoveHoldingFood222");
 
 		Destroy(servedModel.ServedDish.gameObject);
-		ReturnHoldingPoint(servedModel.HoldingPoint);
+		ReturnHoldingPoint(servedModel.HoldingPoint, servedModel.HoldingAnimationKey);
 		ServedInfo.Remove(servedModel);
 
 		servedModel.HoldingFood.IsOrder = false;
@@ -156,8 +161,26 @@ public class ChefCooker : MonoBehaviour
 		return null;
 	}
 
-	private void ReturnHoldingPoint(Transform point)
+	private int GetHoldingAnimationKey()
+	{
+		var animation = HoldingAnimations.Where(x => x.Value == false).FirstOrDefault();
+
+		if(animation.Key > 0)
+		{
+			animator.SetLayerWeight(animation.Key, 1);
+			HoldingAnimations[animation.Key] = true;
+
+			return animation.Key;
+		}
+		return -1;
+	}
+
+
+	private void ReturnHoldingPoint(Transform point, int animationKey)
 	{
 		HoldingPoints.Add(point);
+
+		HoldingAnimations[animationKey] = false;
+		animator.SetLayerWeight(animationKey, 0);
 	}
 }
