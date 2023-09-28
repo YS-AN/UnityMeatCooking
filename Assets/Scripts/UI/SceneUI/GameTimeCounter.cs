@@ -68,7 +68,7 @@ public class GameTimeCounter : MonoBehaviour
 		var custs = customers.GetComponentsInChildren<Customer>();
 		foreach(var cust in custs)
 		{
-			Destroy(cust);
+			cust.Mover.OnExit?.Invoke();
 		}
 	}
 
