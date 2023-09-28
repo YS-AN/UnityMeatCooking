@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Storage : MonoBehaviour, IMoveable
+public class Storage : MonoBehaviour
 {
 	private const string UI_PATH_BTN = "UI/OpenStorage";
 	private const string UI_PATH_INV = "UI/InventroyUI";
@@ -17,23 +17,14 @@ public class Storage : MonoBehaviour, IMoveable
 	[SerializeField]
 	private Transform storageDoor;
 
-	[SerializeField]
-	public Transform StopPosition;
-	public Transform StopPoint { get; set; }
-
-	private void Awake()
-	{
-		StopPoint = StopPosition;
-	}
-
-	public void NextAction()
+	public void OpenStorageUI()
 	{
 		openStorage = GameManager.UI.ShowInGameUI<OpenStorage>(UI_PATH_BTN);
 		openStorage.SetTarget(transform);
 		openStorage.OnOpenDoor += OpenStorageDoor;
 	}
 
-	public void ClearAction()
+	public void ClearStorageUI()
 	{
 		if(OpenDoorRoutine != null)
 		{
@@ -66,7 +57,7 @@ public class Storage : MonoBehaviour, IMoveable
 	public void OpenStorageDoor()
 	{
 		Coroutines coroutines = new Coroutines();
-		OpenDoorRoutine = StartCoroutine(coroutines.LocalBasedRotationRoutine(storageDoor, Quaternion.Euler(new Vector3(0, 90, 0)), 2, OpenInventroy));
+		OpenDoorRoutine = StartCoroutine(coroutines.LocalBasedRotationRoutine(storageDoor, Quaternion.Euler(new Vector3(0, 90, 0)), 0.2f, OpenInventroy));
 	}
 
 	private void OpenInventroy()

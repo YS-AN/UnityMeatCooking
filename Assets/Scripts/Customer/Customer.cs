@@ -28,6 +28,7 @@ public class Customer : MonoBehaviour
 
 	private NavMeshAgent navAgent;
 	private CapsuleCollider capsuleCollider;
+	private BoxCollider boxCollider;
 
 	public CustomerMover Mover;
 	public CustomerWait Wait;
@@ -48,6 +49,7 @@ public class Customer : MonoBehaviour
 	{
 		this.AddComponent<NavMeshAgent>();
 		this.AddComponent<CapsuleCollider>();
+		this.AddComponent<BoxCollider>();
 
 		this.AddComponent<CustomerMover>();
 		this.AddComponent<CustomerWait>();
@@ -66,10 +68,15 @@ public class Customer : MonoBehaviour
 		navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
 		navAgent.areaMask = (1 << NavMesh.GetAreaFromName("CustWalkable"));
 
+		boxCollider = transform.GetComponent<BoxCollider>();
+		boxCollider.isTrigger = false;
+		boxCollider.center = new Vector3(0, 0.9f, 0);
+		boxCollider.size = new Vector3(1.5f, 2.3f, 0.3f);
+
 		capsuleCollider = transform.GetComponent<CapsuleCollider>();
 		capsuleCollider.isTrigger = true;
 		capsuleCollider.center = new Vector3(0, 1, 0);
-		capsuleCollider.radius = 0.3f;
+		capsuleCollider.radius = 1f;
 		capsuleCollider.height = 2;
 
 		Mover = transform.GetComponent<CustomerMover>();

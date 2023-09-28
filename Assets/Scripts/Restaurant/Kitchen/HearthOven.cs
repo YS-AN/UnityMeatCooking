@@ -5,14 +5,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class HearthOven : MonoBehaviour, IMoveable
+public class HearthOven : MonoBehaviour
 {
 	private const string UI_PATH = "UI/CookList";
 
 	private CookListUI cookListUI = null;
-
-	public Transform StopPosition;
-	public Transform StopPoint { get; set; }
 
 	[SerializeField]
 	private Transform CookObject;
@@ -23,11 +20,8 @@ public class HearthOven : MonoBehaviour, IMoveable
 
 	public UnityAction<OrderInfo> OnCooking;
 
-	private CinemachineVirtualCamera cam2; //todo. 플레이어 카메라 무빙이 결정될 때 까지만 임시로...
-
 	private void Awake()
 	{
-		StopPoint = StopPosition;
 		OnCooking += DoCooking;
 
 		CookPoint = new Stack<Transform>();
@@ -37,32 +31,29 @@ public class HearthOven : MonoBehaviour, IMoveable
 		}
 
 		//FoodManager.GetInstance().AddObserver(this);
-
-		cam2 = GameObject.Find("Cam_Oven").GetComponent<CinemachineVirtualCamera>();
 	}
 
-	public void NextAction()
+	public void OpenCookListUI()
 	{
-		//cam2.Priority = 30;
-		Camera.main.transform.Translate(Vector3.forward * 30 * Time.deltaTime, Space.Self);
-
 		cookListUI = GameManager.UI.ShowInGameUI<CookListUI>(UI_PATH);
 		cookListUI.SetTarget(transform);
 		cookListUI.SetCurrentOven(this);
 	}
 
-	public void ClearAction()
+	public void CloseCookListUI()
 	{
-		//cam2.Priority = 10;
-		
-		CloseUI();
+		if (cookListUI != null)
+		{
+			GameManager.UI.CloseInGameUI(cookListUI);
+			cookListUI = null;
+		}
 	}
 
 	private void DoCooking(OrderInfo orderData)
 	{
 		if (CookPoint.Count > 0)
 		{
-			CloseUI();
+			CloseCookListUI();
 
 			orderData.CookingPoint = CookPoint.Pop();
 
@@ -77,14 +68,5 @@ public class HearthOven : MonoBehaviour, IMoveable
 	{
 		CookPoint.Push(orderData.CookingPoint);
 		PlayerManager.GetInstance().Player.Cooker.HoldDish(orderData);
-	}
-
-	private void CloseUI()
-	{
-		if (cookListUI != null)
-		{
-			GameManager.UI.CloseInGameUI(cookListUI);
-			cookListUI = null;
-		}
 	}
 }

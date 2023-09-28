@@ -17,8 +17,6 @@ public class Bankrupt : MonoBehaviour
 
 	public void Awake()
 	{
-		OnBankrupt += OpenGameOverUI;
-
 	}
 
 	public void Start()
@@ -28,10 +26,12 @@ public class Bankrupt : MonoBehaviour
 
 	private void Update()
 	{
+		/*
 		if(IsGameOver())
 		{
-			OpenGameOverUI();
+			OpenGameOverUI("파산하셨습니다.  영업을 종료합니다.");
 		}
+		//*/
 	}
 
 	/// <summary>
@@ -94,18 +94,11 @@ public class Bankrupt : MonoBehaviour
 		return true;
 	}
 
-	private void OpenGameOverUI()
+	public void OpenGameOverUI(string overMessage)
 	{
-		PlayerManager.GetInstance().Player.Animator.SetTrigger("IsDown");
-
 		gameOverUI = GameManager.UI.ShowInGameUI<GameOverUI>(UI_PATH);
+		gameOverUI.SetGameOverMessage(overMessage);
 
-		InitGameData();
+		PlayerManager.GetInstance().Player.Animator.SetTrigger("IsDown");
 	}
-
-	private void InitGameData()
-	{
-		FoodManager.GetInstance().RemoveAllOrder();
-	}
-
 }

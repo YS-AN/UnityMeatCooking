@@ -22,7 +22,7 @@ public abstract class StoreController : MonoBehaviour
 
 		AdjustSalesList();
 
-		PlayerManager.GetInstance().Player.Camera.IsRotation = false;
+		//PlayerManager.GetInstance().Player.Camera.IsRotation = false;
 	}
 
 	/// <summary>
@@ -76,6 +76,6 @@ public abstract class StoreController : MonoBehaviour
 	/// </summary>
 	public virtual void ClearSalesContent()
 	{
-		PlayerManager.GetInstance().Player.Camera.IsRotation = true;
+		//PlayerManager.GetInstance().Player.Camera.IsRotation = true;
 	}
 }

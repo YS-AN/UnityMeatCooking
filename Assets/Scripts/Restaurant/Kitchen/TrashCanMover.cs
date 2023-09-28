@@ -6,7 +6,7 @@ public class TrashCanMover : Placeable
 {
 	public override void EndDragAction()
 	{
-		var trashCan = transform.GetComponent<TrashCan>();
-		trashCan.StopPoint = trashCan.StopPoint;
+		//var trashCan = transform.GetComponent<TrashCan>();
+		//trashCan.StopPoint = trashCan.StopPoint;
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CustomerStatus : MonoBehaviour, IMoveable
+public class CustomerStatus : MonoBehaviour, IActionable
 {
 	public Transform StopPoint { get; set; }
 

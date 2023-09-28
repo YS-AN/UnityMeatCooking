@@ -11,6 +11,9 @@ public class SceneLoading : MonoBehaviour
 	[SerializeField]
 	private Canvas loadingCanvas;
 
+	[SerializeField]
+	private GameTimeCounter Gametimer;
+
 	private void Start()
 	{
 		StartCoroutine(LoadScene());
@@ -48,5 +51,7 @@ public class SceneLoading : MonoBehaviour
 		Destroy(loadingCanvas.gameObject);
 
 		AudioManager.GetInstance().PlayBgm(true);
+
+		Gametimer.OnStartGameTimeCount?.Invoke();
 	}
 }

@@ -3,34 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrashCan : MonoBehaviour, IMoveable
+public class TrashCan : MonoBehaviour
 {
 	[SerializeField]
 	private Transform trashCanCover;
 
-	public Transform StopPosition;
-	public Transform StopPoint { get; set; }
 
-	private CinemachineVirtualCamera cam2; //todo. 플레이어 카메라 무빙이 결정될 때 까지만 임시로...
-
-	private void Awake()
+	public void ThrowAwayTrash()
 	{
-		StopPoint = StopPosition;
-
-		cam2 = GameObject.Find("Cam_TrashCan").GetComponent<CinemachineVirtualCamera>();
-	}
-
-	public void NextAction()
-	{
-		//cam2.Priority = 30;
+		Debug.Log("ThrowAwayTrash");
 
 		PlayerManager.GetInstance().Player.Cleaner.IsUseTrashCan = true;
 		OpenTrashCanCover();
 	}
 
-	public void ClearAction()
+	public void AfterThrewAway()
 	{
-		//cam2.Priority = 10;
+		Debug.Log("AfterThrewAway");
 
 		PlayerManager.GetInstance().Player.Cleaner.IsUseTrashCan = false;
 		trashCanCover.localRotation = Quaternion.identity;

@@ -41,6 +41,7 @@ public class TPSCameraController : MonoBehaviour
 		transposer = virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
 	}
 
+	/*
 	private void LateUpdate()
 	{
 		Pointer(direction);
@@ -99,4 +100,5 @@ public class TPSCameraController : MonoBehaviour
 		PlayerManager.GetInstance().Player.transform.Rotate(Vector3.up * 100 * direction * Time.deltaTime, Space.World);
 		//cameraRoot.Rotate(Vector3.up * 50 * direction * Time.deltaTime, Space.World);
 	}
+	*/
 }

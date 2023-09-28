@@ -382,7 +382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTarget: {fileID: 0}
-  followOffset: {x: 0, y: 150}
+  followOffset: {x: 0, y: 300}
   FxHolder: {fileID: 8407423540186726911}
   CircleImg: {fileID: 9036775582166093502}
   progress: 0

@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-	public ChefMover Mover;
-	public ChefCooker Cooker;
-	public ChefCleaner Cleaner;
-	public TPSCameraController Camera; 
-
-	public Animator Animator;
-
+	public Animator Animator { get; private set; }
+	public ChefMover Mover { get; private set; }
+	public ChefCooker Cooker { get; private set; }
+	public ChefCleaner Cleaner { get; private set; }
+	
 	private void Awake()
 	{
 		Animator = GetComponent<Animator>();
-
 		Mover = GetComponent<ChefMover>();
 		Cooker = transform.GetComponent<ChefCooker>();
 		Cleaner = transform.GetComponent<ChefCleaner>();
-		Camera = transform.GetComponent<TPSCameraController>();
 	}
 }

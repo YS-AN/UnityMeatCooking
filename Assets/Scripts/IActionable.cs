@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IMoveable
+public interface IActionable
 {
 	public Transform StopPoint { get; set; }
 

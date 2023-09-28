@@ -373,6 +373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followTarget: {fileID: 0}
   followOffset: {x: 0, y: 0}
+  txtGameOverMessage: {fileID: 4930924467779152272}
 --- !u!1 &5375297498596354281
 GameObject:
   m_ObjectHideFlags: 0

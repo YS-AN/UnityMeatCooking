@@ -47,7 +47,7 @@ public class CookListUI : InGameUI
 	/// <param name="oven"></param>
 	public void SetCurrentOven(HearthOven oven)
 	{
-		uiController.SetCalledOver(oven);
+		uiController.SetCalledOven(oven);
 	}
 }
 
@@ -70,7 +70,7 @@ public class CookListController
 		}
 	}
 
-	public void SetCalledOver(HearthOven oven)
+	public void SetCalledOven(HearthOven oven)
 	{
 		model.CalledOven = oven;
 
