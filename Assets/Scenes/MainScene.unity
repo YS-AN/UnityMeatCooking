@@ -16479,7 +16479,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txtGameTime: {fileID: 2021467567}
-  totalTime: 300
+  totalTime: 60
+  lastOrderTime: 30
+  customers: {fileID: 1778938689}
 --- !u!1 &949899016
 GameObject:
   m_ObjectHideFlags: 3
@@ -29450,6 +29452,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6272653042250713210, guid: 5c3f2ee550e193d43908eeaa6e8e4d45, type: 3}
   m_PrefabInstance: {fileID: 6272653042588155416}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1778938689 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6272653042250713211, guid: 5c3f2ee550e193d43908eeaa6e8e4d45, type: 3}
+  m_PrefabInstance: {fileID: 6272653042588155416}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41698dc262c9e724ab7596bca08357dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1786366700
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30445,7 +30458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2608325894525088798, guid: e2aea8c976c3653429826efca47b392a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2608325894525088798, guid: e2aea8c976c3653429826efca47b392a, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag

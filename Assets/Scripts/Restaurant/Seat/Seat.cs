@@ -29,4 +29,20 @@ public class Seat : MonoBehaviour
 		}
 		//*/
 	}
+
+	public void CleanTable()
+	{
+		foreach(var chair in _chairs)
+		{
+			foreach(var point in chair.SeatPoints)
+			{
+				var food = point.GetComponentInChildren<FoodPoint>().GetComponentInChildren<Dish>();
+
+				if(food != null)
+				{
+					Destroy(food);
+				}
+			}
+		}
+	}
 }
