@@ -36,7 +36,7 @@ public abstract class Placeable : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 	public void OnDrag(PointerEventData eventData)
 	{
-		if(GameManager.Data.IsPlaceable)
+		if(GameManager.Data.IsOpenrestaurant == false)
 		{
 			Vector3 currentPosition = GetMouseWorldPosition();
 			offset = currentPosition - initialPosition;

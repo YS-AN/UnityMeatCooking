@@ -16,9 +16,9 @@ public class SettingMenuUI : SceneUI
 	{
 		base.Awake();
 
-		buttons["BtnSetting"].onClick.AddListener(() => { ClickBtnSetting(); } );
-		buttons["BtnDecoration"].onClick.AddListener(() => { ClickBtnDecoration(); });
-		buttons["BtnPause"].onClick.AddListener(() => { ClickBtnPause(); });
+		buttons["BtnSetting"].onClick.AddListener(ClickBtnSetting);
+		buttons["BtnDecoration"].onClick.AddListener(ClickBtnDecoration);
+		buttons["BtnPause"].onClick.AddListener(ClickBtnPause);
 
 		restaurantUI = transform.GetComponentInParent<RestaurantUI>();
 		bankrupt = transform.GetComponentInParent<Bankrupt>();
@@ -34,7 +34,7 @@ public class SettingMenuUI : SceneUI
 
 	private void ClickBtnDecoration()
 	{
-		if (GameManager.Data.IsGamePause == false)
+		if (GameManager.Data.IsGamePause == false && GameManager.Data.IsOpenrestaurant == false)
 		{
 			restaurantUI.gameObject.SetActive(false);
 

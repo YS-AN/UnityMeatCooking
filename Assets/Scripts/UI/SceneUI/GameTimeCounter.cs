@@ -7,8 +7,6 @@ using UnityEngine.Events;
 
 public class GameTimeCounter : MonoBehaviour
 {
-	private const string UI_PATH = "UI/TimeOutUI";
-
 	[SerializeField]
 	private TMP_Text txtGameTime;
 
@@ -20,6 +18,9 @@ public class GameTimeCounter : MonoBehaviour
 
 	[SerializeField]
 	private CustomerSpawner customers;
+
+	[SerializeField]
+	private TimeOutUI tiemoutUI;
 
 	private float gameTime = 0.1f;
 
@@ -43,8 +44,8 @@ public class GameTimeCounter : MonoBehaviour
 		{
 			if(gameTime == lastOrderTime)
 			{
-				customers.IsOpenStore = false;
 				txtGameTime.color = Color.red;
+				GameManager.Data.IsOpenrestaurant = false;
 			}
 
 			// 시간 형식으로 변환하여 텍스트에 표시
@@ -59,7 +60,7 @@ public class GameTimeCounter : MonoBehaviour
 
 		ClosedStore();
 
-		TimeOutUI tiemoutUI = GameManager.UI.ShowInGameUI<TimeOutUI>(UI_PATH);
+		tiemoutUI.gameObject.SetActive(true);
 		tiemoutUI.OnContinueGame += ResetTime;
 	}
 
@@ -70,14 +71,19 @@ public class GameTimeCounter : MonoBehaviour
 		{
 			cust.Mover.OnExit?.Invoke();
 		}
+		PlayerManager.GetInstance().SetStartPosition();
 	}
 
 	private void ResetTime()
 	{
+		Debug.Log("ResetTime");
+
 		txtGameTime.color = Color.white;
 
 		int minutes = Mathf.FloorToInt(totalTime / 60f);
 		int seconds = Mathf.FloorToInt(totalTime % 60f);
-		txtGameTime.text = string.Format("{0:D2}:{1:D2}", minutes, seconds);
+		txtGameTime.text = string.Format("{0:D2}:{1:D2}", minutes, seconds); 
+		
+		StartCoroutine(TimeCounterRoutine());
 	}
 }

@@ -10,10 +10,8 @@ public class CustomerSpawner : MonoBehaviour
 
 	[SerializeField]
 	private float SpawnTime;
-
+	
 	private Coroutine createEnemyRoutine;
-
-	public bool IsOpenStore;
 
 	private void OnEnable()
 	{
@@ -31,7 +29,7 @@ public class CustomerSpawner : MonoBehaviour
 		{
 			yield return new WaitForSeconds(SpawnTime);
 
-			if(IsOpenStore)
+			if(GameManager.Data.IsOpenrestaurant)
 			{
 				var seat = SeatManager.GetInstance().GetSeat();
 

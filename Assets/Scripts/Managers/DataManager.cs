@@ -11,12 +11,12 @@ public class DataManager : MonoBehaviour
 	public event UnityAction OnChangeRevenue;
 
 	/// <summary>
-	/// 매장 꾸미기 화면인지 여부
-	/// </summary>
-	public bool IsPlaceable { get; set; }
-
-	/// <summary>
 	/// 게임 일시정지 상태인지 여부
 	/// </summary>
-	public bool IsGamePause { get; set; }
+	public bool IsGamePause { get; set; } = false;
+
+	/// <summary>
+	/// 매장 운영 중인지 확인
+	/// </summary>
+	public bool IsOpenrestaurant { get; set; } = false;
 }

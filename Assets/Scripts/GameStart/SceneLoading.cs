@@ -45,8 +45,7 @@ public class SceneLoading : MonoBehaviour
 
 	private void FinishedLoad()
 	{
-		var custSpawner = GameObject.FindGameObjectWithTag("CustSpawner").GetComponent<CustomerSpawner>();
-		custSpawner.IsOpenStore = true;
+		GameManager.Data.IsOpenrestaurant = true;
 
 		Destroy(loadingCanvas.gameObject);
 

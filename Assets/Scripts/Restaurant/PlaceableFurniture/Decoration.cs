@@ -12,8 +12,6 @@ public class Decoration : SceneUI
 	public UnityAction OnStartDecoration;
 	public UnityAction OnEndDecoration;
 
-	public Transform Customers;
-
 	protected override void Awake()
 	{
 		base.Awake();
@@ -23,7 +21,6 @@ public class Decoration : SceneUI
 		OnStartDecoration += DecorateRestaurant;
 
 		transform.gameObject.SetActive(false);
-		GameManager.Data.IsPlaceable = false;
 	}
 
 	public void DecorateRestaurant()
@@ -34,34 +31,14 @@ public class Decoration : SceneUI
 			MainCam.Priority = 10;
 
 		transform.gameObject.SetActive(true);
-		Customers.GetComponent<CustomerSpawner>().IsOpenStore = false;
-
-		//todo 모든 customer 삭제
-		var customers = Customers.GetComponentsInChildren<Customer>();
-		foreach(var cust in customers)
-		{
-			if(cust.CurState == CustStateType.Enter)
-			{
-				cust.Mover.OnRemove?.Invoke();
-			}
-			else
-			{
-				cust.Mover.OnExit?.Invoke();
-			}
-		}
-
-		GameManager.Data.IsPlaceable = true;
 	}
 
     private void EndOfDecoration()
     {
-		GameManager.Data.IsPlaceable = false;
 		transform.gameObject.SetActive(false);
 
 		MainCam.Priority = 30;
 		
 		OnEndDecoration?.Invoke();
-
-		Customers.GetComponent<CustomerSpawner>().IsOpenStore = true;
 	}
 }

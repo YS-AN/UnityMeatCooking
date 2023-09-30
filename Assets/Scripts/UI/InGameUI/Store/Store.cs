@@ -30,7 +30,7 @@ public class Store : InGameUI
 	private void OnEnable()
 	{
 		StoreModel model = new StoreModel(SaleItemPrefab, SaleContent);
-		uiController = GameManager.Data.IsPlaceable ? new FurnStoreController(model) : new IngrStoreController(model);
+		uiController = GameManager.Data.IsOpenrestaurant ? new IngrStoreController(model) : new FurnStoreController(model);
 		uiController.SetSalesContent();
 	}
 

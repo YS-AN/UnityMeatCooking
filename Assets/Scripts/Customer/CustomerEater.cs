@@ -42,6 +42,8 @@ public class CustomerEater : StatusController
 
 	public override void TakeActionAfterNoti()
 	{
+		if (servedFood != null)
+			Destroy(servedFood.gameObject);
 	}
 
 	private void PutFoodDown()
