@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class DataManager : MonoBehaviour
 {
-	private int revenue;
+	private int revenue = 1000000;
 	public int Revenue { get { return revenue; } set { revenue = value; OnChangeRevenue?.Invoke(); } }
 	public string RevenueToStr { get { return revenue == 0 ? "0" : string.Format("{0:0,0}", revenue); } }
 	public event UnityAction OnChangeRevenue;

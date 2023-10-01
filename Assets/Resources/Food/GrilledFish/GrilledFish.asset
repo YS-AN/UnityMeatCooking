@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd804a957d170e4e9b743095cd93b58, type: 3}
+  m_Name: GrilledFish
+  m_EditorClassIdentifier: 
+  Name: GrilledFish
+  CookingTime: 20
+  Icon: {fileID: 21300000, guid: c810d464c8f2154489a63c9682c9ae18, type: 3}
+  CookingObject: {fileID: 125716405553996748, guid: e48b1ecfc59535149b35e3bda82bf83c, type: 3}
+  ResultObject: {fileID: 716740399210539554, guid: f3a8918a524b0464e95aa9ed0ed3907f, type: 3}
+  Price: 300
+  IsLearn: 1
+  Recipe:
+  - Name: 2
+    Count: 1
+  - Name: 5
+    Count: 6

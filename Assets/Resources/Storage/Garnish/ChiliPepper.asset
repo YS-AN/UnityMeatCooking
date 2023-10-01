@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43f7403c13d3a6f48a4a77722c44531b, type: 3}
   m_Name: ChiliPepper
   m_EditorClassIdentifier: 
-  Name: 2
+  Name: 3
   IngrType: 2
-  IngrCnt: 10
+  IngrCnt: 5
   Icon: {fileID: 21300000, guid: 7832db76e01cc4544b70161d1bada865, type: 3}
   Price: 30

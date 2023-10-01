@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 0
   IngrType: 1
-  IngrCnt: 4
+  IngrCnt: 3
   Icon: {fileID: 21300000, guid: da9c5ae184709324dad3e8520697e13e, type: 3}
   Price: 130
