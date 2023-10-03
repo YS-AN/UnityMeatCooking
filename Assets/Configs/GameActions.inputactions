@@ -167,6 +167,54 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "Furniture",
+            "id": "528a2992-708b-476d-a509-38ee55387d40",
+            "actions": [
+                {
+                    "name": "RotationR",
+                    "type": "Button",
+                    "id": "2cb7b907-8512-4f9d-9210-e10cc329a10e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotationL",
+                    "type": "Button",
+                    "id": "c88d8e41-8c48-46de-9ab6-92f54a5af4a2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4488ebd2-f56d-4f14-bdaf-75613534b856",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotationR",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "42c6a695-cd52-4691-a98f-a3e8ee434445",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotationL",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

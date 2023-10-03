@@ -52,11 +52,11 @@ public class OffLimitsRange : MonoBehaviour
 	{
 		float groundDistance = 5f;
 
-		bool isGrounded = Physics.Raycast(transform.position, Vector3.down, out var hit, groundDistance, FloorLayer);
+		bool isGrounded = Physics.BoxCast(transform.position, Vector3.one, Vector3.down, out var hit, Quaternion.identity, groundDistance, FloorLayer);
 
-		//Debug.DrawRay(transform.position, Vector3.down * groundDistance);
+		Debug.DrawRay(transform.position, Vector3.down * groundDistance, Color.red);
 
-		if(exceptionObj != null)
+		if (exceptionObj != null)
 		{
 			Shadow shadow = exceptionObj.gameObject.GetComponent<Shadow>();
 			if (shadow != null)

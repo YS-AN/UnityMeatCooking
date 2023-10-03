@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsEnterOffLimits: 0
+  IsOutsideStore: 0
 --- !u!1 &3963157111888078305
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +125,6 @@ GameObject:
   - component: {fileID: 3314378938050495540}
   - component: {fileID: 8756212683861382709}
   - component: {fileID: 7285347247867725877}
-  - component: {fileID: 521928613668166947}
   - component: {fileID: 2038106125}
   m_Layer: 0
   m_Name: TrashCan
@@ -227,23 +227,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashCanCover: {fileID: 1857486052188382890}
-  StopPosition: {fileID: 6646205097837332730}
---- !u!208 &521928613668166947
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3963157111888078305}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.2, y: 0.5, z: 0.2}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.5, z: 0.293}
-  m_TimeToStationary: 0.5
 --- !u!114 &2038106125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,4 +415,7 @@ MonoBehaviour:
   ShadowLayer:
     serializedVersion: 2
     m_Bits: 1024
+  FloorLayer:
+    serializedVersion: 2
+    m_Bits: 0
   exceptionObj: {fileID: 980311295}

@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public abstract class Placeable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
 	[SerializeField]
 	protected Shadow shadow;
-	
+
 	private MeshRenderer meshRenderer;
 
 	/// <summary>
@@ -16,6 +18,8 @@ public abstract class Placeable : MonoBehaviour, IBeginDragHandler, IDragHandler
 	private Vector3 initialPosition;
 
 	private Vector3 offset;
+
+	private bool isDrag = false;
 
 	private void Awake()
 	{
@@ -38,6 +42,8 @@ public abstract class Placeable : MonoBehaviour, IBeginDragHandler, IDragHandler
 	{
 		if(GameManager.Data.IsOpenrestaurant == false)
 		{
+			isDrag = true;
+
 			Vector3 currentPosition = GetMouseWorldPosition();
 			offset = currentPosition - initialPosition;
 			offset.y = 2f; // y 축은 고정하여 수직 이동 방지
@@ -56,12 +62,30 @@ public abstract class Placeable : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
+		isDrag = false;
+		 
 		transform.transform.position = (shadow.IsOutsideStore || shadow.IsEnterOffLimits) ? initialPosition : new Vector3(transform.position.x, 0, transform.position.z);
 		shadow.OnPlacedOffLimits?.Invoke();
 
 		shadow.gameObject.SetActive(false);
 
 		EndDragAction();
+	}
+
+	private void OnRotationR(InputValue value)
+	{
+		RotationObject(90);
+	}
+
+	private void OnRotationL(InputValue value)
+	{
+		RotationObject(-90);
+	}
+
+	private void RotationObject(float angle)
+	{
+		if(isDrag)
+			transform.rotation = transform.rotation * Quaternion.Euler(0, angle, 0);
 	}
 
 	public abstract void EndDragAction();
