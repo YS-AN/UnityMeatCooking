@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class FoodCooker : MonoBehaviour, IPointerClickHandler
 {
 	private bool isfinished;
+	private bool isClicked;
 
 	public UnityAction<OrderInfo> OnCooking;
 	public UnityAction<OrderInfo> OnFinishedCook;
@@ -14,14 +15,13 @@ public class FoodCooker : MonoBehaviour, IPointerClickHandler
 	public Renderer renderer;
 
 	private OrderInfo coookingInfo;
-
 	private Coroutine cookRoutine;
-
-
-
+	
 	private void Awake()
 	{
 		isfinished = false;
+		isClicked = false;
+
 		renderer = GetComponent<Renderer>();
 
 		OnCooking += Cooking;
@@ -86,6 +86,20 @@ public class FoodCooker : MonoBehaviour, IPointerClickHandler
 		coookingInfo.CookResultType = CookedType.Overcooked;
 		//renderer.material.color = Color.black; //서서히 음식 오브젝트거 검정색으로 바뀌도록 해야함
 		//Destroy(gameObject);
+
+		Debug.Log("BurnedFood");
+	}
+	
+
+	public void ClickedFood()
+	{
+		if (PlayerManager.GetInstance().Player.Cooker.IsHoldable)
+		{
+			StopCookingRoutine();
+			Destroy(gameObject);
+
+			OnFinishedCook?.Invoke(coookingInfo);
+		}
 	}
 
 	public void OnPointerClick(PointerEventData eventData)

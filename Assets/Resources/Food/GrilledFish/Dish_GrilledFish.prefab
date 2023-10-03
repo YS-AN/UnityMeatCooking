@@ -111,9 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ac575a221aecd34f9fcfa9ac73063f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cookedFood: {fileID: 0}
-  OrderId: 
-  DishThrower: {fileID: 0}
+  cookedFood: {fileID: 8538476946339498959}
 --- !u!1 &4824410152617035682
 GameObject:
   m_ObjectHideFlags: 0

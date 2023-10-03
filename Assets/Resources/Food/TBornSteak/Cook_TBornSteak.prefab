@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5378767894660825479}
   - component: {fileID: 5378767894660825476}
   - component: {fileID: 5378767894660825477}
-  - component: {fileID: 5378767894660825478}
   m_Layer: 9
   m_Name: Beef
   m_TagString: Untagged
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5378767894660825478
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5378767894660825480}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.26571262, y: 0.05265177, z: 0.29803857}
-  m_Center: {x: -0.016000926, y: 0.019677464, z: 0.003460005}
 --- !u!1 &8275942040929014743
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,8 +182,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.47284666, y: 0.05, z: 0.3}
-  m_Center: {x: -0.08642332, y: 0.025, z: 0}
+  m_Size: {x: 0.47284666, y: 0.066369444, z: 0.3}
+  m_Center: {x: -0.08642332, y: 0.033184722, z: 0}
 --- !u!114 &-2832050764737742926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,7 +197,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beingCookedFood: {fileID: 5378767894660825479}
-  Cooker: {fileID: 0}
 --- !u!1001 &7093985851130069371
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -219,6 +204,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8760026689892501869}
     m_Modifications:
+    - target: {fileID: 6925533620945764627, guid: e15ac9282f350b845804d8a9a948175f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 6925533621942992132, guid: e15ac9282f350b845804d8a9a948175f, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -278,6 +267,10 @@ PrefabInstance:
     - target: {fileID: 6925533621942992133, guid: e15ac9282f350b845804d8a9a948175f, type: 3}
       propertyPath: m_Name
       value: 'FX_DeleteDig '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6925533621942992133, guid: e15ac9282f350b845804d8a9a948175f, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e15ac9282f350b845804d8a9a948175f, type: 3}

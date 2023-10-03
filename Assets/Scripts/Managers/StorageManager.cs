@@ -54,7 +54,7 @@ public class StorageManager : MonoBehaviour
 		HavingList = new Dictionary<IngredientName, HavingIngrInfo>();
 
 		Ingredients ingredients = transform.GetComponent<Ingredients>();
-		//ingredients.InitIngrHavingCount();
+		ingredients.InitIngrHavingCount();
 
 		foreach (var data in ingredients.ingrDatas)
 		{

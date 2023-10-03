@@ -3367,6 +3367,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hotdog
       objectReference: {fileID: 0}
+    - target: {fileID: 3707693942188620448, guid: 875a65c774fb569439aefe1b5a910ad5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4053115778763153434, guid: 875a65c774fb569439aefe1b5a910ad5, type: 3}
       propertyPath: m_RootOrder
       value: 16
@@ -9658,6 +9662,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9147274044351645247, guid: 0dfce39f4017e5642bb339697fd79f64, type: 3}
   m_PrefabInstance: {fileID: 601745184}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &607116243 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 118248, guid: fd26cd7376003b5488747cf6f42d702b, type: 3}
+  m_PrefabInstance: {fileID: 972784546}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &618978590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14958,8 +14967,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txtGameTime: {fileID: 2021467567}
-  totalTime: 30
-  lastOrderTime: 10
+  totalTime: 300
+  lastOrderTime: 30
   customers: {fileID: 1778938689}
   tiemoutUI: {fileID: 6666441816108035381}
 --- !u!1 &949899016
@@ -15217,8 +15226,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.1740565, y: -0.6853499, z: 0.17405654, w: 0.68534976}
-  m_LocalPosition: {x: 44.738705, y: 18.584356, z: 5.000007}
+  m_LocalRotation: {x: 0.17405649, y: -0.6853499, z: 0.17405653, w: 0.68534976}
+  m_LocalPosition: {x: 40.859207, y: 16.47796, z: 5.000006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15561,6 +15570,31 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 450650, guid: fd26cd7376003b5488747cf6f42d702b, type: 3}
   m_PrefabInstance: {fileID: 972784546}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &972784550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607116243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6107d5b37ab6b284487fd178acd849e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &972784551
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607116243}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8694326, y: 1.1357745, z: 1.1138701}
+  m_Center: {x: 0.00000047683716, y: 0.56788725, z: 0.0000028908253}
 --- !u!4 &981457380 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2801759416231449595, guid: a25f64483bc70ca42bde680e72c83f6c, type: 3}
@@ -16346,8 +16380,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038142943}
-  m_LocalRotation: {x: 0.1740565, y: -0.6853499, z: 0.17405654, w: 0.68534976}
-  m_LocalPosition: {x: 44.738705, y: 18.584356, z: 5.000007}
+  m_LocalRotation: {x: 0.17405649, y: -0.6853499, z: 0.17405653, w: 0.68534976}
+  m_LocalPosition: {x: 40.859207, y: 16.47796, z: 5.000006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19344,10 +19378,10 @@ MonoBehaviour:
   m_VerticalDamping: 0.5
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_DeadZoneWidth: 0.2
-  m_DeadZoneHeight: 0.4
-  m_SoftZoneWidth: 0.95
-  m_SoftZoneHeight: 0.95
+  m_DeadZoneWidth: 0.12
+  m_DeadZoneHeight: 0.5
+  m_SoftZoneWidth: 0.9
+  m_SoftZoneHeight: 0.9
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
@@ -19373,13 +19407,13 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 9.414455
+  m_CameraDistance: 5
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
-  m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
+  m_SoftZoneWidth: 0.9
+  m_SoftZoneHeight: 0.9
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
@@ -34825,8 +34859,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6784476480873248792}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 8.12912, y: 0, z: 5.5320373}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 8, y: 0, z: 5.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -35765,6 +35799,7 @@ GameObject:
   - component: {fileID: 3096147633136706372}
   - component: {fileID: 885751111}
   - component: {fileID: 712123051797104694}
+  - component: {fileID: 7116609146556673288}
   m_Layer: 6
   m_Name: HearthOven
   m_TagString: Untagged
@@ -35865,6 +35900,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6784476480873248792}
   m_Mesh: {fileID: 4470233061896047136, guid: ce290910e9395a04b8316cabdd7748ad, type: 3}
+--- !u!114 &7116609146556673288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6784476480873248792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6107d5b37ab6b284487fd178acd849e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7190601301107848007
 Transform:
   m_ObjectHideFlags: 0
@@ -35977,7 +36024,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7587976432877604907
 Transform:
   m_ObjectHideFlags: 0

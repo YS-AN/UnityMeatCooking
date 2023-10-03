@@ -10,9 +10,9 @@ public class Dish : MonoBehaviour
 	private Transform cookedFood;
 	public Transform CookedFood { get { return cookedFood; } }
 
-	public string OrderId;
+	public string OrderId { get; set; }
 
-	public Thrower DishThrower;
+	public Thrower DishThrower { get; private set; }
 
 	private void Awake()
 	{

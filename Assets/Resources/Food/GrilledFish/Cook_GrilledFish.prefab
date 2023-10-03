@@ -113,8 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e063cef1a6c7304a8de75c33aa77acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beingCookedFood: {fileID: 0}
-  Cooker: {fileID: 0}
+  beingCookedFood: {fileID: 3583569923079470320}
 --- !u!1 &5041884752136604825
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,7 +207,7 @@ BoxCollider:
   m_GameObject: {fileID: 5041884752136604825}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.31056562, y: 0.028301213, z: 0.17979495}
   m_Center: {x: 0.008945599, y: 0.011004185, z: 0.005510263}

@@ -14,7 +14,12 @@ public class Ingredients : MonoBehaviour
 	{
 		foreach (var ingr in ingrDatas)
 		{
-			ingr.IngrCnt = 3;
+			if (ingr.Name == IngredientName.Pineapple)
+				ingr.IngrCnt = 10;
+			else if (ingr.IngrType == IngredientType.Garnish)
+				ingr.IngrCnt = 5;
+			else
+				ingr.IngrCnt = 3;
 		}
 	}
 }

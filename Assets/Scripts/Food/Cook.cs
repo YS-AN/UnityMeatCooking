@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public enum CookedType
 {
@@ -20,7 +21,7 @@ public class Cook : MonoBehaviour
 	private Transform beingCookedFood;
 	public Transform BeingCookedFood { get { return beingCookedFood; } }
 
-	public FoodCooker Cooker;
+	public FoodCooker Cooker { get; private set; }
 
 	private void Awake()
 	{
@@ -31,5 +32,20 @@ public class Cook : MonoBehaviour
 	{
 		this.AddComponent<FoodCooker>();
 		Cooker = GetComponent<FoodCooker>();
+	}
+
+	private void Update()
+	{
+		if(Input.GetMouseButtonDown(0))
+		{
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			Physics.Raycast(ray, out hit);
+
+			if(hit.collider != null)
+			{
+				Cooker.ClickedFood();
+			}
+		}
 	}
 }
