@@ -11,18 +11,12 @@ public class TrashCan : MonoBehaviour
 
 	public void ThrowAwayTrash()
 	{
-		Debug.Log("ThrowAwayTrash");
-
 		PlayerManager.GetInstance().Player.Cleaner.IsUseTrashCan = true;
-		OpenTrashCanCover();
 	}
 
 	public void AfterThrewAway()
 	{
-		Debug.Log("AfterThrewAway");
-
 		PlayerManager.GetInstance().Player.Cleaner.IsUseTrashCan = false;
-		trashCanCover.localRotation = Quaternion.identity;
 	}
 
 	private void OpenTrashCanCover()

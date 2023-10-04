@@ -45,7 +45,7 @@ public class GameTimeCounter : MonoBehaviour
 			if(gameTime == lastOrderTime)
 			{
 				txtGameTime.color = Color.red;
-				GameManager.Data.IsOpenrestaurant = false;
+				GameManager.Data.IsOrder = false;
 			}
 
 			// 시간 형식으로 변환하여 텍스트에 표시
@@ -66,6 +66,8 @@ public class GameTimeCounter : MonoBehaviour
 
 	private void ClosedStore()
 	{
+		GameManager.Data.IsOpenRestaurant = false;
+
 		var custs = customers.GetComponentsInChildren<Customer>();
 		foreach(var cust in custs)
 		{
@@ -76,8 +78,6 @@ public class GameTimeCounter : MonoBehaviour
 
 	private void ResetTime()
 	{
-		Debug.Log("ResetTime");
-
 		txtGameTime.color = Color.white;
 
 		int minutes = Mathf.FloorToInt(totalTime / 60f);

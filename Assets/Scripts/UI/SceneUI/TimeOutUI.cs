@@ -28,7 +28,10 @@ public class TimeOutUI : SceneUI
 		OnContinueGame?.Invoke();
 		OnContinueGame = null;
 
-		GameManager.Data.IsOpenrestaurant = true;
+		GameManager.Data.IsOpenRestaurant = true;
+		GameManager.Data.IsOrder = true;
+		PlayerManager.GetInstance().IsMove = true;
+
 		gameObject.SetActive(false);
 	}
 

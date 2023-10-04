@@ -45,7 +45,9 @@ public class SceneLoading : MonoBehaviour
 
 	private void FinishedLoad()
 	{
-		GameManager.Data.IsOpenrestaurant = true;
+		GameManager.Data.IsOpenRestaurant = true;
+		GameManager.Data.IsOrder = true;
+		PlayerManager.GetInstance().IsMove = true;
 
 		Destroy(loadingCanvas.gameObject);
 

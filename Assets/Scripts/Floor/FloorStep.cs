@@ -5,12 +5,7 @@ using UnityEngine;
 public class FloorStep : MonoBehaviour
 {
 	[SerializeField]
-	private BoxCollider movingBorder;
-
-	private void Awake()
-	{
-		movingBorder = gameObject.GetComponent<BoxCollider>();
-	}
+	private Transform movingBorder;
 
 	public void InstallFloor()
 	{
@@ -19,6 +14,11 @@ public class FloorStep : MonoBehaviour
 
 	public void InstallNextFloor()
 	{
-		movingBorder.gameObject.SetActive(false);
+		SetMovingBorderActive(false);
+	}
+
+	public void SetMovingBorderActive(bool isActive)
+	{
+		movingBorder.gameObject.SetActive(isActive);
 	}
 }

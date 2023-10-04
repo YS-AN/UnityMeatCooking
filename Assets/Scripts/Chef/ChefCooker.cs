@@ -12,9 +12,7 @@ public class ServedDishModel
 
 	public OrderInfo HoldingFood;
 
-	public Transform HoldingPoint { get; set; }
-
-	public int HoldingAnimationKey { get; set; }
+	public HoldPoint HoldingPoint { get; set; }
 }
 
 public class ChefCooker : MonoBehaviour
@@ -23,8 +21,8 @@ public class ChefCooker : MonoBehaviour
 	private LayerMask FoodLayer;
 
 	[SerializeField]
-	private List<Transform> HoldingPoints;
-	private Dictionary<int, bool> HoldingAnimations;
+	private List<HoldPoint> HoldingPoints;
+	private Dictionary<PlayerHoldDirection, bool> HoldingAnimations;
 
 	private List<ServedDishModel> ServedInfo;
 
@@ -42,7 +40,7 @@ public class ChefCooker : MonoBehaviour
 
 		ServedInfo = new List<ServedDishModel>();
 
-		HoldingAnimations = new Dictionary<int, bool>() { { 1, false }, { 2, false } };
+		HoldingAnimations = new Dictionary<PlayerHoldDirection, bool>() { { PlayerHoldDirection.Right, false }, { PlayerHoldDirection.Left, false } };
 	}
 
 	/// <summary>
@@ -55,10 +53,14 @@ public class ChefCooker : MonoBehaviour
 		model.HoldingFood = orderData;
 		model.HoldingPoint = GetHoldingPoint();
 
+		Debug.Log($"[HoldDish] {model.HoldingPoint}");
+
 		if(model.HoldingPoint != null)
 		{
-			model.ServedDish = GameManager.Resource.Instantiate<Dish>(orderData.FoodInfo.ResultObjectPath, model.HoldingPoint.position, model.HoldingPoint.rotation);
-			model.ServedDish.transform.SetParent(model.HoldingPoint, true);
+			Transform holdingPointForm = model.HoldingPoint.gameObject.transform;
+
+			model.ServedDish = GameManager.Resource.Instantiate<Dish>(orderData.FoodInfo.ResultObjectPath, holdingPointForm.position, holdingPointForm.rotation);
+			model.ServedDish.transform.SetParent(holdingPointForm, true);
 			model.ServedDish.OrderId = orderData.OderID;
 
 			if (orderData.CookResultType == CookedType.Undercooked)
@@ -67,7 +69,7 @@ public class ChefCooker : MonoBehaviour
 			}
 			ServedInfo.Add(model);
 
-			model.HoldingAnimationKey = GetHoldingAnimationKey();
+			SetHoldingAnimation(model.HoldingPoint.PlayerDirection);
 		}
 	}
 
@@ -106,15 +108,11 @@ public class ChefCooker : MonoBehaviour
 	/// <param name="servedModel"></param>
 	public void RemoveHoldingFood(ServedDishModel servedModel)
 	{
-		Debug.Log("[ChefCooker] RemoveHoldingFood222");
-
 		Destroy(servedModel.ServedDish.gameObject);
-		ReturnHoldingPoint(servedModel.HoldingPoint, servedModel.HoldingAnimationKey);
+		ReturnHoldingPoint(servedModel.HoldingPoint);
 		ServedInfo.Remove(servedModel);
 
 		servedModel.HoldingFood.IsOrder = false;
-
-		Debug.Log("[ChefCooker] HoldingFood.IsOrder = false;");
 
 		if (IsRunningAnim)
 			animator.SetBool("IsServe", GetAnimatorWorkValue());
@@ -122,8 +120,6 @@ public class ChefCooker : MonoBehaviour
 
 	public void RemoveHoldingFood(string orderId)
 	{
-		Debug.Log("[ChefCooker] RemoveHoldingFood");
-
 		RemoveHoldingFood(GetHoldingFoodModel(orderId));
 	}
 
@@ -150,37 +146,45 @@ public class ChefCooker : MonoBehaviour
 		return IsRunningAnim;
 	}
 
-	private Transform GetHoldingPoint()
+	private HoldPoint GetHoldingPoint()
 	{
 		if (HoldingPoints.Count > 0)
 		{
-			Transform point = HoldingPoints[0];
+			HoldPoint point = HoldingPoints[0];
 			HoldingPoints.RemoveAt(0);
 			return point;
 		}
 		return null;
 	}
 
-	private int GetHoldingAnimationKey()
+	private PlayerHoldDirection SetHoldingAnimation(PlayerHoldDirection direction)
 	{
-		var animation = HoldingAnimations.Where(x => x.Value == false).FirstOrDefault();
+		Debug.Log($"[SetHoldingAnimation] direction : {direction}");
+
+		var animation = HoldingAnimations.Where(x => x.Key == direction && x.Value == false).FirstOrDefault();
 
 		if(animation.Key > 0)
 		{
-			animator.SetLayerWeight(animation.Key, 1);
+			Debug.Log($"[SetHoldingAnimation] animation.Key {animation.Key}");
+
+			animator.SetLayerWeight((int)direction, 1);
 			HoldingAnimations[animation.Key] = true;
 
 			return animation.Key;
 		}
-		return -1;
+
+		Debug.Log($"[SetHoldingAnimation] NONE");
+		return PlayerHoldDirection.None;
 	}
 
 
-	private void ReturnHoldingPoint(Transform point, int animationKey)
+	private void ReturnHoldingPoint(HoldPoint point)
 	{
+		Debug.Log($"[ReturnHoldingPoint] {point.PlayerDirection} ");
+
 		HoldingPoints.Add(point);
 
-		HoldingAnimations[animationKey] = false;
-		animator.SetLayerWeight(animationKey, 0);
+		HoldingAnimations[point.PlayerDirection] = false;
+		animator.SetLayerWeight((int)point.PlayerDirection, 0);
 	}
 }

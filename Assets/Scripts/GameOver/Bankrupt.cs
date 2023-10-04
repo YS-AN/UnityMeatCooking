@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,6 +16,8 @@ public class Bankrupt : MonoBehaviour
 
 	private Transform Customers;
 
+	private bool isGameOver = false;
+
 	public void Awake()
 	{
 	}
@@ -26,9 +29,10 @@ public class Bankrupt : MonoBehaviour
 
 	private void Update()
 	{
-		/*
-		if(IsGameOver())
+		//*
+		if(isGameOver == false && GameManager.Data.IsOpenRestaurant && IsGameOver())
 		{
+			isGameOver = true;
 			OpenGameOverUI("파산하셨습니다.  영업을 종료합니다.");
 		}
 		//*/

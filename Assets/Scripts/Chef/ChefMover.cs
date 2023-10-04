@@ -17,6 +17,9 @@ public class ChefMover : MonoBehaviour
 	[SerializeField]
 	private Transform player;
 
+	[SerializeField]
+	private FloorController floor;
+
 	private Animator animator;
 	private CharacterController characterController;
 
@@ -26,7 +29,6 @@ public class ChefMover : MonoBehaviour
 	private IActionable moveAction;
 	private Coroutine moveRoutine;
 
-	public bool IsMove { get; set; } = true;
 	private float moveSpeed;
 
 	private void Awake()
@@ -37,7 +39,7 @@ public class ChefMover : MonoBehaviour
 
 	private void Update()
 	{
-		if(IsMove)
+		if(PlayerManager.GetInstance().IsMove)
 			Move();
 	}
 
@@ -126,16 +128,25 @@ public class ChefMover : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
+		if (GameManager.Data.IsOpenRestaurant == false)
+			return;
+
 		var obj = other.gameObject.GetComponent<IActionable>();
 
 		if(obj != null)
 		{
+			floor.SetInteractObject(false);
 			obj.NextAction();
 		}
 	}
 
 	private void OnTriggerExit(Collider other)
 	{
+		if (GameManager.Data.IsOpenRestaurant == false)
+			return;
+
+		floor.SetInteractObject(true);
+
 		var obj = other.GetComponent<IActionable>();
 
 		if (obj != null)

@@ -18,6 +18,8 @@ public class PlayerManager : MonoBehaviour
 	private Player _player;
 	public Player Player { get { return _player; } }
 
+	public bool IsMove = false;
+
 	private void Awake()
 	{
 		instance = this;
@@ -28,5 +30,7 @@ public class PlayerManager : MonoBehaviour
 	{
 		_player.transform.position = new Vector3(13, 0, 5);
 		_player.transform.localRotation = Quaternion.identity;
+
+		IsMove = false;
 	}
 }

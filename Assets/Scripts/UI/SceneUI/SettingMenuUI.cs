@@ -34,7 +34,7 @@ public class SettingMenuUI : SceneUI
 
 	private void ClickBtnDecoration()
 	{
-		if (GameManager.Data.IsGamePause == false && GameManager.Data.IsOpenrestaurant == false)
+		if (GameManager.Data.IsGamePause == false && GameManager.Data.IsOpenRestaurant == false)
 		{
 			restaurantUI.gameObject.SetActive(false);
 

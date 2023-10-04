@@ -19,6 +19,8 @@ public class CustomerRater : MonoBehaviour
 
 	private void CustomerRate(CustomerRateType rateType)
 	{
+		Debug.Log(rateType);
+
 		custRateUI = GameManager.UI.ShowInGameUI<CustRateUI>(UI_PATH);
 		custRateUI.SetTarget(transform);
 		custRateUI.SetCustomerRate(rateType);

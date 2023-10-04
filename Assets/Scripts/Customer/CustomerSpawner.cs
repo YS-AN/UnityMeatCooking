@@ -29,7 +29,7 @@ public class CustomerSpawner : MonoBehaviour
 		{
 			yield return new WaitForSeconds(SpawnTime);
 
-			if(GameManager.Data.IsOpenrestaurant)
+			if(GameManager.Data.IsOrder)
 			{
 				var seat = SeatManager.GetInstance().GetSeat();
 

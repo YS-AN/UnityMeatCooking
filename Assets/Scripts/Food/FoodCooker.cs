@@ -91,6 +91,7 @@ public class FoodCooker : MonoBehaviour, IPointerClickHandler
 	}
 	
 
+	/*
 	public void ClickedFood()
 	{
 		if (PlayerManager.GetInstance().Player.Cooker.IsHoldable)
@@ -101,10 +102,11 @@ public class FoodCooker : MonoBehaviour, IPointerClickHandler
 			OnFinishedCook?.Invoke(coookingInfo);
 		}
 	}
+	//*/
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		if(PlayerManager.GetInstance().Player.Cooker.IsHoldable)
+		if (PlayerManager.GetInstance().Player.Cooker.IsHoldable)
 		{
 			StopCookingRoutine();
 			Destroy(gameObject);

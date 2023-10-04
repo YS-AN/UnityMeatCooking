@@ -40,7 +40,7 @@ public abstract class Placeable : MonoBehaviour, IBeginDragHandler, IDragHandler
 
 	public void OnDrag(PointerEventData eventData)
 	{
-		if(GameManager.Data.IsOpenrestaurant == false)
+		if(GameManager.Data.IsOpenRestaurant == false)
 		{
 			isDrag = true;
 

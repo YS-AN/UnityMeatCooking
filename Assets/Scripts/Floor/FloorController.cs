@@ -18,4 +18,9 @@ public class FloorController : MonoBehaviour
 		}
 		
 	}
+
+	public void SetInteractObject(bool isActive)
+	{
+		extensionFloors[currentFloor].SetMovingBorderActive(isActive);
+	}
 }
