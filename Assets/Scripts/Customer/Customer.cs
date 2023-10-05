@@ -5,15 +5,6 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum CustStateType
-{
-	Enter,
-	Wait,
-	Order,
-	Eating,
-	Exit
-}
-
 public class Customer : MonoBehaviour
 {
 	public static string ResourcesPath { get { return GetCustomer(); } }

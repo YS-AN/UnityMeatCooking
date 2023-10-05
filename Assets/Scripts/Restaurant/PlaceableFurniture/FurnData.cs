@@ -5,15 +5,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public enum FurnitureName
-{
-	None = -1,
-	Expansion = 0,
-	HearthOven,
-	TrashCan,
-
-}
-
 [CreateAssetMenu(fileName = "FurnData", menuName = "Data/Furniture")]
 public class FurnData : ScriptableObject
 {

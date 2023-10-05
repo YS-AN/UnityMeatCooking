@@ -52,6 +52,7 @@ public class IngrStoreController : StoreController
 
 		foreach (var item in model.Items)
 		{
+			item.ClearButton();
 			item.BtnBuy.transform.GetComponent<Buyer>().OnBuy -= BuyItem;
 		}
 	}

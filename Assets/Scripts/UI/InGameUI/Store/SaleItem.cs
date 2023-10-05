@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class SaleItem : MonoBehaviour
@@ -25,5 +26,10 @@ public class SaleItem : MonoBehaviour
 		txtPrice.text = saleData.ItemPrice.ToString();
 
 		btnBuy.onClick.AddListener(() => { btnBuy.transform.GetComponent<Buyer>().ClickedBuyBtn(saleData); });
+	}
+
+	public void ClearButton()
+	{
+		btnBuy.onClick.RemoveAllListeners();
 	}
 }

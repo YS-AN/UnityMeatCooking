@@ -159,29 +159,21 @@ public class ChefCooker : MonoBehaviour
 
 	private PlayerHoldDirection SetHoldingAnimation(PlayerHoldDirection direction)
 	{
-		Debug.Log($"[SetHoldingAnimation] direction : {direction}");
-
 		var animation = HoldingAnimations.Where(x => x.Key == direction && x.Value == false).FirstOrDefault();
 
 		if(animation.Key > 0)
 		{
-			Debug.Log($"[SetHoldingAnimation] animation.Key {animation.Key}");
-
 			animator.SetLayerWeight((int)direction, 1);
 			HoldingAnimations[animation.Key] = true;
 
 			return animation.Key;
 		}
-
-		Debug.Log($"[SetHoldingAnimation] NONE");
 		return PlayerHoldDirection.None;
 	}
 
 
 	private void ReturnHoldingPoint(HoldPoint point)
 	{
-		Debug.Log($"[ReturnHoldingPoint] {point.PlayerDirection} ");
-
 		HoldingPoints.Add(point);
 
 		HoldingAnimations[point.PlayerDirection] = false;

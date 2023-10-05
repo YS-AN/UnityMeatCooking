@@ -8,14 +8,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-public enum CookedType
-{
-	None,
-	Undercooked,
-	Perfect,
-	Overcooked
-}
-
 public class Cook : MonoBehaviour
 {
 	[SerializeField]

@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 980311295}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.0022, y: 0, z: 0.2907}
-  m_LocalScale: {x: 0.8030685, y: 0.05, z: 0.7344898}
+  m_LocalPosition: {x: 0, y: 0, z: 0.8}
+  m_LocalScale: {x: 2, y: 0.05, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4446221380502339419}
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bce38275a8916b247a6f4b71d5b6bf54, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 8756212683861382709}
   - component: {fileID: 7285347247867725877}
   - component: {fileID: 2038106125}
+  - component: {fileID: 2426737158619696112}
   m_Layer: 0
   m_Name: TrashCan
   m_TagString: Untagged
@@ -240,6 +241,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 7187424146855491179}
+--- !u!114 &2426737158619696112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3963157111888078305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: d6cbbf31dc1a50942b1118e314c831ad, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Furniture
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &7734564800159409369
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +380,7 @@ GameObject:
   - component: {fileID: 5819856919654141773}
   - component: {fileID: 6960096159817141457}
   - component: {fileID: 5913122827401917900}
+  - component: {fileID: 8263191149992647633}
   m_Layer: 0
   m_Name: StopPoint
   m_TagString: Untagged
@@ -364,7 +396,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8321576927335401224}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 1.5}
+  m_LocalPosition: {x: -0, y: 0, z: 1.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -382,7 +414,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6960096159817141457
 Rigidbody:
@@ -417,5 +449,18 @@ MonoBehaviour:
     m_Bits: 1024
   FloorLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   exceptionObj: {fileID: 980311295}
+--- !u!114 &8263191149992647633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8321576927335401224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 280ae681485c20246a4a8a1e66cade7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trashcan: {fileID: 7285347247867725877}

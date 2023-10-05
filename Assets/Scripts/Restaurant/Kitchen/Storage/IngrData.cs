@@ -5,25 +5,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public enum IngredientType
-{
-	None,
-	Meat,
-	Garnish
-}
-
-public enum IngredientName
-{
-	None = -1,
-	Drumstick = 0,
-	TBornSteak,
-	GrilledFish,
-
-	ChiliPepper,
-	Tomato,
-	Pineapple, 
-}
-
 public class IngrInfo
 {
 	public IngrInfo(IngrData data)

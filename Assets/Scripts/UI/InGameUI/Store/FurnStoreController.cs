@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FurnStoreController : StoreController
@@ -35,13 +37,14 @@ public class FurnStoreController : StoreController
 		}
 	}
 
+
 	/// <summary>
 	/// 아이템 구매 시 동작
 	/// </summary>
 	/// <param name="item"></param>
 	private void BuyItem(SaleItemData item)
 	{
-		if(item.ItemId == 0)
+		if (item.ItemId == 0)
 			FurnitureManager.GetInstance().Spawner.OnCreateFurniture?.Invoke(item);
 		else
 			FurnitureManager.GetInstance().Spawner.OnCreateFurniture?.Invoke(item);
@@ -53,6 +56,7 @@ public class FurnStoreController : StoreController
 
 		foreach (var item in model.Items)
 		{
+			item.ClearButton();
 			item.BtnBuy.transform.GetComponent<Buyer>().OnBuy -= BuyItem;
 		}
 	}

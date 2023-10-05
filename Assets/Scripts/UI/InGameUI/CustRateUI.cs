@@ -4,15 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
-public enum CustomerRateType
-{
-	Good,
-	Angry,
-	Under,
-	Over,
-	None
-}
-
 public class CustRateUI : InGameUI
 {
 	private string[] imageList;
@@ -32,13 +23,7 @@ public class CustRateUI : InGameUI
 
 	private void SetImageList()
 	{
-		imageList = new string[5];
-
-		imageList[0] = "ImgGood";
-		imageList[1] = "ImgAngry";
-		imageList[2] = "ImgUnder";
-		imageList[3] = "ImgOver";
-		imageList[4] = "ImgNone";
+		imageList = new string[] { "ImgGood", "ImgAngry", "ImgUnder", "ImgOver", "ImgNone" };
 
 		foreach(var item in imageList)
 		{
