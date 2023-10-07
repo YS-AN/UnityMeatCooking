@@ -14,6 +14,10 @@
 
 ## 게임 설명
 
+
+## 시연 영상
+:clapper: [고기서 쿠킹 시연영상](https://youtu.be/H3BjpUJZmK0?si=dH6cQ2XP1cynpiAn)
+
 ---
 
 ### 사용 Asset 자료 출처
